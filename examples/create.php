@@ -15,12 +15,6 @@ $goSecret = '***FILL***';
 // Create client
 $client = new Client(new Config($goId, $goClient, $goSecret));
 
-// Authenticate
-// Scopes:
-// - payment-create
-// - payment-all
-$response = $client->authenticate(Scope::PAYMENT_CREATE);
-
 // Payment data
 $paymentData = [
     'payer' => [
