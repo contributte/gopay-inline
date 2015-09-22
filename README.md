@@ -8,7 +8,7 @@
 
 ## Prolog
 
-This library has no dependencies on other `php` libraries. It provides easy-to-use API for communication with GoPay REST API v3, known as GoPay Inline.
+This library has no dependencies on other `php` libraries. It provides easy-to-use API for communication with `GoPay REST API v3`, known as **GoPay Inline**.
 
 ## Install
 
@@ -22,9 +22,9 @@ $ composer require markette/gopay-inline
 
 From GoPay you need:
 
-* GoID
-* ClientID
-* ClientSecret
+* **GoID**
+* **ClientID**
+* **ClientSecret**
 
 On server you need:
 
@@ -33,8 +33,9 @@ On server you need:
 
 ## Resources / Docs
 
-* Offical resources in EN: [https://doc.gopay.com/en/](https://doc.gopay.com/en/)
-* Offical resources in CZ: [https://doc.gopay.com/cs/](https://doc.gopay.com/cs/)
+* Webpage ([https://www.gopaygate.com](https://www.gopaygate.com))
+* Offical resources in EN ([https://doc.gopay.com/en/](https://doc.gopay.com/en/))
+* Offical resources in CZ ([https://doc.gopay.com/cs/](https://doc.gopay.com/cs/))
 
 ## Examples
 
@@ -46,15 +47,15 @@ There are 3 main parts of this library.
 
 ### 1) Client
 
-A core class holding credentials, token, authenticator and http client. It could make request to endpoints and authenticate.
+A core class holding credentials, token, authenticator and http client. It could make authentication and requests to endpoints.
 
 ### 2) HttpClient
 
-Delegates all requests / responses to IO. All requests go over cURL. There is a place for other implementation, go for it.
+Delegates all requests / responses to IO. All requests go over `cURL`. There is a place for other implementation, go for it.
 
 ### 3) Services
 
-Services provide easy API for creating, verifying, etc.. payments.
+Services provide easy-to-use API for creating and verifying payments.
 
 ## Supported API
 
@@ -171,3 +172,23 @@ All what you need is `$paymentId`. Response is always the same.
 // Verify payment
 $response = $client->payments->verify($paymentId);
 ```
+
+## Class model
+
+### Request
+
+It contains information for cURL.
+
+* `$url`
+* `$headers`
+* `$options`
+* `$data`
+
+### Response
+
+It contains information after execution request. It could be success or failed.
+
+* `$data`
+* `$headers`
+* `$code`
+* `$error`
