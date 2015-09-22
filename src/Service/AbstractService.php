@@ -43,6 +43,12 @@ abstract class AbstractService
      */
     protected function makeRequest($method, $url, array $data = NULL)
     {
+        // Verify that client is authenticated
+        if (!$this->client->hasToken()) {
+            // Do authorization
+            $this->doAuthorization();
+        }
+
         $request = new Request();
 
         // Set-up URL

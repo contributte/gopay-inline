@@ -113,6 +113,14 @@ class Client
     }
 
     /**
+     * @return bool
+     */
+    public function hasToken()
+    {
+        return $this->token !== NULL;
+    }
+
+    /**
      * @param mixed $token
      */
     public function setToken($token)
