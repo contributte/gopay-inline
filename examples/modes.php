@@ -13,7 +13,7 @@ $goSecret = '***FILL***';
 $mode = Config::PROD;
 
 // Create client
-$client = new Client(new Config($goId, $goClient, $goSecret));
+$client = new Client(new Config($goId, $goClient, $goSecret, $mode));
 
 // DEVELOPMENT / TESTING =============================================
 $goId = '***FILL***';
@@ -22,4 +22,5 @@ $goSecret = '***FILL***';
 $mode = Config::TEST;
 
 // Create client
-$client = new Client(new Config($goId, $goClient, $goSecret));
+$client = new Client(new Config($goId, $goClient, $goSecret)); // see default value
+$client = new Client(new Config($goId, $goClient, $goSecret, $mode));

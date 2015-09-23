@@ -1,7 +1,6 @@
 <?php
 
 use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\Scope;
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
 
