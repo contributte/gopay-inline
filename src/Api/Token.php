@@ -18,16 +18,24 @@ class Token
     public $expireIn;
 
     /**
-     * @param mixed $data
+     * @param array $data
      * @return Token
      */
-    public static function create($data)
+    public static function create(array $data)
     {
         $token = new Token;
-        $token->type = $data->token_type;
-        $token->accessToken = $data->access_token;
-        $token->refreshToken = $data->refresh_token;
-        $token->expireIn = intval($data->expires_in);
+        if (isset($data['token_type'])) {
+            $token->type = $data['token_type'];
+        }
+        if (isset($data['access_token'])) {
+            $token->accessToken = $data['access_token'];
+        }
+        if (isset($data['refresh_token'])) {
+            $token->refreshToken = $data['refresh_token'];
+        }
+        if (isset($data['expires_in'])) {
+            $token->expireIn = $data['expires_in'];
+        }
         return $token;
     }
 

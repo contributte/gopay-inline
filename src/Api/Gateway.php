@@ -51,9 +51,9 @@ class Gateway
     public static function getFullApiUrl($uri)
     {
         if (self::$mode === self::PROD) {
-            return 'https://gate.gopay.cz/api';
+            return 'https://gate.gopay.cz/api/' . trim($uri, '/');
         } else {
-            return 'https://gw.sandbox.gopay.com/api';
+            return 'https://gw.sandbox.gopay.com/api/' . trim($uri, '/');
         }
     }
 

@@ -2,15 +2,24 @@
 
 namespace Markette\GopayInline\Http;
 
-use stdClass;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
+use RecursiveArrayIterator;
 
-class Response
+/**
+ * @property-read mixed $data
+ * @property-read mixed $headers
+ * @property-read int $code
+ * @property-read string $error
+ */
+class Response implements ArrayAccess, Countable, IteratorAggregate
 {
 
-    /** @var bool|NULL|stdClass */
+    /** @var mixed */
     protected $data;
 
-    /** @var stdClass */
+    /** @var mixed */
     protected $headers;
 
     /** @var int */
@@ -20,7 +29,7 @@ class Response
     protected $error;
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getData()
     {
@@ -32,8 +41,8 @@ class Response
      */
     public function setData($data)
     {
-        if (!is_bool($data) && $data !== NULL) {
-            $data = (object)$data;
+        if (!is_bool($data) && $data) {
+            $data = (array)$data;
         }
         $this->data = $data;
     }
@@ -51,7 +60,7 @@ class Response
      */
     public function setHeaders($headers)
     {
-        $this->headers = (object)$headers;
+        $this->headers = $headers;
     }
 
     /**
@@ -84,6 +93,92 @@ class Response
     public function setError($error)
     {
         $this->error = $error;
+    }
+
+    /**
+     * ARRAY ACCESS ************************************************************
+     */
+
+    /**
+     * @param string $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        if ($this->data) {
+            return isset($this->data[$offset]);
+        }
+        return FALSE;
+    }
+
+    /**
+     * @param string $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        if (!$this->data) return NULL;
+        return $this->data[$offset];
+    }
+
+    /**
+     * @param string $offset
+     * @param mixed $value
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($this->data) {
+            $this->data[$offset] = $value;
+        }
+    }
+
+    /**
+     * @param string $offset
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->data) {
+            unset($this->data[$offset]);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
+    /**
+     * ITERATOR AGGREGATE ******************************************************
+     */
+
+    /**
+     * @return RecursiveArrayIterator
+     */
+    public function getIterator()
+    {
+        return new RecursiveArrayIterator($this->data);
+    }
+
+    /**
+     * MAGIC *******************************************************************
+     **/
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (isset($this->$name)) {
+            return $this->$name;
+        } else {
+            return $this->offsetGet($name);
+        }
     }
 
 }

@@ -3,8 +3,10 @@
 namespace Markette\GopayInline;
 
 use Markette\GopayInline\Api\Token;
+use Markette\GopayInline\Auth\Auth;
 use Markette\GopayInline\Auth\Oauth2Client;
 use Markette\GopayInline\Exception\GopayException;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
@@ -19,10 +21,10 @@ class Client
     /** @var Config */
     private $config;
 
-    /** @var Oauth2Client */
+    /** @var Auth */
     private $auth;
 
-    /** @var HttpClient */
+    /** @var Http */
     private $http;
 
     /** @var Token */
@@ -42,40 +44,40 @@ class Client
     }
 
     /**
-     * @return Oauth2Client
+     * @return Auth
      */
     protected function getAuth()
     {
         if (!$this->auth) {
-            $this->auth = new Oauth2Client($this);
+            $this->auth = new Oauth2Client($this, $this->getHttp());
         }
         return $this->auth;
     }
 
     /**
-     * @param Oauth2Client $auth
+     * @param Auth $auth
      */
-    public function setAuth($auth)
+    public function setAuth(Auth $auth)
     {
         $this->auth = $auth;
     }
 
     /**
-     * @return HttpClient
+     * @return Http
      */
-    public function getHttp()
+    protected function getHttp()
     {
         if (!$this->http) {
-            $this->http = new HttpClient($this);
+            $this->http = new HttpClient();
         }
 
         return $this->http;
     }
 
     /**
-     * @param HttpClient $http
+     * @param Http $http
      */
-    public function setHttp($http)
+    public function setHttp(Http $http)
     {
         $this->http = $http;
     }
@@ -138,13 +140,13 @@ class Client
      */
 
     /**
-     * @param string $scope
+     * @param array $credentials
      * @return string
      */
-    public function authenticate($scope)
+    public function authenticate(array $credentials)
     {
         if (!$this->token) {
-            $response = $this->getAuth()->authenticate($scope);
+            $response = $this->getAuth()->authenticate($credentials);
             $this->token = Token::create($response->getData());
         }
 

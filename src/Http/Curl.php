@@ -2,7 +2,7 @@
 
 namespace Markette\GopayInline\Http;
 
-class Curl
+class Curl implements Io
 {
 
     /**

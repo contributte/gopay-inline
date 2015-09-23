@@ -30,18 +30,18 @@ abstract class AbstractService
      */
     protected function doAuthorization($scope = Scope::PAYMENT_ALL)
     {
-        return $this->client->authenticate($scope);
+        return $this->client->authenticate(['scope' => $scope]);
     }
 
     /**
      * Build request and execute him
      *
      * @param string $method
-     * @param string $url
+     * @param string $uri
      * @param array $data
      * @return Response
      */
-    protected function makeRequest($method, $url, array $data = NULL)
+    protected function makeRequest($method, $uri, array $data = NULL)
     {
         // Verify that client is authenticated
         if (!$this->client->hasToken()) {
@@ -52,7 +52,7 @@ abstract class AbstractService
         $request = new Request();
 
         // Set-up URL
-        $request->setUrl(Gateway::getBaseApiUrl() . '/' . trim($url, '/'));
+        $request->setUrl(Gateway::getFullApiUrl($uri));
 
         // Set-up headers
         $headers = [

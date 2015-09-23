@@ -82,10 +82,10 @@ class PaymentFactory
 
         // ### TARGET
         if (isset($data['target'])) {
-            $payment->setTarget(Helpers::map(new Target), [
+            $payment->setTarget(Helpers::map(new Target, [
                 'type' => 'type',
                 'goid' => 'goid',
-            ], $data['target']);
+            ], $data['target']));
         }
 
         // ### COMMON
@@ -93,7 +93,6 @@ class PaymentFactory
         $payment->setCurrency($data['currency']);
         $payment->setOrderNumber($data['order_number']);
         $payment->setOrderDescription($data['order_description']);
-        $payment->setLang($data['lang']);
         $payment->setReturnUrl($data['return_url']);
         $payment->setNotifyUrl($data['notify_url']);
 
@@ -113,6 +112,11 @@ class PaymentFactory
                     'value' => 'value',
                 ], $param));
             }
+        }
+
+        // ### LANG
+        if (isset($data['lang'])) {
+            $payment->setLang($data['lang']);
         }
 
         // VALIDATION PRICE & ITEMS PRICE ########

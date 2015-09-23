@@ -9,7 +9,7 @@ final class Helpers
      * @param mixed $obj
      * @param array $mapping
      * @param array $data
-     * @return mixed
+     * @return object
      */
     public static function map($obj, array $mapping, array $data)
     {

@@ -5,11 +5,12 @@ namespace Markette\GopayInline\Auth;
 use Markette\GopayInline\Api\Gateway;
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Exception\AuthorizationException;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
 
-class Oauth2Client
+class Oauth2Client implements Auth
 {
 
     /** @var Client */
@@ -20,18 +21,19 @@ class Oauth2Client
 
     /**
      * @param Client $client
+     * @param Http $http
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, Http $http)
     {
         $this->client = $client;
-        $this->http = $client->getHttp();
+        $this->http = $http;
     }
 
     /**
-     * @param string $scope
+     * @param array $credentials
      * @return Response
      */
-    public function authenticate($scope)
+    public function authenticate(array $credentials)
     {
         $request = new Request();
 
@@ -41,7 +43,7 @@ class Oauth2Client
         // Prepare data
         $args = [
             'grant_type' => 'client_credentials',
-            'scope' => $scope,
+            'scope' => $credentials['scope'],
         ];
         $data = http_build_query($args);
 
