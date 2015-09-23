@@ -139,6 +139,7 @@ $paymentData = [
 
 // Create payment request
 $response = $client->payments->createPayment(PaymentFactory::create($paymentData));
+$data = $response->getData();
 ```
 
 `$client->payments` returns `PaymentsService`, you can create this service also by `$client->createPaymentsService()`.
@@ -150,8 +151,7 @@ $response = $client->payments->createPayment(PaymentFactory::create($paymentData
 Now we have a response with payment information. There's same data as we send it before and also **new** `$gw_url`. It's in response data.
 
 ```php
-$data = $response->getData();
-$url = $data->gw_url;
+$url = $response->data['gw_url'];
 
 // Redirect to URL
 // ...
@@ -171,6 +171,32 @@ All what you need is `$paymentId`. Response is always the same.
 ```php
 // Verify payment
 $response = $client->payments->verify($paymentId);
+```
+
+## Bridges
+
+### Nette
+
+Fill your credentials in config.
+
+```yaml
+extensions:
+    gopay: Markette\GopayInline\Bridges\Nette\GopayExtension
+    
+gopay:
+    goId: ***
+    clientId: ***
+    clientSecret: ***
+    test: on / off
+```
+
+Inject `Client` into your services / presenters;
+
+```php
+use Markette\GopayInline\Client;
+
+/** @var Client @inject */
+public $gopay;
 ```
 
 ## Class model
