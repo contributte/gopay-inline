@@ -26,5 +26,10 @@
         "psr-4": {
             "Markette\\GopayInline\\": "src/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
