@@ -100,7 +100,7 @@ Heureka! We have token, let's make some API request.
 
 ### Creating payment request
 
-This example of payment data was copy from official documentation.
+This example of payment data was copied from official documentation.
 
 ```php
 // Payment data
@@ -166,7 +166,7 @@ In case of inline variant you can use prepared [javascript](https://github.com/M
 
 ### Verify payment (check state)
 
-All what you need is `$paymentId`. Response is always the same.
+All you need is `$paymentId`. Response is always the same.
 
 ```php
 // Verify payment
