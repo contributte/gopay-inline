@@ -20,4 +20,4 @@ $client = new Client(new Config($goId, $goClient, $goSecret));
 // - payment-all
 $token = $client->authenticate(['scope' => Scope::PAYMENT_CREATE]);
 
-var_dump($response);
+var_dump($token);
