@@ -60,7 +60,7 @@ class Gateway
     /**
      * @return string
      */
-    public static function getInlineJsUrl($uri)
+    public static function getInlineJsUrl()
     {
         if (self::$mode === self::PROD) {
             return 'https://gate.gopay.cz/gp-gw/js/embed.js';
