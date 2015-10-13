@@ -50,7 +50,8 @@ class Oauth2Client implements Auth
         // Set-up headers
         $headers = [
             'Accept' => 'application/json',
-            'Content-Type' => 'application/x-www-form-urlencoded'];
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ];
         $request->setHeaders($headers);
 
         // Set-up opts
@@ -65,6 +66,7 @@ class Oauth2Client implements Auth
 
         // Make request
         $response = $this->http->doRequest($request);
+
         if (!$response || !$response->getData()) {
             // cURL errors
             throw new AuthorizationException('Authorization failed', $response->getCode());
