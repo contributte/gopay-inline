@@ -4,7 +4,7 @@
 [![Code coverage](https://img.shields.io/coveralls/Markette/GopayInline.svg?style=flat-square)](https://coveralls.io/r/Markette/GopayInline)
 [![Downloads latests](https://img.shields.io/packagist/dt/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
 [![Latest stable](https://img.shields.io/packagist/v/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
-[![HHVM Status](https://img.shields.io/hhvm/markette/markette/gopay-inline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
+[![HHVM Status](https://img.shields.io/hhvm/markette/gopay-inline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
 
 ## Prolog
 
