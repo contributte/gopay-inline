@@ -27,4 +27,21 @@ class PaymentInstrument
 
     // PayPal account
     const PAYPAL = 'PAYPAL';
+
+    /**
+     * @return array
+     */
+    public static function all()
+    {
+        return [
+            self::PAYMENT_CARD,
+            self::BANK_ACCOUNT,
+            self::PRSMS,
+            self::MPAYMENT,
+            self::PAYSAFECARD,
+            self::SUPERCASH,
+            self::GOPAY,
+            self::PAYPAL,
+        ];
+    }
 }
