@@ -10,7 +10,7 @@ class Recurrence extends AbstractObject
     /** @var float */
     public $period;
 
-    /** @var float */
+    /** @var string */
     public $dateTo;
 
     /**
