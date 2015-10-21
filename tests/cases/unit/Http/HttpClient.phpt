@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Http/HttpClient
+ * Test: Http\HttpClient
  */
 
 use Markette\GopayInline\Exception\HttpException;

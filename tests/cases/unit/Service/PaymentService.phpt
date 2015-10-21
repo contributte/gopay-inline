@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Service/PaymentService
+ * Test: Service\PaymentService
  */
 
 use Markette\GopayInline\Api\Entity\Payment;

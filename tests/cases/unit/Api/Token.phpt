@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Api/Token
+ * Test: Api\Token
  */
 
 use Tester\Assert;

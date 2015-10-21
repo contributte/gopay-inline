@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Bridges/Nette/DI/GopayExtension
+ * Test: Bridges\Nette\DI\GopayExtension
  */
 
 use Markette\GopayInline\Bridges\Nette\DI\GopayExtension;
