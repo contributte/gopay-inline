@@ -8,19 +8,19 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 // PRODUCTION ========================================================
 $goId = '***FILL***';
-$goClient = '***FILL***';
-$goSecret = '***FILL***';
+$clientId = '***FILL***';
+$clientSecret = '***FILL***';
 $mode = Config::PROD;
 
 // Create client
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode));
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode));
 
 // DEVELOPMENT / TESTING =============================================
 $goId = '***FILL***';
-$goClient = '***FILL***';
-$goSecret = '***FILL***';
+$clientId = '***FILL***';
+$clientSecret = '***FILL***';
 $mode = Config::TEST;
 
 // Create client
-$client = new Client(new Config($goId, $goClient, $goSecret)); // see default value
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode));
+$client = new Client(new Config($goId, $clientId, $clientSecret)); // see default value
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode));

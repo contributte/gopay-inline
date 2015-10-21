@@ -8,11 +8,11 @@ use Markette\GopayInline\Config;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $goId = '***FILL***';
-$goClient = '***FILL***';
-$goSecret = '***FILL***';
+$clientId = '***FILL***';
+$clientSecret = '***FILL***';
 
 // Create client
-$client = new Client(new Config($goId, $goClient, $goSecret));
+$client = new Client(new Config($goId, $clientId, $clientSecret));
 
 // Payment data
 $paymentData = [

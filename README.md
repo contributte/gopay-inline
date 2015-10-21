@@ -75,15 +75,15 @@ use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
 
 $goId = '***FILL***';
-$goClient = '***FILL***';
-$goSecret = '***FILL***';
+$clientId = '***FILL***';
+$clientSecret = '***FILL***';
 
 // TEST MODE
-$client = new Client(new Config($goId, $goClient, $goSecret));
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode = Config::TEST));
+$client = new Client(new Config($goId, $clientId, $clientSecret));
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode = Config::TEST));
 
 // PROD MODE
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode = Config::PROD));
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode = Config::PROD));
 ```
 
 Then you have to authenticate with oauth2 authority server on GoPay.
@@ -151,7 +151,12 @@ $data = $response->getData();
 Now we have a response with payment information. There's same data as we send it before and also **new** `$gw_url`. It's in response data.
 
 ```php
+$data = $response->getData();
+$url = $data['gw_url'];
+
 $url = $response->data['gw_url'];
+$url = $response->gw_url;
+$url = $response['gw_url'];
 
 // Redirect to URL
 // ...
