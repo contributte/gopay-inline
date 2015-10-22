@@ -3,6 +3,8 @@
 use Markette\GopayInline\Api\Entity\PaymentFactory;
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
+use Markette\GopayInline\Api\Lists\PaymentInstrument;
+use Markette\GopayInline\Api\Lists\SwiftCode;
 
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -15,12 +17,12 @@ $clientSecret = '***FILL***';
 $client = new Client(new Config($goId, $clientId, $clientSecret));
 
 // Payment data
-$paymentData = [
+$payment = [
     'payer' => [
-        'default_payment_instrument' => 'BANK_ACCOUNT',
-        'allowed_payment_instruments' => ['BANK_ACCOUNT'],
-        'default_swift' => 'FIOBCZPP',
-        'allowed_swifts' => ['FIOBCZPP', 'BREXCZPP'],
+        'default_payment_instrument' => PaymentInstrument::BANK_ACCOUNT,
+        'allowed_payment_instruments' => [PaymentInstrument::BANK_ACCOUNT],
+        'default_swift' => SwiftCode::FIO_BANKA,
+        'allowed_swifts' => [SwiftCode::FIO_BANKA, SwiftCode::MBANK],
         'contact' => [
             'first_name' => 'Zbynek',
             'last_name' => 'Zak',
@@ -49,6 +51,6 @@ $paymentData = [
 ];
 
 // Create payment request
-$response = $client->payments->createPayment(PaymentFactory::create($paymentData));
+$response = $client->payments->createPayment(PaymentFactory::create($payment));
 
 var_dump($response);

@@ -14,6 +14,7 @@ use Markette\GopayInline\Utils\Validator;
 class PaymentFactory
 {
 
+    /** @var array */
     static $required = [
         // 'target', # see at AbstractPaymentService
         'amount',
@@ -25,6 +26,7 @@ class PaymentFactory
         'notify_url',
     ];
 
+    /** @var array */
     static $optional = [
         'target',
         'payer',
@@ -120,8 +122,8 @@ class PaymentFactory
         }
 
         // VALIDATION PRICE & ITEMS PRICE ########
-        $orderPrice = $payment->getAmount();
         $itemsPrice = 0;
+        $orderPrice = $payment->getAmount();
         foreach ($payment->getItems() as $item) {
             $itemsPrice += $item->amount;
         }
