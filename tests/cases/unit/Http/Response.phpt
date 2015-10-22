@@ -23,10 +23,13 @@ test(function () {
 test(function () {
     $r = new Response();
 
-    $r->setError($error = 'Some error');
     $r->setData($data = ['a' => 'b']);
     $r->setHeaders($headers = ['h' => 1]);
     $r->setCode($code = 200);
+
+    Assert::true($r->isSuccess());
+    $r->setError($error = 'Some error');
+    Assert::false($r->isSuccess());
 
     Assert::equal($error, $r->getError());
     Assert::equal($data, $r->getData());

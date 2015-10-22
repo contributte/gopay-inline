@@ -96,6 +96,14 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * @return bool
+     */
+    public function isSuccess()
+    {
+        return $this->error == FALSE;
+    }
+
+    /**
      * ARRAY ACCESS ************************************************************
      */
 
