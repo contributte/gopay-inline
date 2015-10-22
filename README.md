@@ -104,7 +104,7 @@ This example of payment data was copied from official documentation.
 
 ```php
 // Payment data
-$paymentData = [
+$payment = [
     'payer' => [
         'default_payment_instrument' => 'BANK_ACCOUNT',
         'allowed_payment_instruments' => ['BANK_ACCOUNT'],
@@ -138,17 +138,51 @@ $paymentData = [
 ];
 
 // Create payment request
-$response = $client->payments->createPayment(PaymentFactory::create($paymentData));
+$response = $client->payments->createPayment(PaymentFactory::create($payment));
 $data = $response->getData();
 ```
 
 `$client->payments` returns `PaymentsService`, you can create this service also by `$client->createPaymentsService()`.
 
-`PaymentsService::createPayment` need object of `Payment`, you can set-up it manually by yourself or via `PaymentFactory`. But over PaymentFactory, there is parameters validation and price validation.
+`PaymentsService::createPayment` need object of `Payment`, you can set-up it manually by yourself or via `PaymentFactory`.
+But over PaymentFactory, there is parameters validation and price validation.
+
+#### Tips
+
+You cannot combine more **payment instruments** (according to GoPay Gateway implementation). So, you should create payment
+only with one **payment instrument**, for example only with `BANK_ACCOUNT` or `PAYMENT_CARD`.
+
+#### For ALL payment instruments
+
+```php
+use Markette\GopayInline\Api\Lists\PaymentInstrument;
+
+$payment['payer']['allowed_payment_instruments']= PaymentInstrument::all();
+```
+
+#### For ALL / CZ / SK swift codes
+
+Use `allowed_swifts` and `default_swift` only with `BANK_ACCOUNT`.
+
+```php
+use Markette\GopayInline\Api\Lists\SwiftCode;
+
+$payment['payer']['allowed_swifts']= SwiftCode::all();
+// or
+$payment['payer']['allowed_swifts']= SwiftCode::cz();
+// or
+$payment['payer']['allowed_swifts']= SwiftCode::sk();
+```
 
 ### Process payment
 
 Now we have a response with payment information. There's same data as we send it before and also **new** `$gw_url`. It's in response data.
+
+```php
+if ($response->isSuccess()) {
+    // ...
+}
+```
 
 ```php
 $data = $response->getData();
