@@ -5,7 +5,7 @@ namespace Markette\GopayInline\Api\Lists;
 class SwiftCode
 {
     const CESKA_SPORITELNA = 'GIBACZPX';
-    const KOMERCNI_BANKA = '​​KOMBCZPP';
+    const KOMERCNI_BANKA = 'KOMBCZPP';
     const RAIFFEISENBANK = 'RZBCCZPP';
     const MBANK = 'BREXCZPP';
     const FIO_BANKA = 'FIOBCZPP';
