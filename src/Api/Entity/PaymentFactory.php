@@ -14,6 +14,11 @@ use Markette\GopayInline\Utils\Validator;
 class PaymentFactory
 {
 
+    /** Validator's types */
+    const V_REQUIRED = 1;
+    const V_SCHEME = 2;
+    const V_PRICES = 3;
+
     /** @var array */
     static $required = [
         // 'target', # see at AbstractPaymentService
@@ -34,25 +39,38 @@ class PaymentFactory
         'lang',
     ];
 
+    /** @var array */
+    static $validators = [
+        self::V_REQUIRED => TRUE,
+        self::V_SCHEME => TRUE,
+        self::V_PRICES => TRUE,
+    ];
+
     /**
      * @param mixed $data
+     * @param array $validators
      * @return Payment
      */
-    public static function create($data)
+    public static function create($data, $validators = [])
     {
         // Convert to array
         $data = (array)$data;
+        $validators = $validators + self::$validators;
 
         // CHECK REQUIRED DATA ###################
 
         if (($res = Validator::validateRequired($data, self::$required)) !== TRUE) {
-            throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
+            if ($validators[self::V_REQUIRED] === TRUE) {
+                throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
+            }
         }
 
         // CHECK SCHEME DATA #####################
 
         if (($res = Validator::validateOptional($data, array_merge(self::$required, self::$optional))) !== TRUE) {
-            throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
+            if ($validators[self::V_SCHEME] === TRUE) {
+                throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
+            }
         }
 
         // CREATE PAYMENT ########################
@@ -128,7 +146,9 @@ class PaymentFactory
             $itemsPrice += $item->amount;
         }
         if ($itemsPrice !== $orderPrice) {
-            throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
+            if ($validators[self::V_PRICES] === TRUE) {
+                throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
+            }
         }
 
         return $payment;

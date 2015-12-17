@@ -102,3 +102,25 @@ test(function () {
     }, ValidationException::class, '%a% (200) %a% (100) %a%');
 });
 
+// Turn off validators
+test(function () {
+    $data = [
+        'amount' => 200,
+        'currency' => 2,
+        'order_number' => 3,
+        'order_description' => 4,
+        'items' => [
+            ['amount' => 50],
+            ['amount' => 50]
+        ],
+        'return_url' => 6,
+        'notify_url' => 7,
+    ];
+
+    try {
+        PaymentFactory::create($data, [PaymentFactory::V_PRICES => FALSE]);
+    } catch (Exception $e) {
+        Assert::fail('Exception should not have been threw', $e, NULL);
+    }
+});
+
