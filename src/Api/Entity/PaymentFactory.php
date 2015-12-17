@@ -8,16 +8,14 @@ use Markette\GopayInline\Api\Objects\Parameter;
 use Markette\GopayInline\Api\Objects\Payer;
 use Markette\GopayInline\Api\Objects\Target;
 use Markette\GopayInline\Exception\ValidationException;
-use Markette\GopayInline\Utils\Helpers;
 use Markette\GopayInline\Utils\Validator;
 
 class PaymentFactory
 {
 
     /** Validator's types */
-    const V_REQUIRED = 1;
-    const V_SCHEME = 2;
-    const V_PRICES = 3;
+    const V_SCHEME = 1;
+    const V_PRICES = 2;
 
     /** @var array */
     static $required = [
@@ -41,7 +39,6 @@ class PaymentFactory
 
     /** @var array */
     static $validators = [
-        self::V_REQUIRED => TRUE,
         self::V_SCHEME => TRUE,
         self::V_PRICES => TRUE,
     ];
@@ -60,9 +57,7 @@ class PaymentFactory
         // CHECK REQUIRED DATA ###################
 
         if (($res = Validator::validateRequired($data, self::$required)) !== TRUE) {
-            if ($validators[self::V_REQUIRED] === TRUE) {
-                throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
-            }
+            throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
         }
 
         // CHECK SCHEME DATA #####################
@@ -79,15 +74,18 @@ class PaymentFactory
 
         // ### PAYER
         if (isset($data['payer'])) {
-            $payment->setPayer($payer = Helpers::map(new Payer, [
+            $payer = new Payer;
+            self::map($payer, [
                 'allowed_payment_instruments' => 'allowedPaymentInstruments',
                 'default_payment_instrument' => 'defaultPaymentInstrument',
                 'allowed_swifts' => 'allowedSwifts',
                 'default_swift' => 'defaultSwift',
-            ], $data['payer']));
+            ], $data['payer']);
+            $payment->setPayer($payer);
 
             if (isset($data['payer']['contact'])) {
-                $payer->contact = Helpers::map(new Contact, [
+                $contact = new Contact;
+                self::map($contact, [
                     'first_name' => 'firstname',
                     'last_name' => 'lastname',
                     'email' => 'email',
@@ -97,15 +95,15 @@ class PaymentFactory
                     'postal_code' => 'zip',
                     'country_code' => 'country',
                 ], $data['payer']['contact']);
+                $payer->contact = $contact;
             }
         }
 
         // ### TARGET
         if (isset($data['target'])) {
-            $payment->setTarget(Helpers::map(new Target, [
-                'type' => 'type',
-                'goid' => 'goid',
-            ], $data['target']));
+            $target = new Target;
+            self::map($target, ['type' => 'type', 'goid' => 'goid'], $data['target']);
+            $payment->setTarget($target);
         }
 
         // ### COMMON
@@ -118,19 +116,17 @@ class PaymentFactory
 
         // ### ITEMS
         foreach ($data['items'] as $param) {
-            $payment->addItem(Helpers::map(new Item, [
-                'name' => 'name',
-                'amount' => 'amount',
-            ], $param));
+            $item = new Item;
+            self::map($item, ['name' => 'name', 'amount' => 'amount'], $param);
+            $payment->addItem($item);
         }
 
         // ### ADDITIONAL PARAMETERS
         if (isset($data['additional_params'])) {
             foreach ($data['additional_params'] as $param) {
-                $payment->addParameter(Helpers::map(new Parameter, [
-                    'name' => 'name',
-                    'value' => 'value',
-                ], $param));
+                $parameter = new Parameter;
+                self::map($parameter, ['name' => 'name', 'value' => 'value'], $param);
+                $payment->addParameter($parameter);
             }
         }
 
@@ -152,5 +148,21 @@ class PaymentFactory
         }
 
         return $payment;
+    }
+
+    /**
+     * @param object $obj
+     * @param array $mapping
+     * @param array $data
+     * @return object
+     */
+    public static function map($obj, array $mapping, array $data)
+    {
+        foreach ($mapping as $from => $to) {
+            if (isset($data[$from])) {
+                $obj->{$to} = $data[$from];
+            }
+        }
+        return $obj;
     }
 }

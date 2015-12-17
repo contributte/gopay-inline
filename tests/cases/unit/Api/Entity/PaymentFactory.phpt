@@ -104,6 +104,7 @@ test(function () {
 
 // Turn off validators
 test(function () {
+    // Invalid total price and items price
     $data = [
         'amount' => 200,
         'currency' => 2,
@@ -119,6 +120,28 @@ test(function () {
 
     try {
         PaymentFactory::create($data, [PaymentFactory::V_PRICES => FALSE]);
+    } catch (Exception $e) {
+        Assert::fail('Exception should not have been threw', $e, NULL);
+    }
+
+    // Invalid scheme
+    $data = [
+        'amount' => 100,
+        'currency' => 2,
+        'order_number' => 3,
+        'order_description' => 4,
+        'items' => [
+            ['amount' => 50],
+            ['amount' => 50]
+        ],
+        'return_url' => 6,
+        'notify_url' => 7,
+        'x_unknown' => 1234,
+        'y_foobar' => 5678,
+    ];
+
+    try {
+        PaymentFactory::create($data, [PaymentFactory::V_SCHEME => FALSE]);
     } catch (Exception $e) {
         Assert::fail('Exception should not have been threw', $e, NULL);
     }
