@@ -5,7 +5,6 @@
  */
 
 use Markette\GopayInline\Exception\HttpException;
-use Markette\GopayInline\Http\Curl;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Io;
 use Markette\GopayInline\Http\Request;
@@ -14,14 +13,9 @@ use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';
 
-// Io
-test(function () {
-    $http = new HttpClient();
-    Assert::type(Io::class, $http->getIo());
-});
 // FALSE response
 test(function () {
-    $io = Mockery::mock(Curl::class);
+    $io = Mockery::mock(Io::class);
     $io->shouldReceive('call')->andReturn(FALSE);
     $http = new HttpClient();
     $http->setIo($io);
@@ -34,7 +28,7 @@ test(function () {
 // Error response
 test(function () {
     $error = (object)['error_code' => 500, 'scope' => 'S', 'field' => 'F', 'message' => 'M'];
-    $io = Mockery::mock(Curl::class);
+    $io = Mockery::mock(Io::class);
     $io->shouldReceive('call')->andReturnUsing(function () use ($error) {
         $r = new Response();
         $r->setData(['errors' => [$error]]);
@@ -51,7 +45,7 @@ test(function () {
 // Success response
 test(function () {
     $data = ['a' => 'b'];
-    $io = Mockery::mock(Curl::class);
+    $io = Mockery::mock(Io::class);
     $io->shouldReceive('call')->andReturnUsing(function () use ($data) {
         $r = new Response();
         $r->setData($data);

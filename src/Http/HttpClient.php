@@ -11,7 +11,7 @@ class HttpClient implements Http
     protected $io;
 
     /**
-     * @return Curl
+     * @return Io
      */
     public function getIo()
     {
@@ -22,9 +22,9 @@ class HttpClient implements Http
     }
 
     /**
-     * @param Curl $io
+     * @param Io $io
      */
-    public function setIo($io)
+    public function setIo(Io $io)
     {
         $this->io = $io;
     }
