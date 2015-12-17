@@ -128,7 +128,7 @@ class PaymentFactory
             $itemsPrice += $item->amount;
         }
         if ($itemsPrice !== $orderPrice) {
-            throw new ValidationException(sprintf('Payment price (%s) and items price (%s) dont match', $orderPrice, $itemsPrice));
+            throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
         }
 
         return $payment;
