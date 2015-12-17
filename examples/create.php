@@ -1,10 +1,12 @@
 <?php
 
 use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Markette\GopayInline\Api\Lists\Currency;
+use Markette\GopayInline\Api\Lists\Language;
 use Markette\GopayInline\Api\Lists\PaymentInstrument;
 use Markette\GopayInline\Api\Lists\SwiftCode;
+use Markette\GopayInline\Client;
+use Markette\GopayInline\Config;
 
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -35,7 +37,7 @@ $payment = [
         ],
     ],
     'amount' => 150,
-    'currency' => 'CZK',
+    'currency' => Currency::CZK,
     'order_number' => '001',
     'order_description' => 'pojisteni01',
     'items' => [
@@ -47,7 +49,7 @@ $payment = [
     ],
     'return_url' => 'http://www.eshop.cz/return',
     'notify_url' => 'http://www.eshop.cz/notify',
-    'lang' => 'cs',
+    'lang' => Language::CZ,
 ];
 
 // Create payment request

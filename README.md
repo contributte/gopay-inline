@@ -106,10 +106,10 @@ This example of payment data was copied from official documentation.
 // Payment data
 $payment = [
     'payer' => [
-        'default_payment_instrument' => 'BANK_ACCOUNT',
-        'allowed_payment_instruments' => ['BANK_ACCOUNT'],
-        'default_swift' => 'FIOBCZPP',
-        'allowed_swifts' => ['FIOBCZPP', 'BREXCZPP'],
+        'default_payment_instrument' => PaymentInstrument::BANK_ACCOUNT,
+        'allowed_payment_instruments' => [PaymentInstrument::BANK_ACCOUNT],
+        'default_swift' => SwiftCode::FIO_BANKA,
+        'allowed_swifts' => [SwiftCode::FIO_BANKA, SwiftCode::MBANK],
         'contact' => [
             'first_name' => 'Zbynek',
             'last_name' => 'Zak',
@@ -122,7 +122,7 @@ $payment = [
         ],
     ],
     'amount' => 150,
-    'currency' => 'CZK',
+    'currency' => Currency::CZK,
     'order_number' => '001',
     'order_description' => 'pojisteni01',
     'items' => [
@@ -132,9 +132,9 @@ $payment = [
     'additional_params' => [
         array('name' => 'invoicenumber', 'value' => '2015001003')
     ],
-    'return_url' => 'http://www.your-url.tld/return',
-    'notify_url' => 'http://www.your-url.tld/notify',
-    'lang' => 'cs',
+    'return_url' => 'http://www.eshop.cz/return',
+    'notify_url' => 'http://www.eshop.cz/notify',
+    'lang' => Language::CZ,
 ];
 
 // Create payment request
@@ -201,8 +201,6 @@ $url = $response['gw_url'];
 
 In case of inline variant you can use prepared [javascript](https://github.com/Markette/GopayInline/blob/master/client-side).
 
-@TODO
-
 ### Verify payment (check state)
 
 All you need is `$paymentId`. Response is always the same.
@@ -220,7 +218,7 @@ Fill your credentials in config.
 
 ```yaml
 extensions:
-    gopay: Markette\GopayInline\Bridges\Nette\GopayExtension
+    gopay: Markette\GopayInline\Bridges\Nette\DI\GopayExtension
     
 gopay:
     goId: ***
