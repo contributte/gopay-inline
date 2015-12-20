@@ -62,12 +62,12 @@ test(function () {
             'goid' => 123456,
             'type' => TargetType::ACCOUNT,
         ],
-        'amount' => 150,
+        'amount' => 200,
         'currency' => 'CZK',
         'order_number' => '001',
         'order_description' => 'pojisteni01',
         'items' => [
-            ['name' => 'item01', 'amount' => 50],
+            ['name' => 'item01', 'amount' => 50, 'count' => 2],
             ['name' => 'item02', 'amount' => 100],
         ],
         'additional_params' => [
@@ -90,7 +90,7 @@ test(function () {
         'order_number' => 3,
         'order_description' => 4,
         'items' => [
-            ['amount' => 50],
+            ['amount' => 50, 'count' => 2],
             ['amount' => 50]
         ],
         'return_url' => 6,
@@ -99,6 +99,5 @@ test(function () {
 
     Assert::throws(function () use ($data) {
         PaymentFactory::create($data);
-    }, ValidationException::class, '%a% (200) %a% (100) %a%');
+    }, ValidationException::class, '%a% (200) %a% (150) %a%');
 });
-
