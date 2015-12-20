@@ -10,6 +10,9 @@ class Item extends AbstractObject
     /** @var float */
     public $amount;
 
+    /** @var int */
+    public $count;
+
     /**
      * @return float
      */
@@ -30,6 +33,7 @@ class Item extends AbstractObject
         return [
             'name' => $this->name,
             'amount' => $this->getAmountInCents(),
+            'count' => $this->count
         ];
     }
 }
