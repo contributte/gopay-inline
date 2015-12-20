@@ -101,6 +101,7 @@ class PaymentFactory
             $payment->addItem(Helpers::map(new Item, [
                 'name' => 'name',
                 'amount' => 'amount',
+                'count' => 'count'
             ], $param));
         }
 
@@ -123,7 +124,7 @@ class PaymentFactory
         $orderPrice = $payment->getAmount();
         $itemsPrice = 0;
         foreach ($payment->getItems() as $item) {
-            $itemsPrice += $item->amount;
+            $itemsPrice += $item->amount * $item->count;
         }
         if ($itemsPrice !== $orderPrice) {
             throw new ValidationException(sprintf('Payment price (%s) and items price (%s) dont match', $orderPrice, $itemsPrice));
