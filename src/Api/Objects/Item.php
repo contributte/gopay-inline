@@ -11,7 +11,7 @@ class Item extends AbstractObject
     public $amount;
 
     /** @var int */
-    public $count;
+    public $count = 1;
 
     /**
      * @return float
