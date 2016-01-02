@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Http/Request
+ * Test: Http\Request
  */
 
 use Markette\GopayInline\Http\Request;

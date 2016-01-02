@@ -2,9 +2,9 @@
 
 [![Build Status](https://img.shields.io/travis/Markette/GopayInline.svg?style=flat-square)](https://travis-ci.org/Markette/GopayInline)
 [![Code coverage](https://img.shields.io/coveralls/Markette/GopayInline.svg?style=flat-square)](https://coveralls.io/r/Markette/GopayInline)
-[![Downloads latests](https://img.shields.io/packagist/dt/Markette/GopayInline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
-[![Latest stable](https://img.shields.io/packagist/v/Markette/GopayInline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
-[![HHVM Status](https://img.shields.io/hhvm/markette/Markette/GopayInline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
+[![Downloads latests](https://img.shields.io/packagist/dt/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
+[![Latest stable](https://img.shields.io/packagist/v/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
+[![HHVM Status](https://img.shields.io/hhvm/markette/gopay-inline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
 
 ## Prolog
 
@@ -75,15 +75,15 @@ use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
 
 $goId = '***FILL***';
-$goClient = '***FILL***';
-$goSecret = '***FILL***';
+$clientId = '***FILL***';
+$clientSecret = '***FILL***';
 
 // TEST MODE
-$client = new Client(new Config($goId, $goClient, $goSecret));
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode = Config::TEST));
+$client = new Client(new Config($goId, $clientId, $clientSecret));
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode = Config::TEST));
 
 // PROD MODE
-$client = new Client(new Config($goId, $goClient, $goSecret, $mode = Config::PROD));
+$client = new Client(new Config($goId, $clientId, $clientSecret, $mode = Config::PROD));
 ```
 
 Then you have to authenticate with oauth2 authority server on GoPay.
@@ -104,7 +104,7 @@ This example of payment data was copied from official documentation.
 
 ```php
 // Payment data
-$paymentData = [
+$payment = [
     'payer' => [
         'default_payment_instrument' => 'BANK_ACCOUNT',
         'allowed_payment_instruments' => ['BANK_ACCOUNT'],
@@ -138,20 +138,59 @@ $paymentData = [
 ];
 
 // Create payment request
-$response = $client->payments->createPayment(PaymentFactory::create($paymentData));
+$response = $client->payments->createPayment(PaymentFactory::create($payment));
 $data = $response->getData();
 ```
 
 `$client->payments` returns `PaymentsService`, you can create this service also by `$client->createPaymentsService()`.
 
-`PaymentsService::createPayment` need object of `Payment`, you can set-up it manually by yourself or via `PaymentFactory`. But over PaymentFactory, there is parameters validation and price validation.
+`PaymentsService::createPayment` need object of `Payment`, you can set-up it manually by yourself or via `PaymentFactory`.
+But over PaymentFactory, there is parameters validation and price validation.
+
+#### Tips
+
+You cannot combine more **payment instruments** (according to GoPay Gateway implementation). So, you should create payment
+only with one **payment instrument**, for example only with `BANK_ACCOUNT` or `PAYMENT_CARD`.
+
+#### For ALL payment instruments
+
+```php
+use Markette\GopayInline\Api\Lists\PaymentInstrument;
+
+$payment['payer']['allowed_payment_instruments']= PaymentInstrument::all();
+```
+
+#### For ALL / CZ / SK swift codes
+
+Use `allowed_swifts` and `default_swift` only with `BANK_ACCOUNT`.
+
+```php
+use Markette\GopayInline\Api\Lists\SwiftCode;
+
+$payment['payer']['allowed_swifts']= SwiftCode::all();
+// or
+$payment['payer']['allowed_swifts']= SwiftCode::cz();
+// or
+$payment['payer']['allowed_swifts']= SwiftCode::sk();
+```
 
 ### Process payment
 
 Now we have a response with payment information. There's same data as we send it before and also **new** `$gw_url`. It's in response data.
 
 ```php
+if ($response->isSuccess()) {
+    // ...
+}
+```
+
+```php
+$data = $response->getData();
+$url = $data['gw_url'];
+
 $url = $response->data['gw_url'];
+$url = $response->gw_url;
+$url = $response['gw_url'];
 
 // Redirect to URL
 // ...
