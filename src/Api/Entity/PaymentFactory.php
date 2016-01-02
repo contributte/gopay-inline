@@ -117,7 +117,11 @@ class PaymentFactory
         // ### ITEMS
         foreach ($data['items'] as $param) {
             $item = new Item;
-            self::map($item, ['name' => 'name', 'amount' => 'amount'], $param);
+            self::map($item, [
+                'name' => 'name',
+                'amount' => 'amount',
+                'count' => 'count'
+            ], $param);
             $payment->addItem($item);
         }
 
@@ -139,7 +143,7 @@ class PaymentFactory
         $itemsPrice = 0;
         $orderPrice = $payment->getAmount();
         foreach ($payment->getItems() as $item) {
-            $itemsPrice += $item->amount;
+            $itemsPrice += $item->amount * $item->count;
         }
         if ($itemsPrice !== $orderPrice) {
             if ($validators[self::V_PRICES] === TRUE) {
