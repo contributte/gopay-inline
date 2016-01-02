@@ -126,7 +126,7 @@ $payment = [
     'order_number' => '001',
     'order_description' => 'pojisteni01',
     'items' => [
-        ['name' => 'item01', 'amount' => 50],
+        ['name' => 'item01', 'amount' => 50, 'count' => 2],
         ['name' => 'item02', 'amount' => 100],
     ],
     'additional_params' => [
