@@ -5,6 +5,7 @@ namespace Markette\GopayInline\Service;
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
 use Markette\GopayInline\Api\Entity\RecurrentPayment;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\Response;
 
 class PaymentsService extends AbstractPaymentService
@@ -17,7 +18,7 @@ class PaymentsService extends AbstractPaymentService
     public function verify($id)
     {
         // Make request
-        return $this->makeRequest('GET', 'payments/payment/' . $id);
+        return $this->makeRequest('GET', 'payments/payment/' . $id, NULL, Http::CONTENT_FORM);
     }
 
     /**
@@ -67,4 +68,16 @@ class PaymentsService extends AbstractPaymentService
         // Make request
         return $this->makeRequest('POST', 'payments/payment', $data);
     }
+
+    /**
+     * @param int|float $id
+     * @param float $amount
+     * @return Response
+     */
+    public function refundPayment($id, $amount)
+    {
+        // Make request
+        return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
+    }
+
 }

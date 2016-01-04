@@ -6,6 +6,7 @@ use Markette\GopayInline\Api\Gateway;
 use Markette\GopayInline\Api\Lists\Scope;
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Exception\InvalidStateException;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
@@ -13,8 +14,20 @@ use Markette\GopayInline\Http\Response;
 abstract class AbstractService
 {
 
+    /** @var array */
+    public $onRequest = [];
+
+    /** @var array */
+    public $onAuthorization = [];
+
     /** @var Client */
     protected $client;
+
+    /** @var array */
+    protected $options = [
+        CURLOPT_SSL_VERIFYPEER => FALSE,
+        CURLOPT_RETURNTRANSFER => TRUE,
+    ];
 
     /**
      * @param Client $client
@@ -30,6 +43,7 @@ abstract class AbstractService
      */
     protected function doAuthorization($scope = Scope::PAYMENT_ALL)
     {
+        $this->trigger('onAuthorization', [$scope]);
         return $this->client->authenticate(['scope' => $scope]);
     }
 
@@ -39,10 +53,13 @@ abstract class AbstractService
      * @param string $method
      * @param string $uri
      * @param array $data
+     * @param string $contentType
      * @return Response
      */
-    protected function makeRequest($method, $uri, array $data = NULL)
+    protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
     {
+        $this->trigger('onRequest', [$method, $uri, $data]);
+
         // Verify that client is authenticated
         if (!$this->client->hasToken()) {
             // Do authorization
@@ -58,24 +75,18 @@ abstract class AbstractService
         $headers = [
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->client->getToken()->accessToken,
+            'Content-Type' => $contentType,
         ];
         $request->setHeaders($headers);
 
         // Set-up opts
-        $opts = [
-            CURLOPT_SSL_VERIFYPEER => FALSE,
-            CURLOPT_RETURNTRANSFER => TRUE,
-        ];
-        $request->setOpts($opts);
+        $request->setOpts($this->options);
 
         // Set-up method
         switch ($method) {
 
             // GET =========================================
             case HttpClient::METHOD_GET:
-                $request->appendHeaders([
-                    'Content-Type' => 'application/x-www-form-urlencoded',
-                ]);
                 $request->appendOpts([
                     CURLOPT_HTTPGET => TRUE,
                 ]);
@@ -84,12 +95,9 @@ abstract class AbstractService
 
             // POST ========================================
             case HttpClient::METHOD_POST:
-                $request->appendHeaders([
-                    'Content-Type' => 'application/json',
-                ]);
                 $request->appendOpts([
                     CURLOPT_POST => TRUE,
-                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_JSON ? json_encode($data) : http_build_query($data),
                 ]);
 
                 break;
@@ -99,6 +107,18 @@ abstract class AbstractService
         }
 
         return $this->client->call($request);
+    }
+
+    /**
+     * @param string $event
+     * @param array $data
+     * @return void
+     */
+    protected function trigger($event, array $data)
+    {
+        foreach ($this->{$event} as $callback) {
+            call_user_func_array($callback, $data);
+        }
     }
 
 }
