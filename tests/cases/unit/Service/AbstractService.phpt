@@ -6,6 +6,7 @@
 
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Exception\InvalidStateException;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Service\AbstractService;
 use Tester\Assert;
@@ -15,9 +16,9 @@ require __DIR__ . '/../../../bootstrap.php';
 class DummyService extends AbstractService
 {
 
-    public function makeRequest($method, $uri, array $data = NULL)
+    public function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
     {
-        return parent::makeRequest($method, $uri, $data);
+        return parent::makeRequest($method, $uri, $data, $contentType);
     }
 }
 

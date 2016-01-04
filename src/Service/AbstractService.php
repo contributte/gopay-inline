@@ -43,7 +43,9 @@ abstract class AbstractService
      */
     protected function doAuthorization($scope = Scope::PAYMENT_ALL)
     {
+        // Invoke events
         $this->trigger('onAuthorization', [$scope]);
+
         return $this->client->authenticate(['scope' => $scope]);
     }
 
@@ -58,6 +60,7 @@ abstract class AbstractService
      */
     protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
     {
+        // Invoke events
         $this->trigger('onRequest', [$method, $uri, $data]);
 
         // Verify that client is authenticated
@@ -97,7 +100,7 @@ abstract class AbstractService
             case HttpClient::METHOD_POST:
                 $request->appendOpts([
                     CURLOPT_POST => TRUE,
-                    CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_JSON ? json_encode($data) : http_build_query($data),
+                    CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
                 ]);
 
                 break;

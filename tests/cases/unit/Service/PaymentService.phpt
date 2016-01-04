@@ -54,7 +54,9 @@ test(function () {
             Mockery::on(function ($uri) use (&$urlRef) {
                 $urlRef = $uri;
                 return TRUE;
-            })
+            }),
+            Mockery::any(),
+            Mockery::any()
         )
         ->andReturn(TRUE);
 
