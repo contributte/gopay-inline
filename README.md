@@ -92,8 +92,7 @@ For only creating payments use `Scope::PAYMENT_CREATE`, for the rest `Scope::PAY
 
 ```php
 use Markette\GopayInline\Api\Lists\Scope;
-
-$token = $client->authenticate(Scope::PAYMENT_CREATE);
+$token = $client->authenticate(['scope' => Scope::PAYMENT_CREATE]);
 ```
 
 Heureka! We have token, let's make some API request.
