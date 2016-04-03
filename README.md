@@ -6,6 +6,10 @@
 [![Latest stable](https://img.shields.io/packagist/v/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
 [![HHVM Status](https://img.shields.io/hhvm/markette/gopay-inline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
 
+## Discussion
+
+[![Join the chat at https://gitter.im/Markette/Gopay](https://img.shields.io/gitter/room/Markette/Gopay.svg?style=flat-square)](https://gitter.im/Markette/Gopay?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Prolog
 
 This library has no dependencies on other `php` libraries. It provides easy-to-use API for communication with `GoPay REST API v3`, known as **GoPay Inline**.
