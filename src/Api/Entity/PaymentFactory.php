@@ -116,6 +116,11 @@ class PaymentFactory
 
         // ### ITEMS
         foreach ($data['items'] as $param) {
+            if (!isset($param['name']) || !$param['name']) {
+                if ($validators[self::V_SCHEME] === TRUE) {
+                    throw new ValidationException('Item\'s name can\'t be empty or null.');
+                }
+            }
             $item = new Item;
             self::map($item, [
                 'name' => 'name',
