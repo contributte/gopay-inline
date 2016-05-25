@@ -13,7 +13,10 @@ class HttpException extends GopayException
      */
     public static function format(stdClass $error)
     {
-        return sprintf('#%s (%s)[%s] %s', $error->error_code, $error->scope, $error->field, $error->message ? $error->message : $error->description);
+        $field = isset($error->field) ? "[{$error->field}]" : '';
+        $message = $error->message ? $error->message : $error->description;
+
+        return sprintf('#%s (%s)%s %s', $error->error_code, $error->scope, $field, $message);
     }
 
 }
