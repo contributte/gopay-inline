@@ -78,9 +78,9 @@ First you need set up client with credentials.
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
 
-$goId = '***FILL***';
-$clientId = '***FILL***';
-$clientSecret = '***FILL***';
+$goId = 'GoID';
+$clientId = 'ClientID';
+$clientSecret = 'ClientSecret';
 
 // TEST MODE
 $client = new Client(new Config($goId, $clientId, $clientSecret));
@@ -203,7 +203,7 @@ $url = $response['gw_url'];
 // ...
 ```
 
-In case of inline variant you can use prepared [javascript](https://github.com/Markette/GopayInline/blob/master/client-side).
+In case of inline variant you can use prepared [javascript](https://github.com/Markette/GopayInline/blob/master/client-side) (under development at this moment).
 
 ### Verify payment (check state)
 
