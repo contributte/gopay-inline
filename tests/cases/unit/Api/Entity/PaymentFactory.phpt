@@ -90,8 +90,8 @@ test(function () {
         'order_number' => 3,
         'order_description' => 4,
         'items' => [
-            ['amount' => 50, 'count' => 2],
-            ['amount' => 50]
+            ['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+            ['name' => 'Item 01', 'amount' => 50]
         ],
         'return_url' => 6,
         'notify_url' => 7,
@@ -100,6 +100,25 @@ test(function () {
     Assert::throws(function () use ($data) {
         PaymentFactory::create($data);
     }, ValidationException::class, '%a% (200) %a% (150) %a%');
+});
+
+// Validate items name
+test(function () {
+    $data = [
+        'amount' => 200,
+        'currency' => 2,
+        'order_number' => 3,
+        'order_description' => 4,
+        'items' => [
+            ['amount' => 50]
+        ],
+        'return_url' => 6,
+        'notify_url' => 7,
+    ];
+
+    Assert::throws(function () use ($data) {
+        PaymentFactory::create($data);
+    }, ValidationException::class, "Item's name can't be empty or null.");
 });
 
 // Turn off validators
@@ -111,8 +130,8 @@ test(function () {
         'order_number' => 3,
         'order_description' => 4,
         'items' => [
-            ['amount' => 50],
-            ['amount' => 50]
+            ['name' => 'Item 01', 'amount' => 50],
+            ['name' => 'Item 02', 'amount' => 50]
         ],
         'return_url' => 6,
         'notify_url' => 7,
