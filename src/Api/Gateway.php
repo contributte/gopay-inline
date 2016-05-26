@@ -56,7 +56,7 @@ class Gateway
             return 'https://gw.sandbox.gopay.com/api/' . trim($uri, '/');
         }
     }
-    
+
     /**
      * @return string
      */

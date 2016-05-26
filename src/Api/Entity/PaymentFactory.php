@@ -51,7 +51,7 @@ class PaymentFactory
     public static function create($data, $validators = [])
     {
         // Convert to array
-        $data = (array)$data;
+        $data = (array) $data;
         $validators = $validators + self::$validators;
 
         // CHECK REQUIRED DATA ###################
@@ -125,7 +125,7 @@ class PaymentFactory
             self::map($item, [
                 'name' => 'name',
                 'amount' => 'amount',
-                'count' => 'count'
+                'count' => 'count',
             ], $param);
             $payment->addItem($item);
         }
@@ -172,6 +172,7 @@ class PaymentFactory
                 $obj->{$to} = $data[$from];
             }
         }
+
         return $obj;
     }
 }

@@ -6,6 +6,7 @@ use Markette\GopayInline\Api\Lists\TargetType;
 
 class Target extends AbstractObject
 {
+
     /** @var string */
     public $type = TargetType::ACCOUNT;
 

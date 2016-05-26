@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class Language
 {
+
     // Czech
     const CZ = 'CS';
 

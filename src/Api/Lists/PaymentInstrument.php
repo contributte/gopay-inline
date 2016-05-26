@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class PaymentInstrument
 {
+
     // Payment cards
     const PAYMENT_CARD = 'PAYMENT_CARD';
 

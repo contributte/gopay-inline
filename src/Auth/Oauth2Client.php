@@ -50,7 +50,7 @@ class Oauth2Client implements Auth
         // Set-up headers
         $headers = [
             'Accept' => 'application/json',
-            'Content-Type' => 'application/x-www-form-urlencoded'
+            'Content-Type' => 'application/x-www-form-urlencoded',
         ];
         $request->setHeaders($headers);
 

@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Objects;
 
 class Payer extends AbstractObject
 {
+
     /** @var string[] */
     public $allowedPaymentInstruments = [];
 

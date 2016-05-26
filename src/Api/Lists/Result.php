@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class Result
 {
+
     // Request accepted
     const ACCEPTED = 'ACCEPTED';
 

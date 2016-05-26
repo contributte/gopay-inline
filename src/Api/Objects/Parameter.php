@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Objects;
 
 class Parameter extends AbstractObject
 {
+
     /** @var string */
     public $name;
 

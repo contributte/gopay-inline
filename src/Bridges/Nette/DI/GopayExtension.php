@@ -36,7 +36,7 @@ class GopayExtension extends CompilerExtension
                     $config['clientId'],
                     $config['clientSecret'],
                     $config['test'] !== FALSE ? Config::TEST : Config::PROD,
-                ])
+                ]),
             ]);
     }
 

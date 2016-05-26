@@ -32,7 +32,7 @@ class Client
 
     /** @var array */
     private static $services = [
-        'payments'
+        'payments',
     ];
 
     /**
@@ -51,6 +51,7 @@ class Client
         if (!$this->auth) {
             $this->auth = new Oauth2Client($this, $this->getHttp());
         }
+
         return $this->auth;
     }
 

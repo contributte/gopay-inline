@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class RecurrenceCycle
 {
+
     // Daily recurring
     const DAY = 'DAY';
 

@@ -18,6 +18,7 @@ class HttpClient implements Http
         if (!$this->io) {
             $this->io = new Curl();
         }
+
         return $this->io;
     }
 

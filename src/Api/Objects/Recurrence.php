@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Objects;
 
 class Recurrence extends AbstractObject
 {
+
     /** @var string */
     public $cycle;
 

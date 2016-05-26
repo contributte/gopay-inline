@@ -42,7 +42,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
     public function setData($data)
     {
         if (!is_bool($data) && $data) {
-            $data = (array)$data;
+            $data = (array) $data;
         }
         $this->data = $data;
     }
@@ -116,6 +116,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
         if ($this->data) {
             return isset($this->data[$offset]);
         }
+
         return FALSE;
     }
 
@@ -126,6 +127,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
     public function offsetGet($offset)
     {
         if (!$this->data) return NULL;
+
         return $this->data[$offset];
     }
 

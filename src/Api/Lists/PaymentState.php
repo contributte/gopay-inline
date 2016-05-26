@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class PaymentState
 {
+
     // Payment created
     const CREATED = 'CREATED';
 

@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Objects;
 
 class Item extends AbstractObject
 {
+
     /** @var string */
     public $name;
 
@@ -33,7 +34,7 @@ class Item extends AbstractObject
         return [
             'name' => $this->name,
             'amount' => $this->getAmountInCents(),
-            'count' => $this->count
+            'count' => $this->count,
         ];
     }
 }

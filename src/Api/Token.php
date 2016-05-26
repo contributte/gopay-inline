@@ -36,6 +36,7 @@ class Token
         if (isset($data['expires_in'])) {
             $token->expireIn = $data['expires_in'];
         }
+
         return $token;
     }
 
