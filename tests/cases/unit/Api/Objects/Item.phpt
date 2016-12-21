@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Api/Objects/Item
+ * Test: Api\Objects\Item
  */
 
 use Markette\GopayInline\Api\Objects\Item;
@@ -11,8 +11,8 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // Item default count for BC
 test(function () {
-    $item = new Item();
-    $item->amount = 100;
-    $itemArray = $item->toArray();
-    Assert::equal($itemArray['count'], 1);
+	$item = new Item();
+	$item->amount = 100;
+	$itemArray = $item->toArray();
+	Assert::equal($itemArray['count'], 1);
 });

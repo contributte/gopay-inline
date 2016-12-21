@@ -5,12 +5,13 @@ namespace Markette\GopayInline\Api\Lists;
 class Result
 {
 
-    // Request accepted
-    const ACCEPTED = 'ACCEPTED';
+	// Request accepted
+	const ACCEPTED = 'ACCEPTED';
 
-    // Operation finished
-    const FINISHED = 'FINISHED';
+	// Operation finished
+	const FINISHED = 'FINISHED';
 
-    // Operation failed
-    const FAILED = 'FAILED';
+	// Operation failed
+	const FAILED = 'FAILED';
+
 }

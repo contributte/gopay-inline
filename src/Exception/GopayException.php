@@ -2,7 +2,9 @@
 
 namespace Markette\GopayInline\Exception;
 
-class GopayException extends \RuntimeException
+use RuntimeException;
+
+class GopayException extends RuntimeException
 {
 
 }

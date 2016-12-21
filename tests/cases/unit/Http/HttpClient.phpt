@@ -15,44 +15,46 @@ require __DIR__ . '/../../../bootstrap.php';
 
 // FALSE response
 test(function () {
-    $io = Mockery::mock(Io::class);
-    $io->shouldReceive('call')->andReturn(FALSE);
-    $http = new HttpClient();
-    $http->setIo($io);
+	$io = Mockery::mock(Io::class);
+	$io->shouldReceive('call')->andReturn(FALSE);
+	$http = new HttpClient();
+	$http->setIo($io);
 
-    Assert::throws(function () use ($http) {
-        $http->doRequest(new Request());
-    }, HttpException::class);
+	Assert::throws(function () use ($http) {
+		$http->doRequest(new Request());
+	}, HttpException::class);
 });
 
 // Error response
 test(function () {
-    $error = (object)['error_code' => 500, 'scope' => 'S', 'field' => 'F', 'message' => 'M'];
-    $io = Mockery::mock(Io::class);
-    $io->shouldReceive('call')->andReturnUsing(function () use ($error) {
-        $r = new Response();
-        $r->setData(['errors' => [$error]]);
-        return $r;
-    });
-    $http = new HttpClient();
-    $http->setIo($io);
+	$error = (object) ['error_code' => 500, 'scope' => 'S', 'field' => 'F', 'message' => 'M'];
+	$io = Mockery::mock(Io::class);
+	$io->shouldReceive('call')->andReturnUsing(function () use ($error) {
+		$r = new Response();
+		$r->setData(['errors' => [$error]]);
 
-    Assert::throws(function () use ($http, $error) {
-        $http->doRequest(new Request());
-    }, HttpException::class, HttpException::format($error));
+		return $r;
+	});
+	$http = new HttpClient();
+	$http->setIo($io);
+
+	Assert::throws(function () use ($http, $error) {
+		$http->doRequest(new Request());
+	}, HttpException::class, HttpException::format($error));
 });
 
 // Success response
 test(function () {
-    $data = ['a' => 'b'];
-    $io = Mockery::mock(Io::class);
-    $io->shouldReceive('call')->andReturnUsing(function () use ($data) {
-        $r = new Response();
-        $r->setData($data);
-        return $r;
-    });
-    $http = new HttpClient();
-    $http->setIo($io);
+	$data = ['a' => 'b'];
+	$io = Mockery::mock(Io::class);
+	$io->shouldReceive('call')->andReturnUsing(function () use ($data) {
+		$r = new Response();
+		$r->setData($data);
 
-    Assert::same($data, $http->doRequest(new Request())->data);
+		return $r;
+	});
+	$http = new HttpClient();
+	$http->setIo($io);
+
+	Assert::same($data, $http->doRequest(new Request())->data);
 });

@@ -14,114 +14,114 @@ use Markette\GopayInline\Http\Response;
 abstract class AbstractService
 {
 
-    /** @var array */
-    public $onRequest = [];
+	/** @var array */
+	public $onRequest = [];
 
-    /** @var array */
-    public $onAuthorization = [];
+	/** @var array */
+	public $onAuthorization = [];
 
-    /** @var Client */
-    protected $client;
+	/** @var Client */
+	protected $client;
 
-    /** @var array */
-    protected $options = [
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_RETURNTRANSFER => TRUE,
-    ];
+	/** @var array */
+	protected $options = [
+		CURLOPT_SSL_VERIFYPEER => FALSE,
+		CURLOPT_RETURNTRANSFER => TRUE,
+	];
 
-    /**
-     * @param Client $client
-     */
-    function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
+	/**
+	 * @param Client $client
+	 */
+	public function __construct(Client $client)
+	{
+		$this->client = $client;
+	}
 
-    /**
-     * @param string $scope
-     * @return Response
-     */
-    protected function doAuthorization($scope = Scope::PAYMENT_ALL)
-    {
-        // Invoke events
-        $this->trigger('onAuthorization', [$scope]);
+	/**
+	 * @param string $scope
+	 * @return string
+	 */
+	protected function doAuthorization($scope = Scope::PAYMENT_ALL)
+	{
+		// Invoke events
+		$this->trigger('onAuthorization', [$scope]);
 
-        return $this->client->authenticate(['scope' => $scope]);
-    }
+		return $this->client->authenticate(['scope' => $scope]);
+	}
 
-    /**
-     * Build request and execute him
-     *
-     * @param string $method
-     * @param string $uri
-     * @param array $data
-     * @param string $contentType
-     * @return Response
-     */
-    protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
-    {
-        // Invoke events
-        $this->trigger('onRequest', [$method, $uri, $data]);
+	/**
+	 * Build request and execute him
+	 *
+	 * @param string $method
+	 * @param string $uri
+	 * @param array $data
+	 * @param string $contentType
+	 * @return Response
+	 */
+	protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
+	{
+		// Invoke events
+		$this->trigger('onRequest', [$method, $uri, $data]);
 
-        // Verify that client is authenticated
-        if (!$this->client->hasToken()) {
-            // Do authorization
-            $this->doAuthorization();
-        }
+		// Verify that client is authenticated
+		if (!$this->client->hasToken()) {
+			// Do authorization
+			$this->doAuthorization();
+		}
 
-        $request = new Request();
+		$request = new Request();
 
-        // Set-up URL
-        $request->setUrl(Gateway::getFullApiUrl($uri));
+		// Set-up URL
+		$request->setUrl(Gateway::getFullApiUrl($uri));
 
-        // Set-up headers
-        $headers = [
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->client->getToken()->accessToken,
-            'Content-Type' => $contentType,
-        ];
-        $request->setHeaders($headers);
+		// Set-up headers
+		$headers = [
+			'Accept' => 'application/json',
+			'Authorization' => 'Bearer ' . $this->client->getToken()->accessToken,
+			'Content-Type' => $contentType,
+		];
+		$request->setHeaders($headers);
 
-        // Set-up opts
-        $request->setOpts($this->options);
+		// Set-up opts
+		$request->setOpts($this->options);
 
-        // Set-up method
-        switch ($method) {
+		// Set-up method
+		switch ($method) {
 
-            // GET =========================================
-            case HttpClient::METHOD_GET:
-                $request->appendOpts([
-                    CURLOPT_HTTPGET => TRUE,
-                ]);
+			// GET =========================================
+			case HttpClient::METHOD_GET:
+				$request->appendOpts([
+					CURLOPT_HTTPGET => TRUE,
+				]);
 
-                break;
+				break;
 
-            // POST ========================================
-            case HttpClient::METHOD_POST:
-                $request->appendOpts([
-                    CURLOPT_POST => TRUE,
-                    CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
-                ]);
+			// POST ========================================
+			case HttpClient::METHOD_POST:
+				$request->appendOpts([
+					CURLOPT_POST => TRUE,
+					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
+				]);
 
-                break;
+				break;
 
-            default:
-                throw new InvalidStateException('Unsupported http method');
-        }
+			default:
+				throw new InvalidStateException('Unsupported http method');
+		}
 
-        return $this->client->call($request);
-    }
+		return $this->client->call($request);
+	}
 
-    /**
-     * @param string $event
-     * @param array $data
-     * @return void
-     */
-    protected function trigger($event, array $data)
-    {
-        foreach ($this->{$event} as $callback) {
-            call_user_func_array($callback, $data);
-        }
-    }
+	/**
+	 * @param string $event
+	 * @param array $data
+	 * @return void
+	 */
+	protected function trigger($event, array $data)
+	{
+		foreach ($this->{$event} as $callback) {
+			call_user_func_array($callback, $data);
+		}
+	}
 
 }

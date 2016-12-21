@@ -5,9 +5,9 @@ namespace Markette\GopayInline\Api\Entity;
 abstract class AbstractEntity
 {
 
-    /**
-     * @return array
-     */
-    abstract function toArray();
+	/**
+	 * @return array
+	 */
+	abstract public function toArray();
 
 }

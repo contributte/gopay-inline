@@ -5,24 +5,25 @@ namespace Markette\GopayInline\Api\Objects;
 class Parameter extends AbstractObject
 {
 
-    /** @var string */
-    public $name;
+	/** @var string */
+	public $name;
 
-    /** @var mixed */
-    public $value;
+	/** @var mixed */
+	public $value;
 
-    /**
-     * ABSTRACT ****************************************************************
-     */
+	/**
+	 * ABSTRACT ****************************************************************
+	 */
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'name' => $this->name,
-            'value' => $this->value,
-        ];
-    }
+	/**
+	 * @return array
+	 */
+	public function toArray()
+	{
+		return [
+			'name' => $this->name,
+			'value' => $this->value,
+		];
+	}
+
 }

@@ -5,28 +5,29 @@ namespace Markette\GopayInline\Api\Objects;
 class Recurrence extends AbstractObject
 {
 
-    /** @var string */
-    public $cycle;
+	/** @var string */
+	public $cycle;
 
-    /** @var float */
-    public $period;
+	/** @var float */
+	public $period;
 
-    /** @var string */
-    public $dateTo;
+	/** @var string */
+	public $dateTo;
 
-    /**
-     * ABSTRACT ****************************************************************
-     */
+	/**
+	 * ABSTRACT ****************************************************************
+	 */
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'recurrence_cycle' => $this->cycle,
-            'recurrence_period' => $this->period,
-            'recurrence_date_to' => $this->dateTo,
-        ];
-    }
+	/**
+	 * @return array
+	 */
+	public function toArray()
+	{
+		return [
+			'recurrence_cycle' => $this->cycle,
+			'recurrence_period' => $this->period,
+			'recurrence_date_to' => $this->dateTo,
+		];
+	}
+
 }

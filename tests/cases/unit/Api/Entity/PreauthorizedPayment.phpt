@@ -12,11 +12,10 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // Simple
 test(function () {
-    $payment = new PreauthorizedPayment();
-    $payment->setTarget($target = new Target());
-    $payment->setPreauthorization(TRUE);
+	$payment = new PreauthorizedPayment();
+	$payment->setTarget($target = new Target());
+	$payment->setPreauthorization(TRUE);
 
-    $array = $payment->toArray();
-    Assert::true($array['preauthorization']);
+	$array = $payment->toArray();
+	Assert::true($array['preauthorization']);
 });
-

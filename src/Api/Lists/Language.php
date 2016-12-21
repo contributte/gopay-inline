@@ -5,18 +5,19 @@ namespace Markette\GopayInline\Api\Lists;
 class Language
 {
 
-    // Czech
-    const CZ = 'CS';
+	// Czech
+	const CZ = 'CS';
 
-    // English
-    const EN = 'EN';
+	// English
+	const EN = 'EN';
 
-    // Slovak
-    const SK = 'SK';
+	// Slovak
+	const SK = 'SK';
 
-    // German
-    const DE = 'DE';
+	// German
+	const DE = 'DE';
 
-    // Russian
-    const RU = 'RU';
+	// Russian
+	const RU = 'RU';
+
 }

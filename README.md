@@ -32,7 +32,7 @@ From GoPay you need:
 
 On server you need:
 
-* PHP >= 5.5
+* PHP >= 5.6
 * cURL
 
 ## Resources / Docs

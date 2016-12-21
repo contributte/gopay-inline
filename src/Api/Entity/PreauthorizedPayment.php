@@ -5,40 +5,43 @@ namespace Markette\GopayInline\Api\Entity;
 class PreauthorizedPayment extends Payment
 {
 
-    /** @var bool */
-    protected $preauthorization;
+	/** @var bool */
+	protected $preauthorization;
 
-    /**
-     * @return boolean
-     */
-    public function isPreauthorization()
-    {
-        return $this->preauthorization;
-    }
+	/**
+	 * @return boolean
+	 */
+	public function isPreauthorization()
+	{
+		return $this->preauthorization;
+	}
 
-    /**
-     * @param boolean $preauth
-     */
-    public function setPreauthorization($preauth)
-    {
-        $this->preauthorization = boolval($preauth);
-    }
+	/**
+	 * @param boolean $preauth
+	 * @return void
+	 */
+	public function setPreauthorization($preauth)
+	{
+		$this->preauthorization = boolval($preauth);
+	}
 
-    /**
-     * ABSTRACT ****************************************************************
-     */
+	/**
+	 * ABSTRACT ****************************************************************
+	 */
 
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        $payment = parent::toArray();
+	/**
+	 * @return array
+	 */
+	public function toArray()
+	{
+		$payment = parent::toArray();
 
-        if (($preauth = $this->isPreauthorization())) {
-            $payment['preauthorization'] = $preauth;
-        }
+		$preauth = $this->isPreauthorization();
+		if ($preauth) {
+			$payment['preauthorization'] = $preauth;
+		}
 
-        return $payment;
-    }
+		return $payment;
+	}
+
 }

@@ -11,15 +11,15 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // All
 test(function () {
-    Assert::count(15, SwiftCode::all());
+	Assert::count(15, SwiftCode::all());
 });
 
 // CZ
 test(function () {
-    Assert::count(7, SwiftCode::cz());
+	Assert::count(7, SwiftCode::cz());
 });
 
 // SK
 test(function () {
-    Assert::count(8, SwiftCode::sk());
+	Assert::count(8, SwiftCode::sk());
 });
