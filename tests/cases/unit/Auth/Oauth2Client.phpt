@@ -57,7 +57,17 @@ test(function () {
 	$client->shouldReceive('getClientSecret')->andReturn(2);
 
 	$response = Mockery::mock();
-	$response->shouldReceive('getData')->andReturn((object) ['errors' => [0 => (object) ['error_code' => 500, 'scope' => 'G', 'field' => 'foobar', 'message' => 'foo foo foo']]]);
+	$error = (object) [
+		'errors' => [
+			0 => (object) [
+				'error_code' => 500,
+				'scope' => 'G',
+				'field' => 'foobar',
+				'message' => 'foo foo foo',
+			],
+		],
+	];
+	$response->shouldReceive('getData')->andReturn($error);
 
 	$http = Mockery::mock(HttpClient::class);
 	$http->shouldReceive('doRequest')->andReturn($response);
@@ -66,5 +76,5 @@ test(function () {
 
 	Assert::exception(function () use ($oauth2) {
 		$oauth2->authenticate(['scope' => 'foobar']);
-	}, AuthorizationException::class, '#500 (G)[foobar] foo foo foo');
+	}, AuthorizationException::class, '#500 (G) [foobar] foo foo foo');
 });
