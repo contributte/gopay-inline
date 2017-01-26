@@ -80,4 +80,13 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
 	}
 
+	/**
+     * @param string $currency
+     * @return Response
+     */
+    public function getEnabledInstruments($currency)
+    {
+        // Make request
+        return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency);
+    }
 }
