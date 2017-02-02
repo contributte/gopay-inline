@@ -84,7 +84,7 @@ class PaymentsService extends AbstractPaymentService
      * @param string $currency
      * @return Response
      */
-    public function getEnabledInstruments($currency)
+    public function getPaymentInstruments($currency)
     {
         // Make request
         return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency);
