@@ -7,6 +7,7 @@
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
 use Markette\GopayInline\Api\Entity\RecurrentPayment;
+use Markette\GopayInline\Api\Lists\Currency;
 use Markette\GopayInline\Api\Lists\TargetType;
 use Markette\GopayInline\Api\Objects\Target;
 use Markette\GopayInline\Client;
@@ -63,6 +64,35 @@ test(function () {
 
 	Assert::true($service->verify(150));
 	Assert::match('%a%150', $urlRef);
+});
+
+// Payment instruments
+test(function () {
+	$client = new Client(new Config(1, 2, 3));
+	$client->setToken('12345');
+
+	$urlRef = NULL;
+
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+
+	$service->shouldReceive('makeRequest')
+		->once()
+		->with(
+			Mockery::any(),
+			Mockery::on(function ($uri) use (&$urlRef) {
+				$urlRef = $uri;
+
+				return TRUE;
+			}),
+			Mockery::any(),
+			Mockery::any()
+		)
+		->andReturn(TRUE);
+
+	Assert::true($service->getPaymentInstruments(Currency::CZK));
+	Assert::match('eshops/eshop/1/payment-instruments/CZK', $urlRef);
 });
 
 // No-fill payment target
