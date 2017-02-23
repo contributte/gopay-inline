@@ -8,28 +8,28 @@ class Eet extends AbstractObject
 {
 
 	/** @var float */
-	private $sum;
+	public $sum;
 
 	/** @var float */
-	private $taxBase;
+	public $taxBase;
 
 	/** @var float */
-	private $tax;
+	public $tax;
 
 	/** @var float */
-	private $taxBaseReducedRateFirst;
+	public $taxBaseReducedRateFirst;
 
 	/** @var float */
-	private $taxReducedRateFirst;
+	public $taxReducedRateFirst;
 
 	/** @var float */
-	private $taxBaseReducedRateSecond;
+	public $taxBaseReducedRateSecond;
 
 	/** @var float */
-	private $taxReducedRateSecond;
+	public $taxReducedRateSecond;
 
 	/** @var string */
-	private $currency;
+	public $currency;
 
 	/**
 	 * @return float
