@@ -3,7 +3,6 @@
 /**
  * Test: Api\Entity\PaymentFactory
  */
-
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PaymentFactory;
 use Markette\GopayInline\Api\Lists\TargetType;
@@ -67,11 +66,11 @@ test(function () {
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 50, 'count' => 2],
-			['name' => 'item02', 'amount' => 100],
+				['name' => 'item01', 'amount' => 50, 'count' => 2],
+				['name' => 'item02', 'amount' => 100],
 		],
 		'additional_params' => [
-			['name' => 'invoicenumber', 'value' => '2015001003'],
+				['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
 		'return_url' => 'http://www.eshop.cz/return',
 		'notify_url' => 'http://www.eshop.cz/notify',
@@ -90,8 +89,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
-			['name' => 'Item 01', 'amount' => 50],
+				['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+				['name' => 'Item 01', 'amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -110,7 +109,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['amount' => 50],
+				['amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -130,8 +129,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50],
-			['name' => 'Item 02', 'amount' => 50],
+				['name' => 'Item 01', 'amount' => 50],
+				['name' => 'Item 02', 'amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -150,8 +149,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['amount' => 50],
-			['amount' => 50],
+				['amount' => 50],
+				['amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -164,4 +163,55 @@ test(function () {
 	} catch (Exception $e) {
 		Assert::fail('Exception should not have been threw', $e, NULL);
 	}
+});
+
+// Validate EET sum and EET tax sum
+test(function () {
+	$data = [
+		'amount' => 200,
+		'currency' => 2,
+		'order_number' => 3,
+		'order_description' => 4,
+		'items' => [
+				['name' => 'Item 01', 'amount' => 50, 'count' => 3],
+				['name' => 'Item 01', 'amount' => 50],
+		],
+		'return_url' => 6,
+		'notify_url' => 7,
+		'eet' => [
+			'celk_trzba' => 200,
+			'zakl_dan1' => 80,
+			'dan1' => 30,
+			'zakl_dan2' => 50,
+			'dan2' => 20,
+		],
+	];
+
+	Assert::throws(function () use ($data) {
+		PaymentFactory::create($data);
+	}, ValidationException::class, '%a% (200) %a% (180) %a%');
+});
+
+// Validate EET sum and order sum
+test(function () {
+	$data = [
+		'amount' => 100,
+		'currency' => 2,
+		'order_number' => 3,
+		'order_description' => 4,
+		'items' => [
+				['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+		],
+		'return_url' => 6,
+		'notify_url' => 7,
+		'eet' => [
+			'celk_trzba' => 110,
+			'zakl_dan1' => 80,
+			'dan1' => 30,
+		],
+	];
+
+	Assert::throws(function () use ($data) {
+		PaymentFactory::create($data);
+	}, ValidationException::class, '%a% (110) %a% (100) %a%');
 });
