@@ -7,6 +7,7 @@ use Markette\GopayInline\Api\Objects\Item;
 use Markette\GopayInline\Api\Objects\Parameter;
 use Markette\GopayInline\Api\Objects\Payer;
 use Markette\GopayInline\Api\Objects\Target;
+use Markette\GopayInline\Utils\Money;
 
 class Payment extends AbstractEntity
 {
@@ -94,7 +95,7 @@ class Payment extends AbstractEntity
 	 */
 	public function getAmountInCents()
 	{
-		return round($this->getAmount() * 100);
+        return Money::toCents($this->getAmount());
 	}
 
 	/**
@@ -351,9 +352,9 @@ class Payment extends AbstractEntity
 			$data['lang'] = $lang;
 		}
 
-		$electronicPaymentRegister = $this->getEet();
-        if ($electronicPaymentRegister) {
-            $data['eet'] = $electronicPaymentRegister->toArray();
+		$eet = $this->getEet();
+        if ($eet) {
+            $data['eet'] = $eet->toArray();
         }
 
 		return $data;

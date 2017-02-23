@@ -2,6 +2,8 @@
 
 namespace Markette\GopayInline\Api\Objects;
 
+use Markette\GopayInline\Utils\Money;
+
 class Item extends AbstractObject
 {
 
@@ -49,7 +51,7 @@ class Item extends AbstractObject
 	 */
 	public function getAmountInCents()
 	{
-		return round($this->amount * 100);
+		return Money::toCents($this->getAmount());
 	}
 
 	/**
