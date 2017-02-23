@@ -262,7 +262,6 @@ class Payment extends AbstractEntity
 
 	/**
 	 * @return Eet
-	 * @return void
 	 */
 	public function getEet()
 	{
