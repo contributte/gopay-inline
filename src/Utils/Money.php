@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Utils;
 
 final class Money
 {
+
 	/**
 	 * @param float $amout
 	 * @return float
@@ -12,4 +13,5 @@ final class Money
 	{
 		return round($amout * 100);
 	}
+
 }
