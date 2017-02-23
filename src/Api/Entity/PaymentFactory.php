@@ -181,7 +181,7 @@ class PaymentFactory
 				if ($eetSum !== $eetTaxSum) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTaxSum));
 				}
-				
+
 				if ($eetSum !== $orderPrice) {
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
