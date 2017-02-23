@@ -2,6 +2,8 @@
 
 namespace Markette\GopayInline\Api\Objects;
 
+use Markette\GopayInline\Utils\Money;
+
 class Eet extends AbstractObject
 {
 
@@ -40,9 +42,25 @@ class Eet extends AbstractObject
 	/**
 	 * @return float
 	 */
+	public function getSumInCents()
+	{
+		return Money::toCents($this->getSum());
+	}
+
+	/**
+	 * @return float
+	 */
 	public function getTaxBase()
 	{
 		return $this->taxBase;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getTaxBaseInCents()
+	{
+		return Money::toCents($this->getTaxBase());
 	}
 
 	/**
@@ -56,9 +74,25 @@ class Eet extends AbstractObject
 	/**
 	 * @return float
 	 */
+	public function getTaxInCents()
+	{
+		return Money::toCents($this->getTax());
+	}
+
+	/**
+	 * @return float
+	 */
 	public function getTaxBaseReducedRateFirst()
 	{
 		return $this->taxBaseReducedRateFirst;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getTaxBaseReducedRateFirstInCents()
+	{
+		return Money::toCents($this->getTaxBaseReducedRateFirst());
 	}
 
 	/**
@@ -72,6 +106,14 @@ class Eet extends AbstractObject
 	/**
 	 * @return float
 	 */
+	public function getTaxReducedRateFirstInCents()
+	{
+		return Money::toCents($this->getTaxReducedRateFirst());
+	}
+
+	/**
+	 * @return float
+	 */
 	public function getTaxBaseReducedRateSecond()
 	{
 		return $this->taxBaseReducedRateSecond;
@@ -80,9 +122,25 @@ class Eet extends AbstractObject
 	/**
 	 * @return float
 	 */
+	public function getTaxBaseReducedRateSecondInCents()
+	{
+		return Money::toCents($this->getTaxBaseReducedRateSecond());
+	}
+
+	/**
+	 * @return float
+	 */
 	public function getTaxReducedRateSecond()
 	{
 		return $this->taxReducedRateSecond;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getTaxReducedRateSecondInCents()
+	{
+		return Money::toCents($this->getTaxReducedRateSecond());
 	}
 
 	/**
@@ -175,22 +233,22 @@ class Eet extends AbstractObject
 	public function toArray()
 	{
 		$data = [];
-		$data['celk_trzba'] = $this->getSum();
+		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
 
 		if ($this->getTaxBase() && $this->getTax()) {
-			$data['zakl_dan1'] = $this->getTaxBase();
-			$data['dan1'] = $this->getTax();
+			$data['zakl_dan1'] = $this->getTaxBaseInCents();
+			$data['dan1'] = $this->getTaxInCents();
 		}
 
 		if ($this->getTaxBaseReducedRateFirst() && $this->getTaxReducedRateFirst()) {
-			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirst();
-			$data['dan2'] = $this->getTaxReducedRateFirst();
+			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirstInCents();
+			$data['dan2'] = $this->getTaxReducedRateFirstInCents();
 		}
 
 		if ($this->getTaxBaseReducedRateSecond() && $this->getTaxReducedRateSecond()) {
-			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecond();
-			$data['dan3'] = $this->getTaxReducedRateSecond();
+			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
+			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}
 
 		return $data;
