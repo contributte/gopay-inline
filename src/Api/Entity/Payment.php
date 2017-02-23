@@ -2,7 +2,7 @@
 
 namespace Markette\GopayInline\Api\Entity;
 
-use Markette\GopayInline\Api\Objects\ElectronicPaymentRegister;
+use Markette\GopayInline\Api\Objects\Eet;
 use Markette\GopayInline\Api\Objects\Item;
 use Markette\GopayInline\Api\Objects\Parameter;
 use Markette\GopayInline\Api\Objects\Payer;
@@ -44,8 +44,8 @@ class Payment extends AbstractEntity
 	/** @var string */
 	protected $lang;
 
-	/** @var ElectronicPaymentRegister */
-	protected $electronicPaymentRegister;
+	/** @var Eet */
+	protected $eet;
 
 	/**
 	 * @return Payer
@@ -261,19 +261,21 @@ class Payment extends AbstractEntity
 	}
 
 	/**
-	 * @return ElectronicPaymentRegister
+	 * @return Eet
+	 * @return void
 	 */
-	public function getElectronicPaymentRegister()
+	public function getEet()
 	{
-		return $this->electronicPaymentRegister;
+		return $this->eet;
 	}
 
 	/**
-	 * @param ElectronicPaymentRegister $electronicPaymentRegister
+	 * @param Eet $eet
+	 * @return void
 	 */
-	public function setElectronicPaymentRegister(ElectronicPaymentRegister $electronicPaymentRegister)
+	public function setEet(Eet $eet)
 	{
-		$this->electronicPaymentRegister = $electronicPaymentRegister;
+		$this->eet = $eet;
 	}
 
 	/**
@@ -350,7 +352,7 @@ class Payment extends AbstractEntity
 			$data['lang'] = $lang;
 		}
 
-		$electronicPaymentRegister = $this->getElectronicPaymentRegister();
+		$electronicPaymentRegister = $this->getEet();
         if ($electronicPaymentRegister) {
             $data['eet'] = $electronicPaymentRegister->toArray();
         }

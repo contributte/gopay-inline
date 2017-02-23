@@ -2,8 +2,9 @@
 
 namespace Markette\GopayInline\Api\Objects;
 
-class ElectronicPaymentRegister extends AbstractObject
+class Eet extends AbstractObject
 {
+
 	/** @var float */
 	private $sum;
 
@@ -94,6 +95,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $sum
+	 * @return void
 	 */
 	public function setSum($sum)
 	{
@@ -102,6 +104,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $taxBase
+	 * @return void
 	 */
 	public function setTaxBase($taxBase)
 	{
@@ -110,6 +113,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $tax
+	 * @return void
 	 */
 	public function setTax($tax)
 	{
@@ -118,6 +122,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $taxBaseReducedRateFirst
+	 * @return void
 	 */
 	public function setTaxBaseReducedRateFirst($taxBaseReducedRateFirst)
 	{
@@ -126,6 +131,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $taxReducedRateFirst
+	 * @return void
 	 */
 	public function setTaxReducedRateFirst($taxReducedRateFirst)
 	{
@@ -134,6 +140,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $taxBaseReducedRateSecond
+	 * @return void
 	 */
 	public function setTaxBaseReducedRateSecond($taxBaseReducedRateSecond)
 	{
@@ -142,6 +149,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param float $taxReducedRateSecond
+	 * @return void
 	 */
 	public function setTaxReducedRateSecond($taxReducedRateSecond)
 	{
@@ -150,6 +158,7 @@ class ElectronicPaymentRegister extends AbstractObject
 
 	/**
 	 * @param string $currency
+	 * @return void
 	 */
 	public function setCurrency($currency)
 	{
@@ -178,7 +187,7 @@ class ElectronicPaymentRegister extends AbstractObject
 			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirst();
 			$data['dan2'] = $this->getTaxReducedRateFirst();
 		}
-		
+
 		if ($this->getTaxBaseReducedRateSecond() && $this->getTaxReducedRateSecond()) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecond();
 			$data['dan3'] = $this->getTaxReducedRateSecond();

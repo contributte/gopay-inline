@@ -38,12 +38,12 @@ class Item extends AbstractObject
 
 	/**
 	 * @return int
-	 */	
+	 */
 	public function getCount()
 	{
-		return intval($this->count);
+		return $this->count;
 	}
-		
+
 	/**
 	 * @return float
 	 */
@@ -67,10 +67,11 @@ class Item extends AbstractObject
 	{
 		return $this->vatRate;
 	}
-	
+
 	/**
 	 * @param string $name
-	 */	
+	 * @return void
+	 */
 	public function setName($name)
 	{
 		$this->name = $name;
@@ -78,7 +79,8 @@ class Item extends AbstractObject
 
 	/**
 	 * @param float $amount
-	 */	
+	 * @return void
+	 */
 	public function setAmount($amount)
 	{
 		$this->amount = $amount;
@@ -86,6 +88,7 @@ class Item extends AbstractObject
 
 	/**
 	 * @param int $count
+	 * @return void
 	 */
 	public function setCount($count)
 	{
@@ -94,6 +97,7 @@ class Item extends AbstractObject
 
 	/**
 	 * @param string $type
+	 * @return void
 	 */
 	public function setType($type)
 	{
@@ -102,13 +106,13 @@ class Item extends AbstractObject
 
 	/**
 	 * @param int $vatRate
+	 * @return void
 	 */
 	public function setVatRate($vatRate)
 	{
 		$this->vatRate = $vatRate;
 	}
 
-	
 	/**
 	 * ABSTRACT ****************************************************************
 	 */
@@ -124,12 +128,14 @@ class Item extends AbstractObject
 		$data['count'] = $this->getCount();
 
 		// NOT REQUIRED ====================================
-		
-		if (($type = $this->getType())) {
+
+		$type = $this->getType();
+		if ($type) {
 			$data['type'] = $type;
 		}
 
-		if (($vatRate = $this->getVatRate())) {
+		$vatRate = $this->getVatRate();
+		if ($vatRate) {
 			$data['vat_rate'] = $vatRate;
 		}
 

@@ -4,6 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class VatRate
 {
+
 	const RATE_BASE = 21;
 
 	const RATE_REDUCED_FIRST = 15;

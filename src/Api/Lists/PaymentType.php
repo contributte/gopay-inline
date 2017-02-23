@@ -4,7 +4,7 @@ namespace Markette\GopayInline\Api\Lists;
 
 class PaymentType
 {
-	
+
 	const ITEM = 'ITEM';
 
 	const DISCOUNT = 'DISCOUNT';
@@ -12,4 +12,5 @@ class PaymentType
 	const DELIVERY = 'DELIVERY';
 
 	const POSTAGE = 'POSTAGE';
+
 }
