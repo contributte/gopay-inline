@@ -54,6 +54,21 @@ test(function () {
 	Assert::null($client->random);
 });
 
+// Services (same service)
+test(function () {
+	$config = new Config(1, 2, 3);
+	$client = new Client($config);
+
+	$payments1 = $client->payments;
+	$payments2 = $client->payments;
+	$payments3 = $client->payments;
+
+	Assert::same($payments1, $payments2);
+	Assert::same($payments1, $payments3);
+
+	Assert::null($client->random);
+});
+
 // Call without token
 test(function () {
 	$config = new Config(1, 2, 3);
