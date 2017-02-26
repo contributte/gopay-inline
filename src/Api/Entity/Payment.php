@@ -2,10 +2,12 @@
 
 namespace Markette\GopayInline\Api\Entity;
 
+use Markette\GopayInline\Api\Objects\Eet;
 use Markette\GopayInline\Api\Objects\Item;
 use Markette\GopayInline\Api\Objects\Parameter;
 use Markette\GopayInline\Api\Objects\Payer;
 use Markette\GopayInline\Api\Objects\Target;
+use Markette\GopayInline\Utils\Money;
 
 class Payment extends AbstractEntity
 {
@@ -42,6 +44,9 @@ class Payment extends AbstractEntity
 
 	/** @var string */
 	protected $lang;
+
+	/** @var Eet */
+	protected $eet;
 
 	/**
 	 * @return Payer
@@ -90,7 +95,7 @@ class Payment extends AbstractEntity
 	 */
 	public function getAmountInCents()
 	{
-		return round($this->getAmount() * 100);
+        return Money::toCents($this->getAmount());
 	}
 
 	/**
@@ -257,6 +262,23 @@ class Payment extends AbstractEntity
 	}
 
 	/**
+	 * @return Eet
+	 */
+	public function getEet()
+	{
+		return $this->eet;
+	}
+
+	/**
+	 * @param Eet $eet
+	 * @return void
+	 */
+	public function setEet(Eet $eet)
+	{
+		$this->eet = $eet;
+	}
+
+	/**
 	 * HELPERS *****************************************************************
 	 */
 
@@ -329,6 +351,11 @@ class Payment extends AbstractEntity
 		if ($lang) {
 			$data['lang'] = $lang;
 		}
+
+		$eet = $this->getEet();
+        if ($eet) {
+            $data['eet'] = $eet->toArray();
+        }
 
 		return $data;
 	}
