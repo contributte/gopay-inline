@@ -81,13 +81,13 @@ class PaymentsService extends AbstractPaymentService
 	}
 
 	/**
-     * @param string $currency
-     * @return Response
-     */
-    public function getPaymentInstruments($currency)
-    {
-        // Make request
-        return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, NULL, NULL);
-    }
+	 * @param string $currency
+	 * @return Response
+	 */
+	public function getPaymentInstruments($currency)
+	{
+		// Make request
+		return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, NULL, NULL);
+	}
 
 }

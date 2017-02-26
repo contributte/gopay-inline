@@ -66,11 +66,11 @@ test(function () {
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-				['name' => 'item01', 'amount' => 50, 'count' => 2],
-				['name' => 'item02', 'amount' => 100],
+			['name' => 'item01', 'amount' => 50, 'count' => 2],
+			['name' => 'item02', 'amount' => 100],
 		],
 		'additional_params' => [
-				['name' => 'invoicenumber', 'value' => '2015001003'],
+			['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
 		'return_url' => 'http://www.eshop.cz/return',
 		'notify_url' => 'http://www.eshop.cz/notify',
@@ -89,8 +89,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['name' => 'Item 01', 'amount' => 50, 'count' => 2],
-				['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+			['name' => 'Item 01', 'amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -109,7 +109,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['amount' => 50],
+			['amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -129,8 +129,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['name' => 'Item 01', 'amount' => 50],
-				['name' => 'Item 02', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 02', 'amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -149,8 +149,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['amount' => 50],
-				['amount' => 50],
+			['amount' => 50],
+			['amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -173,8 +173,8 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['name' => 'Item 01', 'amount' => 50, 'count' => 3],
-				['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => 50, 'count' => 3],
+			['name' => 'Item 01', 'amount' => 50],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
@@ -200,7 +200,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-				['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,

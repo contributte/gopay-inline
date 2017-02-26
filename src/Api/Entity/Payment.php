@@ -95,7 +95,7 @@ class Payment extends AbstractEntity
 	 */
 	public function getAmountInCents()
 	{
-        return Money::toCents($this->getAmount());
+		return Money::toCents($this->getAmount());
 	}
 
 	/**
@@ -353,9 +353,9 @@ class Payment extends AbstractEntity
 		}
 
 		$eet = $this->getEet();
-        if ($eet) {
-            $data['eet'] = $eet->toArray();
-        }
+		if ($eet) {
+			$data['eet'] = $eet->toArray();
+		}
 
 		return $data;
 	}

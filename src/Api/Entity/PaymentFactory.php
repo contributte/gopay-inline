@@ -84,7 +84,7 @@ class PaymentFactory
 				'default_payment_instrument' => 'defaultPaymentInstrument',
 				'allowed_swifts' => 'allowedSwifts',
 				'default_swift' => 'defaultSwift',
-					], $data['payer']);
+			], $data['payer']);
 			$payment->setPayer($payer);
 
 			if (isset($data['payer']['contact'])) {
@@ -98,7 +98,7 @@ class PaymentFactory
 					'street' => 'street',
 					'postal_code' => 'zip',
 					'country_code' => 'country',
-						], $data['payer']['contact']);
+				], $data['payer']['contact']);
 				$payer->contact = $contact;
 			}
 		}
@@ -130,7 +130,7 @@ class PaymentFactory
 				'name' => 'name',
 				'amount' => 'amount',
 				'count' => 'count',
-					], $param);
+			], $param);
 			$payment->addItem($item);
 		}
 
@@ -172,10 +172,15 @@ class PaymentFactory
 				'dan2' => 'taxReducedRateFirst',
 				'zakl_dan3' => 'taxBaseReducedRateSecond',
 				'dan3' => 'taxReducedRateSecond',
-					], $data['eet']);
+			], $data['eet']);
 
 			$eetSum = $eet->getSum();
-			$eetTaxSum = $eet->getTax() + $eet->getTaxBase() + $eet->getTaxReducedRateFirst() + $eet->getTaxBaseReducedRateFirst() + $eet->getTaxReducedRateSecond() + $eet->getTaxBaseReducedRateSecond();
+			$eetTaxSum = $eet->getTax()
+				+ $eet->getTaxBase()
+				+ $eet->getTaxBaseReducedRateFirst()
+				+ $eet->getTaxReducedRateFirst()
+				+ $eet->getTaxBaseReducedRateSecond()
+				+ $eet->getTaxReducedRateSecond();
 
 			if ($validators[self::V_PRICES] === TRUE) {
 				if ($eetSum !== $eetTaxSum) {
