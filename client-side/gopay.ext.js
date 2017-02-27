@@ -3,6 +3,6 @@
  */
 (function ($, undefined) {
 
-    $.nette.ext('gopay', {});
+	$.nette.ext('gopay', {});
 
 })(jQuery);

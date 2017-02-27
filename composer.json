@@ -1,95 +1,95 @@
 {
-  "name": "markette/gopay-inline",
-  "description": "GoPay Inline Payment Gateway",
-  "keywords": ["eshop", "payment", "gopay", "api", "inline"],
-  "homepage": "https://github.com/Markette/GopayInline",
-  "license": "New BSD",
-  "authors": [
-    {
-      "name": "Milan Felix Šulc",
-      "email": "sulcmil@gmail.com"
-    }
-  ],
-  "require": {
-    "php": ">=5.6",
-    "ext-curl": "*",
-    "ext-json": "*"
-  },
-  "require-dev": {
-    "ninjify/qa": "^0.3.3",
-    "ninjify/nunjuck": "^0.1.4",
-    "nette/tester": "^1.7.0",
-    "mockery/mockery": "^0.9.6",
-    "nette/di": "^2.4.4"
-  },
-  "suggest": {
-    "nette/di": "For GopayExtension"
-  },
-  "autoload": {
-    "psr-4": {
-      "Markette\\GopayInline\\": "src/"
-    }
-  },
-  "scripts": {
-    "qa": [
-      "@qa-linter",
-      "@qa-codesniffer"
-    ],
-    "ci": [
-      "@qa-linter",
-      "@qa-codesniffer",
-      "@qa-tester-info",
-      "@qa-tester"
-    ],
-    "qa-codesniffer": [
-      "Ninjify\\Composer\\Script\\CodeSniffer::execute"
-    ],
-    "qa-codefixer": [
-      "Ninjify\\Composer\\Script\\CodeFixer::execute"
-    ],
-    "qa-linter": [
-      "Ninjify\\Composer\\Script\\Linter::execute"
-    ],
-    "qa-tester": [
-      "tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini"
-    ],
-    "qa-tester-info": [
-      "tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -i"
-    ],
-    "qa-tester-coverage": [
-      "tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src"
-    ],
-    "qa-tester-coverage-info": [
-      "tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src -i"
-    ]
-  },
-  "extra": {
-    "ninjify": {
-      "qa": {
-        "codesniffer": {
-          "ruleset": "nette",
-          "folders": [
-            "src",
-            "tests"
-          ]
-        },
-        "codefixer": {
-          "ruleset": "nette",
-          "folders": [
-            "src",
-            "tests"
-          ]
-        },
-        "linter": {
-          "folders": [
-            "src",
-            "tests"
-          ]
-        }
-      }
-    },
-    "branch-alias": {
-      "dev-master": "1.1-dev"
-    }
-  }
+	"name": "markette/gopay-inline",
+	"description": "GoPay Inline Payment Gateway",
+	"keywords": ["eshop", "payment", "gopay", "api", "inline"],
+	"homepage": "https://github.com/Markette/GopayInline",
+	"license": "New BSD",
+	"authors": [
+		{
+			"name": "Milan Felix Šulc",
+			"email": "sulcmil@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.6",
+		"ext-curl": "*",
+		"ext-json": "*"
+	},
+	"require-dev": {
+		"ninjify/qa": "^0.3.3",
+		"ninjify/nunjuck": "^0.1.4",
+		"nette/tester": "^1.7.0",
+		"mockery/mockery": "^0.9.6",
+		"nette/di": "^2.4.4"
+	},
+	"suggest": {
+		"nette/di": "For GopayExtension"
+	},
+	"autoload": {
+		"psr-4": {
+			"Markette\\GopayInline\\": "src/"
+		}
+	},
+	"scripts": {
+		"qa": [
+			"@qa-linter",
+			"@qa-codesniffer"
+		],
+		"ci": [
+			"@qa-linter",
+			"@qa-codesniffer",
+			"@qa-tester-info",
+			"@qa-tester"
+		],
+		"qa-codesniffer": [
+			"Ninjify\\Composer\\Script\\CodeSniffer::execute"
+		],
+		"qa-codefixer": [
+			"Ninjify\\Composer\\Script\\CodeFixer::execute"
+		],
+		"qa-linter": [
+			"Ninjify\\Composer\\Script\\Linter::execute"
+		],
+		"qa-tester": [
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini"
+		],
+		"qa-tester-info": [
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -i"
+		],
+		"qa-tester-coverage": [
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src"
+		],
+		"qa-tester-coverage-info": [
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src -i"
+		]
+	},
+	"extra": {
+		"ninjify": {
+			"qa": {
+				"codesniffer": {
+					"ruleset": "nette",
+					"folders": [
+						"src",
+						"tests"
+					]
+				},
+				"codefixer": {
+					"ruleset": "nette",
+					"folders": [
+						"src",
+						"tests"
+					]
+				},
+				"linter": {
+					"folders": [
+						"src",
+						"tests"
+					]
+				}
+			}
+		},
+		"branch-alias": {
+			"dev-master": "1.1-dev"
+		}
+	}
 }
