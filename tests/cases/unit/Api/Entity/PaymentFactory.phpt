@@ -5,10 +5,10 @@
  */
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\TargetType;
-use Markette\GopayInline\Exception\ValidationException;
 use Markette\GopayInline\Api\Lists\PaymentType;
+use Markette\GopayInline\Api\Lists\TargetType;
 use Markette\GopayInline\Api\Objects\Eet;
+use Markette\GopayInline\Exception\ValidationException;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
@@ -78,7 +78,7 @@ test(function () {
 			['name' => 'item01', 'amount' => 50, 'count' => 2],
 			['name' => 'item02', 'amount' => 100],
 			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
-			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM]
+			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
 		],
 		'eet' => $eet,
 		'additional_params' => [

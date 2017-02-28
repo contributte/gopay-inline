@@ -131,7 +131,7 @@ class PaymentFactory
 				'amount' => 'amount',
 				'count' => 'count',
 				'vat_rate' => 'vatRate',
-				'type' => 'type'
+				'type' => 'type',
 			], $param);
 			$payment->addItem($item);
 		}
@@ -193,7 +193,7 @@ class PaymentFactory
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
 			}
-			
+
 			$payment->setEet($eet);
 		}
 
