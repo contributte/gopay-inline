@@ -193,6 +193,8 @@ class PaymentFactory
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
 			}
+			
+			$payment->setEet($eet);
 		}
 
 		return $payment;
