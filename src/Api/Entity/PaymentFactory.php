@@ -130,6 +130,8 @@ class PaymentFactory
 				'name' => 'name',
 				'amount' => 'amount',
 				'count' => 'count',
+				'vat_rate' => 'vatRate',
+				'type' => 'type'
 			], $param);
 			$payment->addItem($item);
 		}
