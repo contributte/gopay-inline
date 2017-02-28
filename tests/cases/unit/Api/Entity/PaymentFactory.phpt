@@ -8,6 +8,7 @@ use Markette\GopayInline\Api\Entity\PaymentFactory;
 use Markette\GopayInline\Api\Lists\TargetType;
 use Markette\GopayInline\Exception\ValidationException;
 use Markette\GopayInline\Api\Lists\PaymentType;
+use Markette\GopayInline\Api\Objects\Eet;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
@@ -41,6 +42,13 @@ test(function () {
 
 // Simple payment
 test(function () {
+	$eet = [
+		'celk_trzba' => 550,
+		'zakl_dan1' => 100,
+		'dan1' => 50,
+		'zakl_dan2' => 300,
+		'dan2' => 100,
+	];
 	$data = [
 		'payer' => [
 			'default_payment_instrument' => 'BANK_ACCOUNT',
@@ -72,6 +80,7 @@ test(function () {
 			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
 			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM]
 		],
+		'eet' => $eet,
 		'additional_params' => [
 			['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
@@ -84,6 +93,7 @@ test(function () {
 	Assert::type(Payment::class, $payment);
 	Assert::equal(21, $payment->getItems()[2]->getVatRate());
 	Assert::equal(PaymentType::ITEM, $payment->getItems()[3]->getType());
+	Assert::type(Eet::class, $payment->getEet());
 });
 
 // Validate order price and items price
