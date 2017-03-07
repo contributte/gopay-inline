@@ -184,7 +184,7 @@ class Client
 	{
 		return new PaymentsService($this);
 	}
-	
+
 	/**
 	 * @return AccountsService
 	 */

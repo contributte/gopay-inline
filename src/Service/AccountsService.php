@@ -23,7 +23,8 @@ class AccountsService extends AbstractService
 			'format' => $format,
 			'goid' => $this->client->getGoId(),
 		];
-		
+
 		return $this->makeRequest('POST', 'accounts/account-statement', $data);
 	}
+	
 }

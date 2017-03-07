@@ -68,11 +68,11 @@ test(function () {
 
 	Assert::same($payments1, $payments2);
 	Assert::same($payments1, $payments3);
-	
+
 	$accounts1 = $client->accounts;
 	$accounts2 = $client->accounts;
 	$accounts3 = $client->accounts;
-	
+
 	Assert::same($accounts1, $accounts2);
 	Assert::same($accounts1, $accounts3);
 

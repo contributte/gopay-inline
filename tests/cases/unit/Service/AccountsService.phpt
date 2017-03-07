@@ -21,6 +21,6 @@ test(function () {
 			->makePartial()
 			->shouldAllowMockingProtectedMethods();
 	$service->shouldReceive('makeRequest')->andReturn(TRUE);
-	
+
 	Assert::true($service->getAccountStatement('2017-01-01', '2017-01-31', Currency::CZK, Format::ABO_A));
 });
