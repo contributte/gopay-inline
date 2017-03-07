@@ -26,5 +26,5 @@ class AccountsService extends AbstractService
 
 		return $this->makeRequest('POST', 'accounts/account-statement', $data);
 	}
-	
+
 }
