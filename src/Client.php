@@ -10,10 +10,12 @@ use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
+use Markette\GopayInline\Service\AccountsService;
 use Markette\GopayInline\Service\PaymentsService;
 
 /**
  * @property-read PaymentsService $payments
+ * @property-read AccountsService $accounts
  */
 class Client
 {
@@ -32,6 +34,7 @@ class Client
 
 	/** @var array */
 	private static $services = [
+		'accounts' => NULL,
 		'payments' => NULL,
 	];
 
@@ -180,6 +183,14 @@ class Client
 	public function createPaymentsService()
 	{
 		return new PaymentsService($this);
+	}
+
+	/**
+	 * @return AccountsService
+	 */
+	public function createAccountsService()
+	{
+		return new AccountsService($this);
 	}
 
 	/**
