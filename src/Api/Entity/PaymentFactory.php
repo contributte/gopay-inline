@@ -185,11 +185,11 @@ class PaymentFactory
 				+ $eet->getTaxReducedRateSecond();
 
 			if ($validators[self::V_PRICES] === TRUE) {
-				if ($eetSum !== $eetTaxSum) {
+				if (number_format($eetSum, 6) !== number_format($eetTaxSum, 6)) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTaxSum));
 				}
 
-				if ($eetSum !== $orderPrice) {
+				if (number_format($eetSum, 6) !== number_format($orderPrice, 6)) {
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
 			}
