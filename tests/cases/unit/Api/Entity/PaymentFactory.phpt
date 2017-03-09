@@ -230,3 +230,29 @@ test(function () {
 		PaymentFactory::create($data);
 	}, ValidationException::class, '%a% (110) %a% (100) %a%');
 });
+
+// Validate EET sum and order sum (double/float)
+test(function () {
+	$data = [
+		'amount' => 174.0,
+		'currency' => 2,
+		'order_number' => 3,
+		'order_description' => 4,
+		'items' => [
+			['name' => 'x', 'amount' => 174.0],
+		],
+		'return_url' => 6,
+		'notify_url' => 7,
+		'eet' => [
+			'celk_trzba' => 174.0,
+			'zakl_dan1' => 143.80165289256,
+			'dan1' => 30.198347107438,
+		],
+	];
+
+	try {
+		PaymentFactory::create($data);
+	} catch (ValidationException $e) {
+		Assert::fail('EET sum and EET tax should be equal');
+	}
+});
