@@ -72,23 +72,21 @@ class PaymentsService extends AbstractPaymentService
 	/**
 	 * @param int|float $id
 	 * @param float $amount
-	 * @param Payment $payment Use in case you need to refund payment with EET
+	 * @param array $items Use in case you need to refund payment with EET
+	 * @param array $eet Use in case you need to refund payment with EET
 	 * @return Response
 	 */
-	public function refundPayment($id, $amount, Payment $payment = NULL)
+	public function refundPayment($id, $amount, $items = NULL, $eet = NULL)
 	{
 		// without EET
-		if (is_null($payment)) {
+		if (is_null($items) || is_null($eet)) {
 			return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
 		}
 
-		$this->preConfigure($payment);
-
 		// with EET
-		$data = $payment->toArray();
-		$usedata = array_merge(['amount' => round($amount * 100)], ['items' => $data['items']], ['eet' => $data['eet']]);
+		$data = array_merge(['amount' => round($amount * 100)], ['items' => $items], ['eet' => $eet]);
 
-		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', $usedata, Http::CONTENT_JSON);
+		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', $data, Http::CONTENT_JSON);
 	}
 
 	/**

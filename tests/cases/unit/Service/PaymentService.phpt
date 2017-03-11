@@ -140,16 +140,14 @@ test(function () {
 	$item->setAmount(-1199.90);
 	$item->setCount(1);
 	$item->setVatRate(21);
+	$items = array($item->toArray());
 
 	$eet = new Eet();
 	$eet->setSum(-1199.90);
 	$eet->setTaxBase(-991.65);
 	$eet->setTax(-208.25);
 	$eet->setCurrency(Currency::CZK);
-
-	$payment = new Payment();
-	$payment->addItem($item);
-	$payment->setEet($eet);
+	$eet = $eet->toArray();
 
 	$client = new Client(new Config(1, 2, 3));
 	$service = Mockery::mock(PaymentsService::class, [$client])
@@ -161,25 +159,25 @@ test(function () {
 			'payments/payment/99/refund',
 			[
 				'amount' => (float) 119990,
-				'items' => [ 0 => [
+				'items' => [[
+					'type' => 'ITEM',
 					'name' => 'lodicky',
 					//'product_url' => 'https://www.eshop.cz/boty/damske/lodicky-cervene',
 					//'ean' => 1234567890123,
 					'amount' => (float) - 119990,
 					'count' => 1,
-					'type' => 'ITEM',
 					'vat_rate' => 21,
 				]],
 				'eet' => [
 					'celk_trzba' => (float) - 119990,
-					'mena' => Currency::CZK,
 					'zakl_dan1' => (float) - 99165,
 					'dan1' => (float) - 20825,
+					'mena' => Currency::CZK,
 				],
 			],
 			Http::CONTENT_JSON
 		)
 		->andReturn(TRUE);
 
-	Assert::true($service->refundPayment(99, 1199.90, $payment));
+	Assert::true($service->refundPayment(99, 1199.90, $items, $eet));
 });
