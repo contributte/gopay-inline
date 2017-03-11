@@ -72,7 +72,7 @@ class PaymentsService extends AbstractPaymentService
 	/**
 	 * @param int|float $id
 	 * @param float $amount
-	 * @param Payment $payment	Use in case you need to refund payment with EET
+	 * @param Payment $payment Use in case you need to refund payment with EET
 	 * @return Response
 	 */
 	public function refundPayment($id, $amount, Payment $payment = NULL)
