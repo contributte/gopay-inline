@@ -12,6 +12,7 @@ use Markette\GopayInline\Api\Lists\TargetType;
 use Markette\GopayInline\Api\Objects\Target;
 use Markette\GopayInline\Client;
 use Markette\GopayInline\Config;
+use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Service\PaymentsService;
 use Tester\Assert;
 
@@ -111,4 +112,17 @@ test(function () {
 	Assert::true($service->createPayment($payment));
 	Assert::equal(100, $payment->getAmount());
 	Assert::equal(99, $payment->getTarget()->goid);
+});
+
+// Refund payment
+test(function() {
+	$client = new Client(new Config(1, 2, 3));
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+	$service->shouldReceive('makeRequest')
+		->with('POST', 'payments/payment/99/refund', ['amount' => (float)12345], Http::CONTENT_FORM)
+		->andReturn(TRUE);
+
+	Assert::true($service->refundPayment(99, 123.45));
 });
