@@ -115,14 +115,13 @@ test(function () {
 });
 
 // Refund payment
-test(function() {
+test(function () {
 	$client = new Client(new Config(1, 2, 3));
 	$service = Mockery::mock(PaymentsService::class, [$client])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 	$service->shouldReceive('makeRequest')
-		->with('POST', 'payments/payment/99/refund', ['amount' => (float)12345], Http::CONTENT_FORM)
+		->with('POST', 'payments/payment/99/refund', ['amount' => (float) 12345], Http::CONTENT_FORM)
 		->andReturn(TRUE);
 
 	Assert::true($service->refundPayment(99, 123.45));
-});
