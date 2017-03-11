@@ -140,7 +140,7 @@ test(function () {
 	$item->setAmount(-1199.90);
 	$item->setCount(1);
 	$item->setVatRate(21);
-	$items = array($item->toArray());
+	$items = [$item->toArray()];
 
 	$eet = new Eet();
 	$eet->setSum(-1199.90);
