@@ -3,9 +3,9 @@
 namespace Markette\GopayInline\Service;
 
 use Markette\GopayInline\Api\Lists\Scope;
-use Markette\GopayInline\Exception\AuthorizationException;
+use Markette\GopayInline\Exception\HttpException;
 
-class AuthenticateService extends AbstractService
+class AuthenticationService extends AbstractService
 {
 
 	/**
@@ -16,7 +16,7 @@ class AuthenticateService extends AbstractService
 	{
 		try {
 			$this->doAuthorization($scope);
-		} catch (AuthorizationException $e) {
+		} catch (HttpException $e) {
 			return FALSE;
 		}
 		return TRUE;
