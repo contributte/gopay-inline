@@ -79,12 +79,16 @@ class PaymentsService extends AbstractPaymentService
 	public function refundPayment($id, $amount, $items = NULL, $eet = NULL)
 	{
 		// without EET
-		if (is_null($items) || is_null($eet)) {
+		if ($items === NULL || $eet === NULL) {
 			return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
 		}
 
 		// with EET
-		$data = array_merge(['amount' => round($amount * 100)], ['items' => $items], ['eet' => $eet]);
+		$data = array_merge(
+			['amount' => round($amount * 100)],
+			['items' => $items],
+			['eet' => $eet]
+		);
 
 		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', $data, Http::CONTENT_JSON);
 	}
