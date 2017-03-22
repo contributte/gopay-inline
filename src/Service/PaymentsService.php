@@ -103,4 +103,14 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, NULL, NULL);
 	}
 
+	/**
+	 * @param int|float $id ID of payment for which we need list of EET receipts
+	 * @return Response
+	 */
+	public function getEetReceipts($id)
+	{
+		// Make request
+		return $this->makeRequest('GET', 'payments/payment/' . $id . '/eet-receipts');
+	}
+
 }

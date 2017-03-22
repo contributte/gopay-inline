@@ -181,3 +181,16 @@ test(function () {
 
 	Assert::true($service->refundPayment(99, 1199.90, $items, $eet));
 });
+
+// Get EET receipts
+test(function () {
+	$client = new Client(new Config(1, 2, 3));
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+	$service->shouldReceive('makeRequest')
+		->with('GET', 'payments/payment/99/eet-receipts')
+		->andReturn(TRUE);
+
+	Assert::true($service->getEetReceipts(99));
+});
