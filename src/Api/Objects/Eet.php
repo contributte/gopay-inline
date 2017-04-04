@@ -14,6 +14,9 @@ class Eet extends AbstractObject
 	public $taxBase;
 
 	/** @var float */
+	public $taxBaseNoVat;
+
+	/** @var float */
 	public $tax;
 
 	/** @var float */
@@ -152,6 +155,14 @@ class Eet extends AbstractObject
 	}
 
 	/**
+	 * @return float
+	 */
+	public function getTaxBaseNoVat()
+	{
+		return $this->taxBaseNoVat;
+	}
+
+	/**
 	 * @param float $sum
 	 * @return void
 	 */
@@ -224,6 +235,33 @@ class Eet extends AbstractObject
 	}
 
 	/**
+	 * @param float $taxBaseNoVat
+	 * @return void
+	 */
+	public function setTaxBaseNoVat($taxBaseNoVat)
+	{
+		$this->taxBaseNoVat = $taxBaseNoVat;
+	}
+
+	/**
+	 * HELPERS *****************************************************************
+	 */
+
+	/**
+	 * @return float
+	 */
+	public function calcTotal()
+	{
+		$sum = $this->getSum();
+
+		if ($this->getTaxBaseNoVat()) {
+			$sum += $this->getTaxBaseNoVat();
+		}
+
+		return $sum;
+	}
+
+	/**
 	 * ABSTRACT ****************************************************************
 	 */
 
@@ -235,6 +273,10 @@ class Eet extends AbstractObject
 		$data = [];
 		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
+
+		if ($this->getTaxBaseNoVat()) {
+			$data['zakl_nepodl_dph'] = $this->getTaxBaseNoVat();
+		}
 
 		if ($this->getTaxBase() && $this->getTax()) {
 			$data['zakl_dan1'] = $this->getTaxBaseInCents();

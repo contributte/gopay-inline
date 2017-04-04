@@ -169,6 +169,7 @@ class PaymentFactory
 				'mena' => 'currency',
 				'celk_trzba' => 'sum',
 				'zakl_dan1' => 'taxBase',
+				'zakl_nepodl_dph' => 'taxBaseNoVat',
 				'dan1' => 'tax',
 				'zakl_dan2' => 'taxBaseReducedRateFirst',
 				'dan2' => 'taxReducedRateFirst',
@@ -177,6 +178,7 @@ class PaymentFactory
 			], $data['eet']);
 
 			$eetSum = $eet->getSum();
+			$eetTotal = $eet->calcTotal();
 			$eetTaxSum = $eet->getTax()
 				+ $eet->getTaxBase()
 				+ $eet->getTaxBaseReducedRateFirst()
@@ -185,11 +187,11 @@ class PaymentFactory
 				+ $eet->getTaxReducedRateSecond();
 
 			if ($validators[self::V_PRICES] === TRUE) {
-				if (number_format($eetSum, 6) !== number_format($eetTaxSum, 6)) {
+				if (number_format($eetSum, 8) !== number_format($eetTaxSum, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTaxSum));
 				}
 
-				if (number_format($eetSum, 6) !== number_format($orderPrice, 6)) {
+				if (number_format($eetTotal, 8) !== number_format($orderPrice, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
 			}
