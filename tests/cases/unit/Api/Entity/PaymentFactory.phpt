@@ -270,7 +270,7 @@ test(function () {
 		'return_url' => 6,
 		'notify_url' => 7,
 		'eet' => [
-			'celk_trzba' => 174.0,
+			'celk_trzba' => 274.0,
 			'zakl_nepodl_dph' => 100.0,
 			'zakl_dan1' => 143.80165289256,
 			'dan1' => 30.198347107438,
