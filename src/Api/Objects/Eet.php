@@ -248,20 +248,6 @@ class Eet extends AbstractObject
 	 */
 
 	/**
-	 * @return float
-	 */
-	public function calcTotal()
-	{
-		$sum = $this->getSum();
-
-		if ($this->getTaxBaseNoVat()) {
-			$sum += $this->getTaxBaseNoVat();
-		}
-
-		return $sum;
-	}
-
-	/**
 	 * ABSTRACT ****************************************************************
 	 */
 
