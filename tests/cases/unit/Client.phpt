@@ -12,6 +12,7 @@ use Markette\GopayInline\Exception\GopayException;
 use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
+use Markette\GopayInline\Service\AccountsService;
 use Markette\GopayInline\Service\PaymentsService;
 use Tester\Assert;
 
@@ -51,6 +52,30 @@ test(function () {
 
 	Assert::type(PaymentsService::class, $client->createPaymentsService());
 	Assert::type(PaymentsService::class, $client->payments);
+	Assert::type(AccountsService::class, $client->createAccountsService());
+	Assert::type(AccountsService::class, $client->accounts);
+	Assert::null($client->random);
+});
+
+// Services (same service)
+test(function () {
+	$config = new Config(1, 2, 3);
+	$client = new Client($config);
+
+	$payments1 = $client->payments;
+	$payments2 = $client->payments;
+	$payments3 = $client->payments;
+
+	Assert::same($payments1, $payments2);
+	Assert::same($payments1, $payments3);
+
+	$accounts1 = $client->accounts;
+	$accounts2 = $client->accounts;
+	$accounts3 = $client->accounts;
+
+	Assert::same($accounts1, $accounts2);
+	Assert::same($accounts1, $accounts3);
+
 	Assert::null($client->random);
 });
 

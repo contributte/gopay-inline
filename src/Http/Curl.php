@@ -38,9 +38,15 @@ class Curl implements Io
 			$response->setCode(curl_errno($ch));
 			$response->setHeaders(curl_getinfo($ch));
 		} else {
-			$response->setData(json_decode($result));
+			$info = curl_getinfo($ch);
 			$response->setCode(curl_getinfo($ch, CURLINFO_HTTP_CODE));
-			$response->setHeaders(curl_getinfo($ch));
+			$response->setHeaders($info);
+
+			if ($info['content_type'] == 'application/octet-stream') {
+				$response->setData($result);
+			} else {
+				$response->setData(json_decode($result));
+			}
 		}
 
 		// Close cURL

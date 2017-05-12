@@ -38,6 +38,10 @@ script:
   - composer run-script qa-linter
   - composer run-script qa-codesniffer
 
+  # CodeChecker
+  - composer create-project nette/code-checker temp/code-checker dev-master --no-interaction
+  - php temp/code-checker/src/code-checker.php --short-arrays
+
   # Nette\Tester
   - composer run-script qa-tester-info
   - composer run-script qa-tester

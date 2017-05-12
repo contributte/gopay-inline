@@ -10,10 +10,12 @@ use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\HttpClient;
 use Markette\GopayInline\Http\Request;
 use Markette\GopayInline\Http\Response;
+use Markette\GopayInline\Service\AccountsService;
 use Markette\GopayInline\Service\PaymentsService;
 
 /**
  * @property-read PaymentsService $payments
+ * @property-read AccountsService $accounts
  */
 class Client
 {
@@ -32,7 +34,8 @@ class Client
 
 	/** @var array */
 	private static $services = [
-		'payments',
+		'accounts' => NULL,
+		'payments' => NULL,
 	];
 
 	/**
@@ -183,6 +186,14 @@ class Client
 	}
 
 	/**
+	 * @return AccountsService
+	 */
+	public function createAccountsService()
+	{
+		return new AccountsService($this);
+	}
+
+	/**
 	 * MAGIC *******************************************************************
 	 */
 
@@ -192,8 +203,12 @@ class Client
 	 */
 	public function __get($name)
 	{
-		if (in_array($name, self::$services)) {
-			return call_user_func_array([$this, 'create' . ucfirst($name) . 'Service'], [$this]);
+		if (array_key_exists($name, self::$services)) {
+			if (self::$services[$name] === NULL) {
+				self::$services[$name] = call_user_func_array([$this, 'create' . ucfirst($name) . 'Service'], [$this]);
+			}
+
+			return self::$services[$name];
 		}
 
 		return NULL;

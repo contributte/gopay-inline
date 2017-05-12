@@ -3,6 +3,6 @@
  */
 (function ($, undefined) {
 
-    var Gopay = Gopay || {};
+	var Gopay = Gopay || {};
 
 })(jQuery);

@@ -107,40 +107,56 @@ Heureka! We have token, let's make some API request.
 This example of payment data was copied from official documentation.
 
 ```php
-// Payment data
-$payment = [
-    'payer' => [
-        'default_payment_instrument' => PaymentInstrument::BANK_ACCOUNT,
-        'allowed_payment_instruments' => [PaymentInstrument::BANK_ACCOUNT],
-        'default_swift' => SwiftCode::FIO_BANKA,
-        'allowed_swifts' => [SwiftCode::FIO_BANKA, SwiftCode::MBANK],
-        'contact' => [
-            'first_name' => 'Zbynek',
-            'last_name' => 'Zak',
-            'email' => 'zbynek.zak@gopay.cz',
-            'phone_number' => '+420777456123',
-            'city' => 'C.Budejovice',
-            'street' => 'Plana 67',
-            'postal_code' => '373 01',
-            'country_code' => 'CZE',
-        ],
-    ],
-    'amount' => 150,
-    'currency' => Currency::CZK,
-    'order_number' => '001',
-    'order_description' => 'pojisteni01',
-    'items' => [
-        ['name' => 'item01', 'amount' => 50, 'count' => 2],
-        ['name' => 'item02', 'amount' => 100],
-    ],
-    'additional_params' => [
-        array('name' => 'invoicenumber', 'value' => '2015001003')
-    ],
-    'return_url' => 'http://www.eshop.cz/return',
-    'notify_url' => 'http://www.eshop.cz/notify',
-    'lang' => Language::CZ,
-];
+use Markette\GopayInline\Api\Entity\PaymentFactory;
+use Markette\GopayInline\Api\Lists\Currency;
+use Markette\GopayInline\Api\Lists\Language;
+use Markette\GopayInline\Api\Lists\PaymentInstrument;
+use Markette\GopayInline\Api\Lists\SwiftCode;
 
+$payment = [
+	'payer' => [
+		'default_payment_instrument' => PaymentInstrument::BANK_ACCOUNT,
+		'allowed_payment_instruments' => [PaymentInstrument::BANK_ACCOUNT],
+		'default_swift' => SwiftCode::FIO_BANKA,
+		'allowed_swifts' => [SwiftCode::FIO_BANKA, SwiftCode::MBANK],
+		'contact' => [
+			'first_name' => 'John',
+			'last_name' => 'Doe',
+			'email' => 'johndoe@markette.org',
+			'phone_number' => '+420123456789',
+			'city' => 'Prague',
+			'street' => 'Markette 123',
+			'postal_code' => '123 45',
+			'country_code' => 'CZE',
+		],
+	],
+	'amount' => 50000,
+	'currency' => Currency::CZK,
+	'order_number' => '001',
+	'order_description' => 'some order',
+	'items' => [
+		['name' => 'item01', 'amount' => 40000],
+		['name' => 'item02', 'amount' => 13000],
+		['name' => 'item03', 'amount' => 7000],
+	],
+	'eet' => [
+		'celk_trzba' => 50000,
+		'zakl_dan1' => 35000,
+		'dan1' => 5000,
+		'zakl_dan2' => 8000,
+		'dan2' => 2000,
+		'mena' => Currency::CZK,
+	],
+	'additional_params' => [
+		['name' => 'invoicenumber', 'value' => '2017001'],
+	],
+	'return_url' => 'http://www.myeshop.cz/api/gopay/return',
+	'notify_url' => 'http://www.myeshop.cz/api/gopay/notify',
+	'lang' => Language::CZ,
+];
+```
+
+```php
 // Create payment request
 $response = $client->payments->createPayment(PaymentFactory::create($payment));
 $data = $response->getData();
@@ -223,7 +239,7 @@ Fill your credentials in config.
 ```yaml
 extensions:
     gopay: Markette\GopayInline\Bridges\Nette\DI\GopayExtension
-    
+
 gopay:
     goId: ***
     clientId: ***

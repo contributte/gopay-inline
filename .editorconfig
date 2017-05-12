@@ -20,7 +20,12 @@ charset = utf-8
 indent_style = tab
 indent_size = 4
 
-# Composer, NPM, Travis, BitbucketPipelines
-[{composer.json,package.json,.travis.yml,bitbucket-pipelines.yml}]
+# YAML
+[*.yml]
 indent_style = space
+indent_size = 2
+
+# Composer, NPM
+[{composer.json,package.json}]
+indent_style = tab
 indent_size = 2

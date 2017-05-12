@@ -72,12 +72,45 @@ class PaymentsService extends AbstractPaymentService
 	/**
 	 * @param int|float $id
 	 * @param float $amount
+	 * @param array $items Use in case you need to refund payment with EET
+	 * @param array $eet Use in case you need to refund payment with EET
 	 * @return Response
 	 */
-	public function refundPayment($id, $amount)
+	public function refundPayment($id, $amount, $items = NULL, $eet = NULL)
+	{
+		// without EET
+		if ($items === NULL || $eet === NULL) {
+			return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
+		}
+
+		// with EET
+		$data = array_merge(
+			['amount' => round($amount * 100)],
+			['items' => $items],
+			['eet' => $eet]
+		);
+
+		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', $data, Http::CONTENT_JSON);
+	}
+
+	/**
+	 * @param string $currency
+	 * @return Response
+	 */
+	public function getPaymentInstruments($currency)
 	{
 		// Make request
-		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
+		return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, NULL, NULL);
+	}
+
+	/**
+	 * @param int|float $id ID of payment for which we need list of EET receipts
+	 * @return Response
+	 */
+	public function getEetReceipts($id)
+	{
+		// Make request
+		return $this->makeRequest('GET', 'payments/payment/' . $id . '/eet-receipts');
 	}
 
 }

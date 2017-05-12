@@ -3,6 +3,7 @@
 namespace Markette\GopayInline\Api\Entity;
 
 use Markette\GopayInline\Api\Objects\Contact;
+use Markette\GopayInline\Api\Objects\Eet;
 use Markette\GopayInline\Api\Objects\Item;
 use Markette\GopayInline\Api\Objects\Parameter;
 use Markette\GopayInline\Api\Objects\Payer;
@@ -35,6 +36,7 @@ class PaymentFactory
 		'payer',
 		'additional_params',
 		'lang',
+		'eet',
 	];
 
 	/** @var array */
@@ -128,6 +130,8 @@ class PaymentFactory
 				'name' => 'name',
 				'amount' => 'amount',
 				'count' => 'count',
+				'vat_rate' => 'vatRate',
+				'type' => 'type',
 			], $param);
 			$payment->addItem($item);
 		}
@@ -156,6 +160,43 @@ class PaymentFactory
 			if ($validators[self::V_PRICES] === TRUE) {
 				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 			}
+		}
+
+		// ### EET
+		if (isset($data['eet'])) {
+			$eet = new Eet();
+			self::map($eet, [
+				'mena' => 'currency',
+				'celk_trzba' => 'sum',
+				'zakl_dan1' => 'taxBase',
+				'zakl_nepodl_dph' => 'taxBaseNoVat',
+				'dan1' => 'tax',
+				'zakl_dan2' => 'taxBaseReducedRateFirst',
+				'dan2' => 'taxReducedRateFirst',
+				'zakl_dan3' => 'taxBaseReducedRateSecond',
+				'dan3' => 'taxReducedRateSecond',
+			], $data['eet']);
+
+			$eetSum = $eet->getSum();
+			$eetTotal = $eet->getTax()
+				+ $eet->getTaxBaseNoVat()
+				+ $eet->getTaxBase()
+				+ $eet->getTaxBaseReducedRateFirst()
+				+ $eet->getTaxReducedRateFirst()
+				+ $eet->getTaxBaseReducedRateSecond()
+				+ $eet->getTaxReducedRateSecond();
+
+			if ($validators[self::V_PRICES] === TRUE) {
+				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
+					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTotal));
+				}
+
+				if (number_format($eetSum, 8) !== number_format($orderPrice, 8)) {
+					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
+				}
+			}
+
+			$payment->setEet($eet);
 		}
 
 		return $payment;
