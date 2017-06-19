@@ -31,7 +31,7 @@ test(function () {
 	$service = Mockery::mock(AuthenticationService::class, [$client])
 			->makePartial()
 			->shouldAllowMockingProtectedMethods();
-	$service->shouldReceive('doAuthorization')->andThrow(HttpException::class);;
+	$service->shouldReceive('doAuthorization')->andThrow(HttpException::class);
 
 	Assert::false($service->verifyCredentials());
 });
