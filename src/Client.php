@@ -196,7 +196,7 @@ class Client
 	}
 
 	/**
-	 * @return PaymentsService
+	 * @return AuthenticationService
 	 */
 	public function createAuthenticationService()
 	{
