@@ -52,3 +52,16 @@ test(function () {
 
 	Assert::equal('#400 (validation) Invalid field long', HttpException::format($error));
 });
+
+// With message and description
+test(function () {
+	$error = (object) [
+		'scope' => 'G',
+		'error_code' => 111,
+		'error_name' => 'INVALID',
+		'message' => 'Wrong value.',
+		'description' => 'eshop with goId=1234567890 was not found',
+	];
+
+	Assert::equal('#111 (G) Wrong value: eshop with goId=1234567890 was not found', HttpException::format($error));
+});

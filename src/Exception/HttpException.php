@@ -14,11 +14,12 @@ class HttpException extends GopayException
 	public static function format(stdClass $error)
 	{
 		$field = isset($error->field) ? '[' . $error->field . ']' : NULL;
-		$message = isset($error->message) ? $error->message : (isset($error->description) ? $error->description : NULL);
+		$description = isset($error->description) ? $error->description : NULL;
+		$message = isset($error->message) ? rtrim($error->message, '.') . ($description !== NULL ? ':' : '') : NULL;
 		$scope = isset($error->scope) ? '(' . $error->scope . ')' : NULL;
 		$code = isset($error->error_code) ? '#' . $error->error_code : NULL;
 
-		$parts = array_filter([$code, $scope, $field, $message], function ($item) {
+		$parts = array_filter([$code, $scope, $field, $message, $description], function ($item) {
 			return $item !== NULL;
 		});
 
