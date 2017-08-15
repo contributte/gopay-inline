@@ -5,6 +5,7 @@ namespace Markette\GopayInline\Service;
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
 use Markette\GopayInline\Api\Entity\RecurrentPayment;
+use Markette\GopayInline\Api\Entity\RecurringPayment;
 use Markette\GopayInline\Http\Http;
 use Markette\GopayInline\Http\Response;
 
@@ -51,6 +52,20 @@ class PaymentsService extends AbstractPaymentService
 
 		// Make request
 		return $this->makeRequest('POST', 'payments/payment', $data);
+	}
+
+	/**
+	 * @param string $recurrencePaymentId
+	 * @param RecurringPayment $payment
+	 * @return Response
+	 */
+	public function createRecurringPayment($recurrencePaymentId, RecurringPayment $payment)
+	{
+		// Export payment to array
+		$data = $payment->toArray();
+
+		// Make request
+		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/create-recurrence', $data);
 	}
 
 	/**
