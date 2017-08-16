@@ -7,6 +7,7 @@
 use Markette\GopayInline\Api\Entity\Payment;
 use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
 use Markette\GopayInline\Api\Entity\RecurrentPayment;
+use Markette\GopayInline\Api\Entity\RecurringPayment;
 use Markette\GopayInline\Api\Lists\Currency;
 use Markette\GopayInline\Api\Lists\PaymentType;
 use Markette\GopayInline\Api\Lists\TargetType;
@@ -43,6 +44,22 @@ test(function () {
 		Assert::equal(1, $payment->getTarget()->goid);
 		Assert::equal(TargetType::ACCOUNT, $payment->getTarget()->type);
 	}
+});
+
+// Fill recurring payment target
+test(function () {
+	$client = new Client(new Config(1, 2, 3));
+	$recurrencePaymentId = 'abcdefghijklmno';
+
+	$payment = new RecurringPayment();
+	$payment->setAmount(100);
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+	$service->shouldReceive('makeRequest')->andReturn(TRUE);
+
+	Assert::true($service->createRecurringPayment($recurrencePaymentId, $payment));
+	Assert::equal(100, $payment->getAmount());
 });
 
 // Verify payment
