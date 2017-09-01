@@ -29,6 +29,9 @@ class PaymentInstrument
 	// PayPal account
 	const PAYPAL = 'PAYPAL';
 
+	// BITCOIN account
+	const BITCOIN = 'BITCOIN';
+
 	/**
 	 * @return array
 	 */
@@ -43,6 +46,7 @@ class PaymentInstrument
 			self::SUPERCASH,
 			self::GOPAY,
 			self::PAYPAL,
+			self::BITCOIN,
 		];
 	}
 
