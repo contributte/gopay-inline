@@ -11,6 +11,7 @@ class SwiftCode
 	const MBANK = 'BREXCZPP';
 	const FIO_BANKA = 'FIOBCZPP';
 	const CSOB = 'CEKOCZPP';
+	const UNICREDIT_BANK_CZ = 'BACXCZPP';
 	const ERA = 'CEKOCZPP-ERA';
 	const VSEOBECNA_VEROVA_BANKA_BANKA = 'SUBASKBX';
 	const TATRA_BANKA = 'TATRSKBX';
@@ -42,6 +43,7 @@ class SwiftCode
 			self::FIO_BANKA,
 			self::CSOB,
 			self::ERA,
+			self::UNICREDIT_BANK_CZ,
 		];
 	}
 
