@@ -154,7 +154,7 @@ class PaymentFactory
 		$itemsPrice = 0;
 		$orderPrice = $payment->getAmount();
 		foreach ($payment->getItems() as $item) {
-			$itemsPrice += $item->amount;// * $item->count;
+			$itemsPrice += $item->amount;
 		}
 		if ($itemsPrice !== $orderPrice) {
 			if ($validators[self::V_PRICES] === TRUE) {
