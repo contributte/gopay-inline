@@ -94,6 +94,10 @@ test(function () {
 	Assert::equal(21, $payment->getItems()[2]->getVatRate());
 	Assert::equal(PaymentType::ITEM, $payment->getItems()[3]->getType());
 	Assert::type(Eet::class, $payment->getEet());
+	Assert::false($payment->isPreauthorization());
+
+	$payment->setPreauthorization(true);
+	Assert::true($payment->isPreauthorization());
 });
 
 // Validate order price and items price

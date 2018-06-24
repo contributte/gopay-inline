@@ -37,6 +37,7 @@ class PaymentFactory
 		'additional_params',
 		'lang',
 		'eet',
+		'preauthorization',
 	];
 
 	/** @var array */
@@ -48,7 +49,7 @@ class PaymentFactory
 	/**
 	 * @param mixed $data
 	 * @param array $validators
-	 * @return Payment
+	 * @return PreauthorizedPayment
 	 */
 	public static function create($data, $validators = [])
 	{
@@ -74,7 +75,7 @@ class PaymentFactory
 
 		// CREATE PAYMENT ########################
 
-		$payment = new Payment();
+		$payment = new PreauthorizedPayment();
 
 		// ### PAYER
 		if (isset($data['payer'])) {
@@ -108,6 +109,11 @@ class PaymentFactory
 			$target = new Target;
 			self::map($target, ['type' => 'type', 'goid' => 'goid'], $data['target']);
 			$payment->setTarget($target);
+		}
+
+		// ### PREAUTHORIZATION
+		if (isset($data['preauthorization'])) {
+			$payment->setPreauthorization($data['preauthorization']);
 		}
 
 		// ### COMMON

@@ -6,7 +6,7 @@ class PreauthorizedPayment extends Payment
 {
 
 	/** @var bool */
-	protected $preauthorization;
+	protected $preauthorization = false;
 
 	/**
 	 * @return boolean
