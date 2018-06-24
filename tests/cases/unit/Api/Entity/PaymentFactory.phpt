@@ -96,7 +96,7 @@ test(function () {
 	Assert::type(Eet::class, $payment->getEet());
 	Assert::false($payment->isPreauthorization());
 
-	$payment->setPreauthorization(true);
+	$payment->setPreauthorization(TRUE);
 	Assert::true($payment->isPreauthorization());
 });
 

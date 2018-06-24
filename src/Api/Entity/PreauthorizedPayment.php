@@ -5,8 +5,8 @@ namespace Contributte\GopayInline\Api\Entity;
 class PreauthorizedPayment extends Payment
 {
 
-	/** @var bool */
-	protected $preauthorization = false;
+	/** @var boolean */
+	protected $preauthorization = FALSE;
 
 	/**
 	 * @return boolean
