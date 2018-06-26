@@ -5,7 +5,6 @@
  */
 
 use Contributte\GopayInline\Api\Entity\Payment;
-use Contributte\GopayInline\Api\Entity\PreauthorizedPayment;
 use Contributte\GopayInline\Api\Entity\RecurrentPayment;
 use Contributte\GopayInline\Api\Entity\RecurringPayment;
 use Contributte\GopayInline\Api\Lists\Currency;
@@ -29,7 +28,6 @@ test(function () {
 	$paymentTypes = [
 		'createPayment' => new Payment(),
 		'createRecurrentPayment' => new RecurrentPayment(),
-		'createPreauthorizedPayment' => new PreauthorizedPayment(),
 	];
 
 	foreach ($paymentTypes as $paymentType => $payment) {

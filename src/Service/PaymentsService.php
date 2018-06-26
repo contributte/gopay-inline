@@ -3,7 +3,6 @@
 namespace Contributte\GopayInline\Service;
 
 use Contributte\GopayInline\Api\Entity\Payment;
-use Contributte\GopayInline\Api\Entity\PreauthorizedPayment;
 use Contributte\GopayInline\Api\Entity\RecurrentPayment;
 use Contributte\GopayInline\Api\Entity\RecurringPayment;
 use Contributte\GopayInline\Http\Http;
@@ -66,22 +65,6 @@ class PaymentsService extends AbstractPaymentService
 
 		// Make request
 		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/create-recurrence', $data);
-	}
-
-	/**
-	 * @param PreauthorizedPayment $payment
-	 * @return Response
-	 */
-	public function createPreauthorizedPayment(PreauthorizedPayment $payment)
-	{
-		// Pre-configure payment
-		$this->preConfigure($payment);
-
-		// Export payment to array
-		$data = $payment->toArray();
-
-		// Make request
-		return $this->makeRequest('POST', 'payments/payment', $data);
 	}
 
 	/**
