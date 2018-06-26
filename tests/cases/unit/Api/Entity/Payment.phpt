@@ -81,3 +81,13 @@ test(function () {
 	$payment->setParameters([]);
 	Assert::count(0, $payment->getParameters());
 });
+
+// Preauthorized
+test(function () {
+	$payment = new Payment();
+	$payment->setTarget($target = new Target());
+	$payment->setPreauthorization(TRUE);
+
+	$array = $payment->toArray();
+	Assert::true($array['preauthorization']);
+});

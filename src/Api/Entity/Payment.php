@@ -48,6 +48,9 @@ class Payment extends AbstractEntity
 	/** @var Eet */
 	protected $eet;
 
+	/** @var bool */
+	protected $preauthorization = FALSE;
+
 	/**
 	 * @return Payer
 	 */
@@ -279,6 +282,23 @@ class Payment extends AbstractEntity
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function isPreauthorization()
+	{
+		return $this->preauthorization;
+	}
+
+	/**
+	 * @param boolean $preauth
+	 * @return void
+	 */
+	public function setPreauthorization($preauth)
+	{
+		$this->preauthorization = boolval($preauth);
+	}
+
+	/**
 	 * HELPERS *****************************************************************
 	 */
 
@@ -355,6 +375,11 @@ class Payment extends AbstractEntity
 		$eet = $this->getEet();
 		if ($eet) {
 			$data['eet'] = $eet->toArray();
+		}
+
+		$preauth = $this->isPreauthorization();
+		if ($preauth) {
+			$data['preauthorization'] = $preauth;
 		}
 
 		return $data;

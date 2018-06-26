@@ -5,7 +5,6 @@
  */
 
 use Markette\GopayInline\Api\Entity\Payment;
-use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
 use Markette\GopayInline\Api\Entity\RecurrentPayment;
 use Markette\GopayInline\Api\Entity\RecurringPayment;
 use Markette\GopayInline\Api\Lists\Currency;
@@ -29,7 +28,6 @@ test(function () {
 	$paymentTypes = [
 		'createPayment' => new Payment(),
 		'createRecurrentPayment' => new RecurrentPayment(),
-		'createPreauthorizedPayment' => new PreauthorizedPayment(),
 	];
 
 	foreach ($paymentTypes as $paymentType => $payment) {

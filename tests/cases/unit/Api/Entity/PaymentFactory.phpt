@@ -94,6 +94,56 @@ test(function () {
 	Assert::equal(21, $payment->getItems()[2]->getVatRate());
 	Assert::equal(PaymentType::ITEM, $payment->getItems()[3]->getType());
 	Assert::type(Eet::class, $payment->getEet());
+	Assert::false($payment->isPreauthorization());
+});
+
+// Preauthorized payment
+test(function () {
+	$data = [
+		'payer' => [
+			'default_payment_instrument' => 'BANK_ACCOUNT',
+			'allowed_payment_instruments' => ['BANK_ACCOUNT'],
+			'default_swift' => 'FIOBCZPP',
+			'allowed_swifts' => ['FIOBCZPP', 'BREXCZPP'],
+			'contact' => [
+				'first_name' => 'Zbynek',
+				'last_name' => 'Zak',
+				'email' => 'zbynek.zak@gopay.cz',
+				'phone_number' => '+420777456123',
+				'city' => 'C.Budejovice',
+				'street' => 'Plana 67',
+				'postal_code' => '373 01',
+				'country_code' => 'CZE',
+			],
+		],
+		'target' => [
+			'goid' => 123456,
+			'type' => TargetType::ACCOUNT,
+		],
+		'amount' => 550,
+		'currency' => 'CZK',
+		'order_number' => '001',
+		'order_description' => 'pojisteni01',
+		'items' => [
+			['name' => 'item01', 'amount' => 50, 'count' => 2],
+			['name' => 'item02', 'amount' => 100],
+			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
+			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
+		],
+		'preauthorization' => TRUE,
+		'additional_params' => [
+			['name' => 'invoicenumber', 'value' => '2015001003'],
+		],
+		'return_url' => 'http://www.eshop.cz/return',
+		'notify_url' => 'http://www.eshop.cz/notify',
+		'lang' => 'cs',
+	];
+
+	$payment = PaymentFactory::create($data);
+	Assert::type(Payment::class, $payment);
+	Assert::equal(21, $payment->getItems()[2]->getVatRate());
+	Assert::equal(PaymentType::ITEM, $payment->getItems()[3]->getType());
+	Assert::true($payment->isPreauthorization());
 });
 
 // Validate order price and items price
