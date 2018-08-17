@@ -92,6 +92,22 @@ class PaymentsService extends AbstractPaymentService
 	}
 
 	/**
+	 * @param int|float $id
+	 * @param float $amount
+	 * @return Response
+	 */
+	public function capturePayment($id, $amount = NULL)
+	{
+		$data = [];
+
+		if ($amount !== NULL) {
+			$data['amount'] = round($amount * 100);
+		}
+
+		return $this->makeRequest('POST', 'payments/payment/' . $id . '/capture', $data);
+	}
+
+	/**
 	 * @param string $currency
 	 * @return Response
 	 */
