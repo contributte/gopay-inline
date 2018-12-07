@@ -32,6 +32,9 @@ class PaymentInstrument
 	// BITCOIN account
 	const BITCOIN = 'BITCOIN';
 
+	// Google Pay
+	const GPAY = 'GPAY';
+
 	/**
 	 * @return array
 	 */
@@ -47,6 +50,7 @@ class PaymentInstrument
 			self::GOPAY,
 			self::PAYPAL,
 			self::BITCOIN,
+			self::GPAY,
 		];
 	}
 
