@@ -11,5 +11,5 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // All
 test(function () {
-	Assert::count(9, PaymentInstrument::all());
+	Assert::count(10, PaymentInstrument::all());
 });
