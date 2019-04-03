@@ -60,6 +60,8 @@ class SwiftCode
             self::ING_BANK,
             self::EXPO_BANK,
             self::OBER_BANK,
+            self::SBER_BANK,
+            self::VUB_BANK,
         ];
 	}
 
@@ -77,8 +79,6 @@ class SwiftCode
 			self::POSTOVA_BANKA,
 			self::CSOB_SK,
 			self::SBERBANK_SLOVENSKO,
-            self::SBER_BANK,
-            self::VUB_BANK,
 		];
 	}
 
