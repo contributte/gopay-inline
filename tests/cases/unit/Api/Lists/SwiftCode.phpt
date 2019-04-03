@@ -11,12 +11,12 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // All
 test(function () {
-	Assert::count(16, SwiftCode::all());
+	Assert::count(25, SwiftCode::all());
 });
 
 // CZ
 test(function () {
-	Assert::count(8, SwiftCode::cz());
+	Assert::count(17, SwiftCode::cz());
 });
 
 // SK
