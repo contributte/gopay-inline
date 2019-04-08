@@ -29,7 +29,9 @@ class SwiftCode
 	const EXPO_BANK = 'EXPNCZPP';
 	const OBER_BANK = 'OBKLCZ2X';
 	const SBER_BANK = 'VBOECZ2X';
-	const VUB_BANK = 'SUBACZPP';
+    const VUB_BANK = 'SUBACZPP';
+    const HELLO_BANK = 'BOOFCZP1';
+    const OTHERS = 'OTHERS';
 
 	/**
 	 * @return array
@@ -62,6 +64,8 @@ class SwiftCode
             self::OBER_BANK,
             self::SBER_BANK,
             self::VUB_BANK,
+            self::HELLO_BANK,
+            self::OTHERS,
         ];
 	}
 
