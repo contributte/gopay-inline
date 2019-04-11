@@ -20,7 +20,7 @@ class SwiftCode
 	const OTP_BANKA = 'OTPVSKBX';
 	const POSTOVA_BANKA = 'POBNSKBA';
 	const CSOB_SK = 'CEKOSKBX';
-	const SBERBANK_SLOVENSKO = 'LUBASKBX';
+//	const SBERBANK_SLOVENSKO = 'LUBASKBX';
 	const MONETA_MONEY_BANK = 'AGBACZPP';
 	const AIR_BANK = 'AIRACZPP';
 	const EQUA_BANK = 'EQBKCZPP';
@@ -82,7 +82,7 @@ class SwiftCode
 			self::OTP_BANKA,
 			self::POSTOVA_BANKA,
 			self::CSOB_SK,
-			self::SBERBANK_SLOVENSKO,
+//			self::SBERBANK_SLOVENSKO,
 		];
 	}
 
