@@ -21,16 +21,16 @@ class SwiftCode
 	const POSTOVA_BANKA = 'POBNSKBA';
 	const CSOB_SK = 'CEKOSKBX';
 //	const SBERBANK_SLOVENSKO = 'LUBASKBX';
-	const MONETA_MONEY_BANK = 'AGBACZPP';
-	const AIR_BANK = 'AIRACZPP';
-	const EQUA_BANK = 'EQBKCZPP';
-	const CITI_BANK = 'CITICZPX';
-	const ING_BANK = 'INGBCZPP';
-	const EXPO_BANK = 'EXPNCZPP';
-	const OBER_BANK = 'OBKLCZ2X';
-	const SBER_BANK = 'VBOECZ2X';
-    const VUB_BANK = 'SUBACZPP';
-    const HELLO_BANK = 'BOOFCZP1';
+//	const MONETA_MONEY_BANK = 'AGBACZPP';
+//	const AIR_BANK = 'AIRACZPP';
+//	const EQUA_BANK = 'EQBKCZPP';
+//	const CITI_BANK = 'CITICZPX';
+//	const ING_BANK = 'INGBCZPP';
+//	const EXPO_BANK = 'EXPNCZPP';
+//	const OBER_BANK = 'OBKLCZ2X';
+//	const SBER_BANK = 'VBOECZ2X';
+//    const VUB_BANK = 'SUBACZPP';
+//    const HELLO_BANK = 'BOOFCZP1';
     const OTHERS = 'OTHERS';
 
 	/**
@@ -55,16 +55,16 @@ class SwiftCode
 			self::CSOB,
 			self::ERA,
             self::UNICREDIT_BANK_CZ,
-            self::MONETA_MONEY_BANK,
-            self::AIR_BANK,
-            self::EQUA_BANK,
-            self::CITI_BANK,
-            self::ING_BANK,
-            self::EXPO_BANK,
-            self::OBER_BANK,
-            self::SBER_BANK,
-            self::VUB_BANK,
-            self::HELLO_BANK,
+//            self::MONETA_MONEY_BANK,
+//            self::AIR_BANK,
+//            self::EQUA_BANK,
+//            self::CITI_BANK,
+//            self::ING_BANK,
+//            self::EXPO_BANK,
+//            self::OBER_BANK,
+//            self::SBER_BANK,
+//            self::VUB_BANK,
+//            self::HELLO_BANK,
             self::OTHERS,
         ];
 	}
