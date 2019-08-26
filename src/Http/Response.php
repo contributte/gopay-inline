@@ -160,7 +160,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	 */
 	public function count()
 	{
-		return count($this->data);
+		return $this->data === NULL ? 0 : count($this->data);
 	}
 
 	/**
