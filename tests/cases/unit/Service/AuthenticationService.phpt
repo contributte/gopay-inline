@@ -4,10 +4,10 @@
  * Test: Service\AuthenticationService
  */
 
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
-use Markette\GopayInline\Exception\HttpException;
-use Markette\GopayInline\Service\AuthenticationService;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
+use Contributte\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Service\AuthenticationService;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

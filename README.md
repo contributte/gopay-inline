@@ -1,14 +1,13 @@
-# Markette :: GopayInline
+# Contributte :: GopayInline
 
-[![Build Status](https://img.shields.io/travis/Markette/GopayInline.svg?style=flat-square)](https://travis-ci.org/Markette/GopayInline)
-[![Code coverage](https://img.shields.io/coveralls/Markette/GopayInline.svg?style=flat-square)](https://coveralls.io/r/Markette/GopayInline)
+[![Build Status](https://img.shields.io/travis/Contributte/GopayInline.svg?style=flat-square)](https://travis-ci.org/contributte/gopay-inline)
+[![Code coverage](https://img.shields.io/coveralls/Contributte/GopayInline.svg?style=flat-square)](https://coveralls.io/r/Contributte/GopayInline)
 [![Downloads latests](https://img.shields.io/packagist/dt/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
 [![Latest stable](https://img.shields.io/packagist/v/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
-[![HHVM Status](https://img.shields.io/hhvm/markette/gopay-inline.svg?style=flat-square)](http://hhvm.h4cc.de/package/markette/gopay-inline)
 
 ## Discussion
 
-[![Join the chat at https://gitter.im/Markette/Gopay](https://img.shields.io/gitter/room/Markette/Gopay.svg?style=flat-square)](https://gitter.im/Markette/Gopay?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/Contributte/Gopay](https://img.shields.io/gitter/room/Contributte/Gopay.svg?style=flat-square)](https://gitter.im/Contributte/Gopay?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Prolog
 
@@ -43,7 +42,7 @@ On server you need:
 
 ## Examples
 
-All you can find in [examples folder](https://github.com/Markette/GopayInline/blob/master/examples).
+All you can find in [examples folder](https://github.com/Contributte/GopayInline/blob/master/examples).
 
 ## Library
 
@@ -75,8 +74,8 @@ Services provide easy-to-use API for creating and verifying payments.
 First you need set up client with credentials.
 
 ```php
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
 
 $goId = 'GoID';
 $clientId = 'ClientID';
@@ -95,7 +94,7 @@ Then you have to authenticate with oauth2 authority server on GoPay.
 For only creating payments use `Scope::PAYMENT_CREATE`, for the rest `Scope::PAYMENT_ALL`.
 
 ```php
-use Markette\GopayInline\Api\Lists\Scope;
+use Contributte\GopayInline\Api\Lists\Scope;
 
 $token = $client->authenticate(['scope' => Scope::PAYMENT_CREATE]);
 ```
@@ -107,11 +106,11 @@ Heureka! We have token, let's make some API request.
 This example of payment data was copied from official documentation.
 
 ```php
-use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\Currency;
-use Markette\GopayInline\Api\Lists\Language;
-use Markette\GopayInline\Api\Lists\PaymentInstrument;
-use Markette\GopayInline\Api\Lists\SwiftCode;
+use Contributte\GopayInline\Api\Entity\PaymentFactory;
+use Contributte\GopayInline\Api\Lists\Currency;
+use Contributte\GopayInline\Api\Lists\Language;
+use Contributte\GopayInline\Api\Lists\PaymentInstrument;
+use Contributte\GopayInline\Api\Lists\SwiftCode;
 
 $payment = [
 	'payer' => [
@@ -122,10 +121,10 @@ $payment = [
 		'contact' => [
 			'first_name' => 'John',
 			'last_name' => 'Doe',
-			'email' => 'johndoe@markette.org',
+			'email' => 'johndoe@contributte.org',
 			'phone_number' => '+420123456789',
 			'city' => 'Prague',
-			'street' => 'Markette 123',
+			'street' => 'Contributte 123',
 			'postal_code' => '123 45',
 			'country_code' => 'CZE',
 		],
@@ -175,7 +174,7 @@ only with one **payment instrument**, for example only with `BANK_ACCOUNT` or `P
 #### For ALL payment instruments
 
 ```php
-use Markette\GopayInline\Api\Lists\PaymentInstrument;
+use Contributte\GopayInline\Api\Lists\PaymentInstrument;
 
 $payment['payer']['allowed_payment_instruments']= PaymentInstrument::all();
 ```
@@ -185,7 +184,7 @@ $payment['payer']['allowed_payment_instruments']= PaymentInstrument::all();
 Use `allowed_swifts` and `default_swift` only with `BANK_ACCOUNT`.
 
 ```php
-use Markette\GopayInline\Api\Lists\SwiftCode;
+use Contributte\GopayInline\Api\Lists\SwiftCode;
 
 $payment['payer']['allowed_swifts']= SwiftCode::all();
 // or
@@ -219,7 +218,7 @@ $url = $response['gw_url'];
 // ...
 ```
 
-In case of inline variant you can use prepared [javascript](https://github.com/Markette/GopayInline/blob/master/client-side) (under development at this moment).
+In case of inline variant you can use prepared [javascript](https://github.com/Contributte/GopayInline/blob/master/client-side) (under development at this moment).
 
 ### Verify payment (check state)
 
@@ -238,7 +237,7 @@ Fill your credentials in config.
 
 ```yaml
 extensions:
-    gopay: Markette\GopayInline\Bridges\Nette\DI\GopayExtension
+    gopay: Contributte\GopayInline\Bridges\Nette\DI\GopayExtension
 
 gopay:
     goId: ***
@@ -250,7 +249,7 @@ gopay:
 Inject `Client` into your services / presenters;
 
 ```php
-use Markette\GopayInline\Client;
+use Contributte\GopayInline\Client;
 
 /** @var Client @inject */
 public $gopay;

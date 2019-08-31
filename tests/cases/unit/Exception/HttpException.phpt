@@ -4,7 +4,7 @@
  * Test: Exception/HttpException
  */
 
-use Markette\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Exception\HttpException;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

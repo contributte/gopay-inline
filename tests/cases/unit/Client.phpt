@@ -4,16 +4,16 @@
  * Test: Client
  */
 
-use Markette\GopayInline\Api\Token;
-use Markette\GopayInline\Auth\Auth;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
-use Markette\GopayInline\Exception\GopayException;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
-use Markette\GopayInline\Service\AccountsService;
-use Markette\GopayInline\Service\PaymentsService;
+use Contributte\GopayInline\Api\Token;
+use Contributte\GopayInline\Auth\Auth;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
+use Contributte\GopayInline\Exception\GopayException;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
+use Contributte\GopayInline\Service\AccountsService;
+use Contributte\GopayInline\Service\PaymentsService;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';

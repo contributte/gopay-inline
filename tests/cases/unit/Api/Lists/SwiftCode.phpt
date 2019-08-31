@@ -4,7 +4,7 @@
  * Test: Api\Lists\SwiftCode
  */
 
-use Markette\GopayInline\Api\Lists\SwiftCode;
+use Contributte\GopayInline\Api\Lists\SwiftCode;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

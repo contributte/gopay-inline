@@ -3,12 +3,12 @@
 /**
  * Test: Api\Entity\PaymentFactory
  */
-use Markette\GopayInline\Api\Entity\Payment;
-use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\PaymentType;
-use Markette\GopayInline\Api\Lists\TargetType;
-use Markette\GopayInline\Api\Objects\Eet;
-use Markette\GopayInline\Exception\ValidationException;
+use Contributte\GopayInline\Api\Entity\Payment;
+use Contributte\GopayInline\Api\Entity\PaymentFactory;
+use Contributte\GopayInline\Api\Lists\PaymentType;
+use Contributte\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Objects\Eet;
+use Contributte\GopayInline\Exception\ValidationException;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

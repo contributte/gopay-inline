@@ -4,11 +4,11 @@
  * Test: Http\HttpClient
  */
 
-use Markette\GopayInline\Exception\HttpException;
-use Markette\GopayInline\Http\HttpClient;
-use Markette\GopayInline\Http\Io;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Http\HttpClient;
+use Contributte\GopayInline\Http\Io;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

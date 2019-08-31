@@ -4,7 +4,7 @@
  * Test: Http\Response
  */
 
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Http\Response;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

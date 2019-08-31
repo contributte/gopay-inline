@@ -4,10 +4,10 @@
  * Test: Auth\Oauth2Client
  */
 
-use Markette\GopayInline\Auth\Oauth2Client;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Exception\AuthorizationException;
-use Markette\GopayInline\Http\HttpClient;
+use Contributte\GopayInline\Auth\Oauth2Client;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Exception\AuthorizationException;
+use Contributte\GopayInline\Http\HttpClient;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

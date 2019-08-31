@@ -4,8 +4,8 @@
  * Test: Api\Entity\PreauthorizedPayment
  */
 
-use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\PreauthorizedPayment;
+use Contributte\GopayInline\Api\Objects\Target;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

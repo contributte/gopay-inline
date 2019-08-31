@@ -4,8 +4,8 @@
  * Test: Bridges\Nette\DI\GopayExtension
  */
 
-use Markette\GopayInline\Bridges\Nette\DI\GopayExtension;
-use Markette\GopayInline\Client;
+use Contributte\GopayInline\Bridges\Nette\DI\GopayExtension;
+use Contributte\GopayInline\Client;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;

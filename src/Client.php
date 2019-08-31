@@ -1,18 +1,18 @@
 <?php
 
-namespace Markette\GopayInline;
+namespace Contributte\GopayInline;
 
-use Markette\GopayInline\Api\Token;
-use Markette\GopayInline\Auth\Auth;
-use Markette\GopayInline\Auth\Oauth2Client;
-use Markette\GopayInline\Exception\GopayException;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Http\HttpClient;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
-use Markette\GopayInline\Service\AccountsService;
-use Markette\GopayInline\Service\AuthenticationService;
-use Markette\GopayInline\Service\PaymentsService;
+use Contributte\GopayInline\Api\Token;
+use Contributte\GopayInline\Auth\Auth;
+use Contributte\GopayInline\Auth\Oauth2Client;
+use Contributte\GopayInline\Exception\GopayException;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\HttpClient;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
+use Contributte\GopayInline\Service\AccountsService;
+use Contributte\GopayInline\Service\AuthenticationService;
+use Contributte\GopayInline\Service\PaymentsService;
 
 /**
  * @property-read PaymentsService $payments

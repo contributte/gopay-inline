@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Exception;
+namespace Contributte\GopayInline\Exception;
 
 use stdClass;
 

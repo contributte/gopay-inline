@@ -2,7 +2,7 @@
 	"name": "markette/gopay-inline",
 	"description": "GoPay Inline Payment Gateway",
 	"keywords": ["eshop", "payment", "gopay", "api", "inline"],
-	"homepage": "https://github.com/Markette/GopayInline",
+	"homepage": "https://github.com/Contributte/GopayInline",
 	"license": "BSD-3-Clause",
 	"authors": [
 		{
@@ -27,7 +27,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Markette\\GopayInline\\": "src/"
+			"Contributte\\GopayInline\\": "src/"
 		}
 	},
 	"scripts": {

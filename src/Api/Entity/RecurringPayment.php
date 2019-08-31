@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Api\Entity;
+namespace Contributte\GopayInline\Api\Entity;
 
 class RecurringPayment extends Payment
 {

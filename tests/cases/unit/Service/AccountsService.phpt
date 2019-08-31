@@ -4,11 +4,11 @@
  * Test: Service\PaymentService
  */
 
-use Markette\GopayInline\Api\Lists\Currency;
-use Markette\GopayInline\Api\Lists\Format;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
-use Markette\GopayInline\Service\AccountsService;
+use Contributte\GopayInline\Api\Lists\Currency;
+use Contributte\GopayInline\Api\Lists\Format;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
+use Contributte\GopayInline\Service\AccountsService;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

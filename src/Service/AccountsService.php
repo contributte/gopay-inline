@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Http\Response;
 
 class AccountsService extends AbstractService
 {

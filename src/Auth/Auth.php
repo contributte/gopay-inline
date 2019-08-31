@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Auth;
+namespace Contributte\GopayInline\Auth;
 
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Http\Response;
 
 interface Auth
 {

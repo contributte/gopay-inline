@@ -1,15 +1,15 @@
 <?php
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Api\Gateway;
-use Markette\GopayInline\Api\Lists\Scope;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Exception\InvalidStateException;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Http\HttpClient;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Api\Lists\Scope;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Exception\InvalidStateException;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\HttpClient;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
 
 abstract class AbstractService
 {

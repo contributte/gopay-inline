@@ -1,15 +1,15 @@
 <?php
 
-namespace Markette\GopayInline\Api\Entity;
+namespace Contributte\GopayInline\Api\Entity;
 
-use Markette\GopayInline\Api\Objects\Contact;
-use Markette\GopayInline\Api\Objects\Eet;
-use Markette\GopayInline\Api\Objects\Item;
-use Markette\GopayInline\Api\Objects\Parameter;
-use Markette\GopayInline\Api\Objects\Payer;
-use Markette\GopayInline\Api\Objects\Target;
-use Markette\GopayInline\Exception\ValidationException;
-use Markette\GopayInline\Utils\Validator;
+use Contributte\GopayInline\Api\Objects\Contact;
+use Contributte\GopayInline\Api\Objects\Eet;
+use Contributte\GopayInline\Api\Objects\Item;
+use Contributte\GopayInline\Api\Objects\Parameter;
+use Contributte\GopayInline\Api\Objects\Payer;
+use Contributte\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Exception\ValidationException;
+use Contributte\GopayInline\Utils\Validator;
 
 class PaymentFactory
 {

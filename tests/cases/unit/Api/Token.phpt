@@ -4,7 +4,7 @@
  * Test: Api\Token
  */
 
-use Markette\GopayInline\Api\Token;
+use Contributte\GopayInline\Api\Token;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

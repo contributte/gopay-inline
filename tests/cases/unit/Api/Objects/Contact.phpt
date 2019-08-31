@@ -4,7 +4,7 @@
  * Test: Api\Lists\Objects\Contact
  */
 
-use Markette\GopayInline\Api\Objects\Contact;
+use Contributte\GopayInline\Api\Objects\Contact;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

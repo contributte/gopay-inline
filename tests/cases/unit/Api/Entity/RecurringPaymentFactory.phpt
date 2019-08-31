@@ -3,10 +3,10 @@
 /**
  * Test: Api\Entity\RecurringPaymentFactory
  */
-use Markette\GopayInline\Api\Entity\RecurringPayment;
-use Markette\GopayInline\Api\Entity\RecurringPaymentFactory;
-use Markette\GopayInline\Api\Lists\PaymentType;
-use Markette\GopayInline\Exception\ValidationException;
+use Contributte\GopayInline\Api\Entity\RecurringPayment;
+use Contributte\GopayInline\Api\Entity\RecurringPaymentFactory;
+use Contributte\GopayInline\Api\Lists\PaymentType;
+use Contributte\GopayInline\Exception\ValidationException;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

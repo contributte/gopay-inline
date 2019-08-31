@@ -4,8 +4,8 @@
  * Test: Config
  */
 
-use Markette\GopayInline\Api\Gateway;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Config;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
