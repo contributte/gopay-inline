@@ -4,11 +4,11 @@
  * Test: Api\Entity\RecurringPayment
  */
 
-use Markette\GopayInline\Api\Entity\RecurringPayment;
-use Markette\GopayInline\Api\Objects\Item;
-use Markette\GopayInline\Api\Objects\Parameter;
-use Markette\GopayInline\Api\Objects\Payer;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\RecurringPayment;
+use Contributte\GopayInline\Api\Objects\Item;
+use Contributte\GopayInline\Api\Objects\Parameter;
+use Contributte\GopayInline\Api\Objects\Payer;
+use Contributte\GopayInline\Api\Objects\Target;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

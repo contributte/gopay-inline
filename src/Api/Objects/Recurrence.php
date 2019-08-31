@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
 class Recurrence extends AbstractObject
 {

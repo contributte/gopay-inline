@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Http;
+namespace Contributte\GopayInline\Http;
 
 interface Io
 {

@@ -4,7 +4,7 @@
  * Test: Api\Lists\PaymentInstrument
  */
 
-use Markette\GopayInline\Api\Lists\PaymentInstrument;
+use Contributte\GopayInline\Api\Lists\PaymentInstrument;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

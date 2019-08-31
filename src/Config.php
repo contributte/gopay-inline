@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline;
+namespace Contributte\GopayInline;
 
-use Markette\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Api\Gateway;
 
 class Config
 {

@@ -4,7 +4,7 @@
  * Test: Api\Gateway
  */
 
-use Markette\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Api\Gateway;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

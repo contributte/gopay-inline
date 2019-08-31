@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Http;
+namespace Contributte\GopayInline\Http;
 
-use Markette\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Exception\HttpException;
 
 class HttpClient implements Http
 {

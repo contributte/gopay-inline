@@ -4,8 +4,8 @@
  * Test: Api\Lists\Objects\Payer
  */
 
-use Markette\GopayInline\Api\Objects\Contact;
-use Markette\GopayInline\Api\Objects\Payer;
+use Contributte\GopayInline\Api\Objects\Contact;
+use Contributte\GopayInline\Api\Objects\Payer;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

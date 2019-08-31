@@ -1,9 +1,9 @@
 <?php
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Api\Lists\Scope;
-use Markette\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Api\Lists\Scope;
+use Contributte\GopayInline\Exception\HttpException;
 
 class AuthenticationService extends AbstractService
 {

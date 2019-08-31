@@ -1,11 +1,11 @@
 <?php
 
-namespace Markette\GopayInline\Api\Entity;
+namespace Contributte\GopayInline\Api\Entity;
 
-use Markette\GopayInline\Api\Objects\Item;
-use Markette\GopayInline\Api\Objects\Parameter;
-use Markette\GopayInline\Exception\ValidationException;
-use Markette\GopayInline\Utils\Validator;
+use Contributte\GopayInline\Api\Objects\Item;
+use Contributte\GopayInline\Api\Objects\Parameter;
+use Contributte\GopayInline\Exception\ValidationException;
+use Contributte\GopayInline\Utils\Validator;
 
 class RecurringPaymentFactory
 {

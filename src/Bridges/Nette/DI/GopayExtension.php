@@ -1,9 +1,9 @@
 <?php
 
-namespace Markette\GopayInline\Bridges\Nette\DI;
+namespace Contributte\GopayInline\Bridges\Nette\DI;
 
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 use Nette\Utils\Validators;

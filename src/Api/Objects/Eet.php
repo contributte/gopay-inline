@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
-use Markette\GopayInline\Utils\Money;
+use Contributte\GopayInline\Utils\Money;
 
 class Eet extends AbstractObject
 {

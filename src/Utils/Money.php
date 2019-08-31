@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Utils;
+namespace Contributte\GopayInline\Utils;
 
 final class Money
 {

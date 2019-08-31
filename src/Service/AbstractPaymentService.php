@@ -1,10 +1,10 @@
 <?php
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Api\Entity\Payment;
-use Markette\GopayInline\Api\Lists\TargetType;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\Payment;
+use Contributte\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Objects\Target;
 
 abstract class AbstractPaymentService extends AbstractService
 {

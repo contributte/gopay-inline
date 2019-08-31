@@ -1,14 +1,14 @@
 <?php
 
-namespace Markette\GopayInline\Auth;
+namespace Contributte\GopayInline\Auth;
 
-use Markette\GopayInline\Api\Gateway;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Exception\AuthorizationException;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Http\HttpClient;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Exception\AuthorizationException;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\HttpClient;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
 
 class Oauth2Client implements Auth
 {

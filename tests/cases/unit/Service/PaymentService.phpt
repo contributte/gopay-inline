@@ -4,20 +4,20 @@
  * Test: Service\PaymentService
  */
 
-use Markette\GopayInline\Api\Entity\Payment;
-use Markette\GopayInline\Api\Entity\PreauthorizedPayment;
-use Markette\GopayInline\Api\Entity\RecurrentPayment;
-use Markette\GopayInline\Api\Entity\RecurringPayment;
-use Markette\GopayInline\Api\Lists\Currency;
-use Markette\GopayInline\Api\Lists\PaymentType;
-use Markette\GopayInline\Api\Lists\TargetType;
-use Markette\GopayInline\Api\Objects\Eet;
-use Markette\GopayInline\Api\Objects\Item;
-use Markette\GopayInline\Api\Objects\Target;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Service\PaymentsService;
+use Contributte\GopayInline\Api\Entity\Payment;
+use Contributte\GopayInline\Api\Entity\PreauthorizedPayment;
+use Contributte\GopayInline\Api\Entity\RecurrentPayment;
+use Contributte\GopayInline\Api\Entity\RecurringPayment;
+use Contributte\GopayInline\Api\Lists\Currency;
+use Contributte\GopayInline\Api\Lists\PaymentType;
+use Contributte\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Objects\Eet;
+use Contributte\GopayInline\Api\Objects\Item;
+use Contributte\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Service\PaymentsService;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Api;
+namespace Contributte\GopayInline\Api;
 
 class Token
 {

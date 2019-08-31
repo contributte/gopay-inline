@@ -1,6 +1,6 @@
 <?php
 
-namespace Markette\GopayInline\Api\Lists;
+namespace Contributte\GopayInline\Api\Lists;
 
 class Currency
 {

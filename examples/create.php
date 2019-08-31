@@ -1,12 +1,12 @@
 <?php
 
-use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\Currency;
-use Markette\GopayInline\Api\Lists\Language;
-use Markette\GopayInline\Api\Lists\PaymentInstrument;
-use Markette\GopayInline\Api\Lists\SwiftCode;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Api\Entity\PaymentFactory;
+use Contributte\GopayInline\Api\Lists\Currency;
+use Contributte\GopayInline\Api\Lists\Language;
+use Contributte\GopayInline\Api\Lists\PaymentInstrument;
+use Contributte\GopayInline\Api\Lists\SwiftCode;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
 
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -28,10 +28,10 @@ $payment = [
 		'contact' => [
 			'first_name' => 'John',
 			'last_name' => 'Doe',
-			'email' => 'johndoe@markette.org',
+			'email' => 'johndoe@contributte.org',
 			'phone_number' => '+420123456789',
 			'city' => 'Prague',
-			'street' => 'Markette 123',
+			'street' => 'Contributte 123',
 			'postal_code' => '123 45',
 			'country_code' => 'CZE',
 		],

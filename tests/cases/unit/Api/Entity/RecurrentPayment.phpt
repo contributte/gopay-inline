@@ -4,10 +4,10 @@
  * Test: Api\Entity\RecurrentPayment
  */
 
-use Markette\GopayInline\Api\Entity\RecurrentPayment;
-use Markette\GopayInline\Api\Lists\RecurrenceCycle;
-use Markette\GopayInline\Api\Objects\Recurrence;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\RecurrentPayment;
+use Contributte\GopayInline\Api\Lists\RecurrenceCycle;
+use Contributte\GopayInline\Api\Objects\Recurrence;
+use Contributte\GopayInline\Api\Objects\Target;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';

@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
-use Markette\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Lists\TargetType;
 
 class Target extends AbstractObject
 {

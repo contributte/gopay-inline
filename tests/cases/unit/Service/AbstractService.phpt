@@ -6,12 +6,12 @@
 
 namespace Tests\Cases\Unit\Service;
 
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Exception\InvalidStateException;
-use Markette\GopayInline\Http\Http;
-use Markette\GopayInline\Http\Request;
-use Markette\GopayInline\Http\Response;
-use Markette\GopayInline\Service\AbstractService;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Exception\InvalidStateException;
+use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\Request;
+use Contributte\GopayInline\Http\Response;
+use Contributte\GopayInline\Service\AbstractService;
 use Mockery;
 use RuntimeException;
 use Tester\Assert;

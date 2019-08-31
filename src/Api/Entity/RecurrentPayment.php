@@ -1,8 +1,8 @@
 <?php
 
-namespace Markette\GopayInline\Api\Entity;
+namespace Contributte\GopayInline\Api\Entity;
 
-use Markette\GopayInline\Api\Objects\Recurrence;
+use Contributte\GopayInline\Api\Objects\Recurrence;
 
 class RecurrentPayment extends Payment
 {
