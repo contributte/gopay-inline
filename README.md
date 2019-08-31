@@ -21,6 +21,8 @@ Install **Markette/GopayInline** over composer.
 $ composer require markette/gopay-inline
 ```
 
+Why is the package still called Markette? Because we don't want to break other people's projects (for now).
+
 ## Requirements
 
 From GoPay you need:
