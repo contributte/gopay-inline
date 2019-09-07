@@ -16,6 +16,7 @@ use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Contributte\GopayInline\Http\Http;
+use Contributte\GopayInline\Http\Response;
 use Contributte\GopayInline\Service\PaymentsService;
 use Tester\Assert;
 
@@ -208,4 +209,22 @@ test(function () {
 		->andReturn(TRUE);
 
 	Assert::true($service->getEetReceipts(99));
+});
+
+// Capture payment
+test(function () {
+	$client = new Client(new Config(1, 2, 3));
+	$response = new Response;
+	$response->setData([
+		'id' => 10001,
+		'status' => 'FINISHED',
+	]);
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+	$service->shouldReceive('makeRequest')
+		->with('POST', 'payments/payment/10001/capture', ['amount' => 3150.])
+		->andReturn($response);
+
+	Assert::type(Response::class, $service->capturePayment(10001, 31.5));
 });
