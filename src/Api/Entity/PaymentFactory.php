@@ -37,6 +37,7 @@ class PaymentFactory
 		'additional_params',
 		'lang',
 		'eet',
+		'preauthorization',
 	];
 
 	/** @var array */
@@ -197,6 +198,11 @@ class PaymentFactory
 			}
 
 			$payment->setEet($eet);
+		}
+
+		// ### PREAUTHORIZATION
+		if (isset($data['preauthorization'])) {
+			$payment->setPreauthorization($data['preauthorization']);
 		}
 
 		return $payment;
