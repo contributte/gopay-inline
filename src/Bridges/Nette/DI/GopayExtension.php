@@ -5,7 +5,7 @@ namespace Contributte\GopayInline\Bridges\Nette\DI;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
-use Nette\DI\Definitions\Statement;
+use Nette\DI\Statement;
 use Nette\Utils\Validators;
 
 class GopayExtension extends CompilerExtension
