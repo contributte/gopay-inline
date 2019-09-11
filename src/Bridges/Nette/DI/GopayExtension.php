@@ -35,7 +35,7 @@ class GopayExtension extends CompilerExtension
 		Validators::assertField($config, 'test', 'bool');
 
 		$builder->addDefinition($this->prefix('client'))
-			->setClass(Client::class, [
+			->setFactory(Client::class, [
 				new Statement(Config::class, [
 					$config['goId'],
 					$config['clientId'],
