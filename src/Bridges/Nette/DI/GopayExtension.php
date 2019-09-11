@@ -5,13 +5,13 @@ namespace Contributte\GopayInline\Bridges\Nette\DI;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
-use Nette\DI\Statement;
+use Nette\DI\Definitions\Statement;
 use Nette\Utils\Validators;
 
 class GopayExtension extends CompilerExtension
 {
 
-	/** @var array */
+	/** @var mixed[] */
 	private $defaults = [
 		'goId' => NULL,
 		'clientId' => NULL,
@@ -34,15 +34,23 @@ class GopayExtension extends CompilerExtension
 		Validators::assertField($config, 'clientSecret', 'string');
 		Validators::assertField($config, 'test', 'bool');
 
-		$builder->addDefinition($this->prefix('client'))
-			->setFactory(Client::class, [
-				new Statement(Config::class, [
-					$config['goId'],
-					$config['clientId'],
-					$config['clientSecret'],
-					$config['test'] !== FALSE ? Config::TEST : Config::PROD,
-				]),
+		$definition = $builder->addDefinition($this->prefix('client'));
+		$configArguments = [
+			$config['goId'],
+			$config['clientId'],
+			$config['clientSecret'],
+			$config['test'] !== FALSE ? Config::TEST : Config::PROD,
+		];
+
+		if (class_exists(Statement::class)) { // Nette 3.0
+			$definition->setFactory(Client::class, [
+				new Statement(Config::class, $configArguments),
 			]);
+		} else { // Deprecated support for Nette 2.*
+			$definition->setClass(Client::class, [
+				new \Nette\DI\Statement(Config::class, $configArguments),
+			]);
+		}
 	}
 
 }
