@@ -239,7 +239,7 @@ Fill your credentials in config.
 
 ```yaml
 extensions:
-    gopay: Contributte\GopayInline\Bridges\Nette\DI\GopayExtension
+    gopay: Markette\GopayInline\Bridges\Nette\DI\GopayExtension
 
 gopay:
     goId: ***
