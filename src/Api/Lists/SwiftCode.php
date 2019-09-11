@@ -5,22 +5,41 @@ namespace Contributte\GopayInline\Api\Lists;
 class SwiftCode
 {
 
+	// cz
+	const AIR_BANK = 'AIRACZPP';
 	const CESKA_SPORITELNA = 'GIBACZPX';
-	const KOMERCNI_BANKA = 'KOMBCZPP';
-	const RAIFFEISENBANK = 'RZBCCZPP';
-	const MBANK = 'BREXCZPP';
-	const FIO_BANKA = 'FIOBCZPP';
 	const CSOB = 'CEKOCZPP';
-	const UNICREDIT_BANK_CZ = 'BACXCZPP';
+	const EQUA_BANK = 'EQBKCZPP';
 	const ERA = 'CEKOCZPP-ERA';
-	const VSEOBECNA_VEROVA_BANKA_BANKA = 'SUBASKBX';
-	const TATRA_BANKA = 'TATRSKBX';
-	const UNICREDIT_BANK_SK = 'UNCRSKBX';
-	const SLOVENSKA_SPORITELNA = 'GIBASKBX';
+	const EXPO_BANK = 'EXPNCZPP';
+	const FIO_BANKA = 'FIOBCZPP';
+	const HELLO_BANK = 'BPPFCZP1';
+	const ING_BANK = 'INGBCZPP';
+	const KOMERCNI_BANKA = 'KOMBCZPP';
+	const MBANK = 'BREXCZPP';
+	const MONETA_MONEY_BANK = 'AGBACZPP';
+	const OBER_BANK = 'OBKLCZ2X';
+	const RAIFFEISENBANK = 'RZBCCZPP';
+	const SBER_BANK = 'VBOECZ2X';
+	const UNICREDIT_BANK_CZ = 'BACXCZPP';
+
+	// sk
+	const BKS_BANK = 'BFKKSKBB';
+	const CITI_BANK_SK = 'CITISKBA';
+	const CSOB_SK = 'CEKOSKBX';
+	const FIO_BANKA_SK = 'FIOZSKBA';
+	const ING_BANK_SK = 'INGBSKBX';
+	const JT_BANKA_SK = 'JTBPSKBA';
+	const MBANK_SK = 'BREXSKBX';
+	const OBER_BANK_SK = 'OBKLSKBA';
 	const OTP_BANKA = 'OTPVSKBX';
 	const POSTOVA_BANKA = 'POBNSKBA';
-	const CSOB_SK = 'CEKOSKBX';
-	const SBERBANK_SLOVENSKO = 'LUBASKBX';
+	const PRIMA_BANKA = 'KOMASK2X';
+	const PRIVAT_BANKA = 'BSLOSK22';
+	const SLOVENSKA_SPORITELNA = 'GIBASKBX';
+	const TATRA_BANKA = 'TATRSKBX';
+	const UNICREDIT_BANK_SK = 'UNCRSKBX';
+	const VUB_BANK = 'SUBACZPP';
 
 	/**
 	 * @return array
@@ -36,13 +55,21 @@ class SwiftCode
 	public static function cz()
 	{
 		return [
+			self::AIR_BANK,
 			self::CESKA_SPORITELNA,
-			self::KOMERCNI_BANKA,
-			self::RAIFFEISENBANK,
-			self::MBANK,
-			self::FIO_BANKA,
 			self::CSOB,
+			self::EQUA_BANK,
 			self::ERA,
+			self::EXPO_BANK,
+			self::FIO_BANKA,
+			self::HELLO_BANK,
+			self::ING_BANK,
+			self::KOMERCNI_BANKA,
+			self::MBANK,
+			self::MONETA_MONEY_BANK,
+			self::OBER_BANK,
+			self::RAIFFEISENBANK,
+			self::SBER_BANK,
 			self::UNICREDIT_BANK_CZ,
 		];
 	}
@@ -53,14 +80,22 @@ class SwiftCode
 	public static function sk()
 	{
 		return [
-			self::VSEOBECNA_VEROVA_BANKA_BANKA,
-			self::TATRA_BANKA,
-			self::UNICREDIT_BANK_SK,
-			self::SLOVENSKA_SPORITELNA,
+			self::BKS_BANK,
+			self::CITI_BANK_SK,
+			self::CSOB_SK,
+			self::FIO_BANKA_SK,
+			self::ING_BANK_SK,
+			self::JT_BANKA_SK,
+			self::MBANK_SK,
+			self::OBER_BANK_SK,
 			self::OTP_BANKA,
 			self::POSTOVA_BANKA,
-			self::CSOB_SK,
-			self::SBERBANK_SLOVENSKO,
+			self::PRIMA_BANKA,
+			self::PRIVAT_BANKA,
+			self::SLOVENSKA_SPORITELNA,
+			self::TATRA_BANKA,
+			self::UNICREDIT_BANK_SK,
+			self::VUB_BANK,
 		];
 	}
 
