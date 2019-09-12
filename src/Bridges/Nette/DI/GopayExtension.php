@@ -5,19 +5,13 @@ namespace Contributte\GopayInline\Bridges\Nette\DI;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
-use Nette\DI\Statement;
-use Nette\Utils\Validators;
+use Nette\DI\Definitions\Statement;
+use Nette\Schema\Elements\Type;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
 
 class GopayExtension extends CompilerExtension
 {
-
-	/** @var array */
-	private $defaults = [
-		'goId' => NULL,
-		'clientId' => NULL,
-		'clientSecret' => NULL,
-		'test' => TRUE,
-	];
 
 	/**
 	 * Register services
@@ -26,23 +20,28 @@ class GopayExtension extends CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
-		$config = $this->validateConfig($this->defaults);
+		$config = $this->config;
 		$builder = $this->getContainerBuilder();
-
-		Validators::assertField($config, 'goId', 'string|number');
-		Validators::assertField($config, 'clientId', 'string|number');
-		Validators::assertField($config, 'clientSecret', 'string');
-		Validators::assertField($config, 'test', 'bool');
 
 		$builder->addDefinition($this->prefix('client'))
 			->setFactory(Client::class, [
 				new Statement(Config::class, [
-					$config['goId'],
-					$config['clientId'],
-					$config['clientSecret'],
-					$config['test'] !== FALSE ? Config::TEST : Config::PROD,
+					$config->goId,
+					$config->clientId,
+					$config->clientSecret,
+					$config->test !== FALSE ? Config::TEST : Config::PROD,
 				]),
 			]);
+	}
+
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'goId' => Expect::anyOf(new Type('string'), new Type('int'))->required(),
+			'clientId' => Expect::anyOf(new Type('string'), new Type('int'))->required(),
+			'clientSecret' => Expect::string()->required(),
+			'test' => Expect::bool(TRUE),
+		]);
 	}
 
 }

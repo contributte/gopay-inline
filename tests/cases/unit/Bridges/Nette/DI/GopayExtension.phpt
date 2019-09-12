@@ -9,7 +9,7 @@ use Contributte\GopayInline\Client;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
-use Nette\Utils\AssertionException;
+use Nette\DI\InvalidConfigurationException;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../../bootstrap.php';
@@ -21,7 +21,7 @@ test(function () {
 		$class = $loader->load(function (Compiler $compiler) {
 			$compiler->addExtension('gopay', new GopayExtension());
 		}, 'c1');
-	}, AssertionException::class);
+	}, InvalidConfigurationException::class);
 });
 
 // Configuration (pass parameters DEVELOPMENT)
