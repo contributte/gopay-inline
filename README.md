@@ -1,7 +1,7 @@
 # Contributte :: GopayInline
 
-[![Build Status](https://img.shields.io/travis/Contributte/GopayInline.svg?style=flat-square)](https://travis-ci.org/contributte/gopay-inline)
-[![Code coverage](https://img.shields.io/coveralls/Contributte/GopayInline.svg?style=flat-square)](https://coveralls.io/r/Contributte/GopayInline)
+[![Build Status](https://img.shields.io/travis/contributte/gopay-inline.svg?style=flat-square)](https://travis-ci.org/contributte/gopay-inline)
+[![Code coverage](https://img.shields.io/coveralls/contributte/gopay-inline.svg?style=flat-square)](https://coveralls.io/r/Contributte/GopayInline)
 [![Downloads latests](https://img.shields.io/packagist/dt/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
 [![Latest stable](https://img.shields.io/packagist/v/markette/gopay-inline.svg?style=flat-square)](https://packagist.org/packages/markette/gopay-inline)
 
