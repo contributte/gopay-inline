@@ -75,7 +75,7 @@ test(function () {
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 50, 'count' => 2],
+			['name' => 'item01', 'amount' => 100, 'count' => 2],
 			['name' => 'item02', 'amount' => 100],
 			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
 			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
@@ -125,7 +125,7 @@ test(function () {
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 50, 'count' => 2],
+			['name' => 'item01', 'amount' => 100, 'count' => 2],
 			['name' => 'item02', 'amount' => 100],
 			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
 			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
@@ -154,7 +154,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
 			['name' => 'Item 01', 'amount' => 50],
 		],
 		'return_url' => 6,
@@ -238,7 +238,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 3],
+			['name' => 'Item 01', 'amount' => 150, 'count' => 3],
 			['name' => 'Item 01', 'amount' => 50],
 		],
 		'return_url' => 6,
@@ -265,7 +265,7 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
 		],
 		'return_url' => 6,
 		'notify_url' => 7,
