@@ -17,7 +17,7 @@ abstract class AbstractPaymentService extends AbstractService
 	 */
 	protected function preConfigure(Payment $payment)
 	{
-		if (!$payment->getTarget()) {
+		if ($payment->getTarget() === NULL) {
 			$target = new Target();
 			$target->goid = $this->client->getGoId();
 			$target->type = TargetType::ACCOUNT;

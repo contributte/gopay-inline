@@ -22,11 +22,11 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	/** @var int */
 	protected $code;
 
-	/** @var string */
+	/** @var string|null */
 	protected $error;
 
 	/**
-	 * @return array
+	 * @return array|FALSE
 	 */
 	public function getData()
 	{
@@ -39,7 +39,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	 */
 	public function setData($data)
 	{
-		if (!is_bool($data) && $data) {
+		if (!is_bool($data) && $data !== NULL) {
 			$data = (array) $data;
 		}
 		$this->data = $data;
@@ -71,16 +71,16 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 	/**
-	 * @param int $code
+	 * @param mixed $code
 	 * @return void
 	 */
 	public function setCode($code)
 	{
-		$this->code = intval($code);
+		$this->code = (int) $code;
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getError()
 	{
@@ -109,12 +109,12 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	 */
 
 	/**
-	 * @param string $offset
+	 * @param mixed $offset
 	 * @return bool
 	 */
 	public function offsetExists($offset)
 	{
-		if ($this->data) {
+		if (is_array($this->data)) {
 			return isset($this->data[$offset]);
 		}
 
@@ -122,35 +122,35 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 	/**
-	 * @param string $offset
+	 * @param mixed $offset
 	 * @return mixed
 	 */
 	public function offsetGet($offset)
 	{
-		if (!$this->data) return NULL;
+		if (!is_array($this->data)) return NULL;
 
 		return $this->data[$offset];
 	}
 
 	/**
-	 * @param string $offset
+	 * @param mixed $offset
 	 * @param mixed $value
 	 * @return void
 	 */
 	public function offsetSet($offset, $value)
 	{
-		if ($this->data) {
+		if (is_array($this->data)) {
 			$this->data[$offset] = $value;
 		}
 	}
 
 	/**
-	 * @param string $offset
+	 * @param mixed $offset
 	 * @return void
 	 */
 	public function offsetUnset($offset)
 	{
-		if ($this->data) {
+		if (is_array($this->data)) {
 			unset($this->data[$offset]);
 		}
 	}
@@ -187,9 +187,9 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		if (isset($this->$name)) {
 			return $this->$name;
-		} else {
-			return $this->offsetGet($name);
 		}
+
+		return $this->offsetGet($name);
 	}
 
 }

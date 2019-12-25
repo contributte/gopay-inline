@@ -9,7 +9,7 @@ class HttpException extends GopayException
 
 	/**
 	 * @param stdClass $error
-	 * @return self
+	 * @return string
 	 */
 	public static function format(stdClass $error)
 	{

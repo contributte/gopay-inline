@@ -16,10 +16,10 @@ class Item extends AbstractObject
 	/** @var int */
 	public $count = 1;
 
-	/** @var string */
+	/** @var string|null */
 	public $type;
 
-	/** @var int */
+	/** @var int|null */
 	public $vatRate;
 
 	/**
@@ -55,7 +55,7 @@ class Item extends AbstractObject
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getType()
 	{
@@ -63,7 +63,7 @@ class Item extends AbstractObject
 	}
 
 	/**
-	 * @return int
+	 * @return int|null
 	 */
 	public function getVatRate()
 	{
@@ -132,12 +132,12 @@ class Item extends AbstractObject
 		// NOT REQUIRED ====================================
 
 		$type = $this->getType();
-		if ($type) {
+		if ($type !== NULL) {
 			$data['type'] = $type;
 		}
 
 		$vatRate = $this->getVatRate();
-		if ($vatRate) {
+		if ($vatRate !== NULL) {
 			$data['vat_rate'] = $vatRate;
 		}
 

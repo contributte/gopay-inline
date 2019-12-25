@@ -1,0 +1,7 @@
+includes:
+	- ./vendor/gamee/php-code-checker-rules/phpstan.neon
+
+parameters:
+	ignoreErrors:
+		- '#^Variable property access on#'
+		- '#^Anonymous function should have native return typehint#'

@@ -7,11 +7,11 @@ use Contributte\GopayInline\Api\Objects\Recurrence;
 class RecurrentPayment extends Payment
 {
 
-	/** @var Recurrence */
+	/** @var Recurrence|NULL */
 	protected $recurrence;
 
 	/**
-	 * @return Recurrence
+	 * @return Recurrence|NULL
 	 */
 	public function getRecurrence()
 	{
@@ -39,7 +39,7 @@ class RecurrentPayment extends Payment
 		$payment = parent::toArray();
 
 		$recurrence = $this->getRecurrence();
-		if ($recurrence) {
+		if ($recurrence !== NULL) {
 			$payment['recurrence'] = $recurrence->toArray();
 		}
 

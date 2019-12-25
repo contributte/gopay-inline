@@ -31,23 +31,23 @@ class Payer extends AbstractObject
 	{
 		$data = [];
 
-		if ($this->allowedPaymentInstruments) {
+		if ($this->allowedPaymentInstruments !== NULL) {
 			$data['allowed_payment_instruments'] = $this->allowedPaymentInstruments;
 		}
 
-		if ($this->defaultPaymentInstrument) {
+		if ($this->defaultPaymentInstrument !== NULL) {
 			$data['default_payment_instrument'] = $this->defaultPaymentInstrument;
 		}
 
-		if ($this->defaultSwift) {
+		if ($this->defaultSwift !== NULL) {
 			$data['default_swift'] = $this->defaultSwift;
 		}
 
-		if ($this->allowedSwifts) {
+		if ($this->allowedSwifts !== NULL) {
 			$data['allowed_swifts'] = $this->allowedSwifts;
 		}
 
-		if ($this->contact) {
+		if ($this->contact !== NULL) {
 			$data['contact'] = $this->contact->toArray();
 		}
 

@@ -55,7 +55,7 @@ abstract class AbstractService
 	 * @param string $method
 	 * @param string $uri
 	 * @param array $data
-	 * @param string $contentType
+	 * @param string|NULL $contentType
 	 * @return Response
 	 */
 	protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
