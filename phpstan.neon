@@ -1,5 +1,5 @@
 includes:
-	- ./vendor/gamee/php-code-checker-rules/phpstan.neon
+	- ./vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
 	ignoreErrors:
