@@ -25,7 +25,7 @@ class RecurringPayment extends Payment
 		$data['items'] = $this->formatItems($this->getItems());
 
 		$parameters = $this->getParameters();
-		if ($parameters) {
+		if (count($parameters) > 0) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
 		return $data;

@@ -30,7 +30,7 @@ class Client
 	/** @var Http */
 	private $http;
 
-	/** @var Token */
+	/** @var Token|null */
 	private $token;
 
 	/** @var array */
@@ -53,7 +53,7 @@ class Client
 	 */
 	protected function getAuth()
 	{
-		if (!$this->auth) {
+		if ($this->auth === NULL) {
 			$this->auth = new Oauth2Client($this, $this->getHttp());
 		}
 
@@ -74,7 +74,7 @@ class Client
 	 */
 	protected function getHttp()
 	{
-		if (!$this->http) {
+		if ($this->http === NULL) {
 			$this->http = new HttpClient();
 		}
 
@@ -154,7 +154,7 @@ class Client
 	 */
 	public function authenticate(array $credentials)
 	{
-		if (!$this->token) {
+		if ($this->token === NULL) {
 			$response = $this->getAuth()->authenticate($credentials);
 			$this->token = Token::create($response->getData());
 		}
@@ -168,7 +168,7 @@ class Client
 	 */
 	public function call(Request $request)
 	{
-		if (!$this->token) {
+		if ($this->token === NULL) {
 			throw new GopayException('Invalid token. Please do authorization.');
 		}
 

@@ -6,7 +6,6 @@ use Contributte\GopayInline\Api\Gateway;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Exception\AuthorizationException;
 use Contributte\GopayInline\Http\Http;
-use Contributte\GopayInline\Http\HttpClient;
 use Contributte\GopayInline\Http\Request;
 use Contributte\GopayInline\Http\Response;
 
@@ -16,7 +15,7 @@ class Oauth2Client implements Auth
 	/** @var Client */
 	private $client;
 
-	/** @var HttpClient */
+	/** @var Http */
 	private $http;
 
 	/**
@@ -67,10 +66,12 @@ class Oauth2Client implements Auth
 		// Make request
 		$response = $this->http->doRequest($request);
 
-		if (!$response || !$response->getData()) {
+		if ($response->getData() === FALSE) {
 			// cURL errors
 			throw new AuthorizationException('Authorization failed', $response->getCode());
-		} else if (isset($response->getData()->errors)) {
+		}
+
+		if (isset($response->getData()->errors)) {
 			// GoPay errors
 			$error = $response->getData()->errors[0];
 			throw new AuthorizationException(AuthorizationException::format($error), $error->error_code);

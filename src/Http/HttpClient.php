@@ -15,7 +15,7 @@ class HttpClient implements Http
 	 */
 	public function getIo()
 	{
-		if (!$this->io) {
+		if ($this->io === NULL) {
 			$this->io = new Curl();
 		}
 
@@ -44,10 +44,12 @@ class HttpClient implements Http
 	public function doRequest(Request $request)
 	{
 		$response = $this->getIo()->call($request);
-		if (!$response) {
+		if ($response === FALSE || $response->getError() !== NULL) {
 			// cURL error
 			throw new HttpException('Request failed');
-		} else if (isset($response->data['errors'])) {
+		}
+
+		if (isset($response->data['errors'])) {
 			// GoPay errors
 			$error = $response->data['errors'][0];
 			throw new HttpException(HttpException::format($error), $error->error_code);

@@ -18,7 +18,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';
 
-class DummyService extends AbstractService
+class DummyService extends AbstractService // @codingStandardsIgnoreLine
 {
 
 	/**

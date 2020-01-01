@@ -1,7 +1,5 @@
 language: php
 php:
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -17,14 +15,6 @@ matrix:
     - php: 7.4
 
   include:
-    - php: 5.6
-      env: COMPOSER_FLAG=--prefer-lowest CODE_CHECKER_VERSION=^2.13
-    - php: 5.6
-      env: COMPOSER_FLAG=--prefer-stable CODE_CHECKER_VERSION=^2.13
-    - php: 7.0
-      env: COMPOSER_FLAG=--prefer-lowest CODE_CHECKER_VERSION=^2.13
-    - php: 7.0
-      env: COMPOSER_FLAG=--prefer-stable CODE_CHECKER_VERSION=^2.13
     - php: 7.1
       env: COMPOSER_FLAG=--prefer-lowest
     - php: 7.1
@@ -37,18 +27,16 @@ matrix:
       env: COMPOSER_FLAG=--prefer-lowest
     - php: 7.3
       env: COMPOSER_FLAG=--prefer-stable
-
-  exclude:
-    - php: 5.6
-      env: CODE_CHECKER_VERSION=^3.1
-    - php: 7.0
-      env: CODE_CHECKER_VERSION=^3.1
+    - php: 7.4
+      env: COMPOSER_FLAG=--prefer-lowest
+    - php: 7.4
+      env: COMPOSER_FLAG=--prefer-stable
 
 before_script:
   # Composer
   - travis_retry composer install --no-interaction
   # Coverage
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
 
 script:
   # Quality Assurance

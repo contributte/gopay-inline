@@ -19,16 +19,16 @@ class Eet extends AbstractObject
 	/** @var float */
 	public $tax;
 
-	/** @var float */
+	/** @var float|null */
 	public $taxBaseReducedRateFirst;
 
-	/** @var float */
+	/** @var float|null */
 	public $taxReducedRateFirst;
 
-	/** @var float */
+	/** @var float|null */
 	public $taxBaseReducedRateSecond;
 
-	/** @var float */
+	/** @var float|null */
 	public $taxReducedRateSecond;
 
 	/** @var string */
@@ -51,7 +51,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxBase()
 	{
@@ -67,7 +67,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTax()
 	{
@@ -83,7 +83,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxBaseReducedRateFirst()
 	{
@@ -99,7 +99,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxReducedRateFirst()
 	{
@@ -115,7 +115,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxBaseReducedRateSecond()
 	{
@@ -131,7 +131,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxReducedRateSecond()
 	{
@@ -155,7 +155,7 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
 	public function getTaxBaseNoVat()
 	{
@@ -260,21 +260,21 @@ class Eet extends AbstractObject
 		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
 
-		if ($this->getTaxBaseNoVat()) {
+		if ($this->getTaxBaseNoVat() !== NULL) {
 			$data['zakl_nepodl_dph'] = $this->getTaxBaseNoVat();
 		}
 
-		if ($this->getTaxBase() && $this->getTax()) {
+		if ($this->getTaxBase() !== NULL && $this->getTax() !== NULL) {
 			$data['zakl_dan1'] = $this->getTaxBaseInCents();
 			$data['dan1'] = $this->getTaxInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateFirst() && $this->getTaxReducedRateFirst()) {
+		if ($this->getTaxBaseReducedRateFirst() !== NULL && $this->getTaxReducedRateFirst() !== NULL) {
 			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirstInCents();
 			$data['dan2'] = $this->getTaxReducedRateFirstInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateSecond() && $this->getTaxReducedRateSecond()) {
+		if ($this->getTaxBaseReducedRateSecond() !== NULL && $this->getTaxReducedRateSecond() !== NULL) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}

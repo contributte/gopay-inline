@@ -5,28 +5,28 @@ namespace Contributte\GopayInline\Api\Objects;
 class Contact extends AbstractObject
 {
 
-	/** @var string */
+	/** @var string|NULL */
 	public $firstname;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $lastname;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $email;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $phone;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $city;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $street;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $zip;
 
-	/** @var string */
+	/** @var string|NULL */
 	public $country;
 
 	/**
@@ -40,35 +40,35 @@ class Contact extends AbstractObject
 	{
 		$data = [];
 
-		if ($this->firstname) {
+		if ($this->firstname !== NULL) {
 			$data['first_name'] = $this->firstname;
 		}
 
-		if ($this->lastname) {
+		if ($this->lastname !== NULL) {
 			$data['last_name'] = $this->lastname;
 		}
 
-		if ($this->email) {
+		if ($this->email !== NULL) {
 			$data['email'] = $this->email;
 		}
 
-		if ($this->phone) {
+		if ($this->phone !== NULL) {
 			$data['phone_number'] = $this->phone;
 		}
 
-		if ($this->city) {
+		if ($this->city !== NULL) {
 			$data['city'] = $this->city;
 		}
 
-		if ($this->street) {
+		if ($this->street !== NULL) {
 			$data['street'] = $this->street;
 		}
 
-		if ($this->zip) {
+		if ($this->zip !== NULL) {
 			$data['postal_code'] = $this->zip;
 		}
 
-		if ($this->country) {
+		if ($this->country !== NULL) {
 			$data['country_code'] = $this->country;
 		}
 

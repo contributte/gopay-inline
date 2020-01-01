@@ -7,7 +7,7 @@ interface Io
 
 	/**
 	 * @param Request $request
-	 * @return Response
+	 * @return Response|FALSE
 	 */
 	public function call(Request $request);
 

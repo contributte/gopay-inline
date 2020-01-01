@@ -1,0 +1,7 @@
+includes:
+	- ./vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+	ignoreErrors:
+		- '#^Variable property access on#'
+		- '#^Anonymous function should have native return typehint#'

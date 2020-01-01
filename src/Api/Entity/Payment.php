@@ -12,7 +12,7 @@ use Contributte\GopayInline\Utils\Money;
 class Payment extends AbstractEntity
 {
 
-	/** @var Payer */
+	/** @var Payer|NULL */
 	protected $payer;
 
 	/** @var Target */
@@ -42,17 +42,17 @@ class Payment extends AbstractEntity
 	/** @var Parameter[] */
 	protected $parameters = [];
 
-	/** @var string */
+	/** @var string|NULL */
 	protected $lang;
 
-	/** @var Eet */
+	/** @var Eet|NULL */
 	protected $eet;
 
 	/** @var bool */
 	protected $preauthorization = FALSE;
 
 	/**
-	 * @return Payer
+	 * @return Payer|NULL
 	 */
 	public function getPayer()
 	{
@@ -69,7 +69,7 @@ class Payment extends AbstractEntity
 	}
 
 	/**
-	 * @return Target
+	 * @return Target|null
 	 */
 	public function getTarget()
 	{
@@ -248,7 +248,7 @@ class Payment extends AbstractEntity
 	}
 
 	/**
-	 * @return string
+	 * @return string|NULL
 	 */
 	public function getLang()
 	{
@@ -265,7 +265,7 @@ class Payment extends AbstractEntity
 	}
 
 	/**
-	 * @return Eet
+	 * @return Eet|NULL
 	 */
 	public function getEet()
 	{
@@ -308,7 +308,7 @@ class Payment extends AbstractEntity
 	 */
 	protected function formatItems($items)
 	{
-		if (!$items) return [];
+		if (!is_array($items)) return [];
 
 		// Format items
 		return array_map(function (Item $item) {
@@ -322,7 +322,7 @@ class Payment extends AbstractEntity
 	 */
 	protected function formatParameters($parameters)
 	{
-		if (!$parameters) return [];
+		if (!is_array($parameters)) return [];
 
 		// Format items
 		return array_map(function (Parameter $param) {
@@ -358,22 +358,22 @@ class Payment extends AbstractEntity
 		// NOT REQUIRED ====================================
 
 		$payer = $this->getPayer();
-		if ($payer) {
+		if ($payer !== NULL) {
 			$data['payer'] = $payer->toArray();
 		}
 
 		$parameters = $this->getParameters();
-		if ($parameters) {
+		if (count($parameters) > 0) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
 
 		$lang = $this->getLang();
-		if ($lang) {
+		if ($lang !== NULL) {
 			$data['lang'] = $lang;
 		}
 
 		$eet = $this->getEet();
-		if ($eet) {
+		if ($eet !== NULL) {
 			$data['eet'] = $eet->toArray();
 		}
 
