@@ -29,7 +29,7 @@ On server you need:
 
 ## Resources / Docs
 
-* Webpage ([https://www.gopaygate.com](https://www.gopaygate.com))
+* Webpage ([https://www.gopay.com](https://www.gopay.com))
 * Offical resources in EN ([https://doc.gopay.com/en/](https://doc.gopay.com/en/))
 * Offical resources in CZ ([https://doc.gopay.com/cs/](https://doc.gopay.com/cs/))
 
