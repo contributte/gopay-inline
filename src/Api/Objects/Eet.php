@@ -1,312 +1,263 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
-use Contributte\GopayInline\Utils\Money;
+use Money\Currency;
+use Money\Money;
 
 class Eet extends AbstractObject
 {
 
-	/** @var float */
+	/** @var Money */
 	public $sum;
 
-	/** @var float */
+	/** @var Money|null */
 	public $taxBase;
 
-	/** @var float */
+	/** @var Money|null */
 	public $taxBaseNoVat;
 
-	/** @var float */
+	/** @var Money|null */
 	public $tax;
 
-	/** @var float|null */
+	/** @var Money|null */
 	public $taxBaseReducedRateFirst;
 
-	/** @var float|null */
+	/** @var Money|null */
 	public $taxReducedRateFirst;
 
-	/** @var float|null */
+	/** @var Money|null */
 	public $taxBaseReducedRateSecond;
 
-	/** @var float|null */
+	/** @var Money|null */
 	public $taxReducedRateSecond;
+
+	/** @var Money|null */
+	public $subsequentDrawing;
+
+	/** @var Money|null */
+	public $subsequentlyDrawn;
 
 	/** @var string */
 	public $currency;
 
-	/** @var float|null */
-	public $subsequentDrawing;
-
-	/** @var float|null */
-	public $subsequentlyDrawn;
-
-	/**
-	 * @return float
-	 */
-	public function getSum()
+	public function getSum(): Money
 	{
 		return $this->sum;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getSumInCents()
+	public function getSumInCents(): string
 	{
-		return Money::toCents($this->getSum());
+		return $this->getSum()->getAmount();
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBase()
+	public function getTaxBase(): ?Money
 	{
 		return $this->taxBase;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseInCents()
+	public function getTaxBaseInCents(): ?string
 	{
-		return Money::toCents($this->getTaxBase());
+		return $this->taxBase ? $this->taxBase->getAmount() : null;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTax()
+	public function getTax(): ?Money
 	{
 		return $this->tax;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxInCents()
+	public function getTaxInCents(): ?string
 	{
-		return Money::toCents($this->getTax());
+		return $this->tax ? $this->tax->getAmount() : null;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseReducedRateFirst()
+	public function getTaxBaseReducedRateFirst(): ?Money
 	{
 		return $this->taxBaseReducedRateFirst;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseReducedRateFirstInCents()
+	public function getTaxBaseReducedRateFirstInCents(): ?string
 	{
-		return Money::toCents($this->getTaxBaseReducedRateFirst());
+		return $this->taxBaseReducedRateFirst ? $this->taxBaseReducedRateFirst->getAmount() : null;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxReducedRateFirst()
+	public function getTaxReducedRateFirst(): ?Money
 	{
 		return $this->taxReducedRateFirst;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxReducedRateFirstInCents()
+	public function getTaxReducedRateFirstInCents(): ?string
 	{
-		return Money::toCents($this->getTaxReducedRateFirst());
+		return $this->taxReducedRateFirst ? $this->taxReducedRateFirst->getAmount() : null;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseReducedRateSecond()
+	public function getTaxBaseReducedRateSecond(): ?Money
 	{
 		return $this->taxBaseReducedRateSecond;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseReducedRateSecondInCents()
+	public function getTaxBaseReducedRateSecondInCents(): ?string
 	{
-		return Money::toCents($this->getTaxBaseReducedRateSecond());
+		return $this->taxBaseReducedRateSecond ? $this->taxBaseReducedRateSecond->getAmount() : null;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxReducedRateSecond()
+	public function getTaxReducedRateSecond(): ?Money
 	{
 		return $this->taxReducedRateSecond;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getTaxReducedRateSecondInCents()
+	public function getTaxReducedRateSecondInCents(): ?string
 	{
-		return Money::toCents($this->getTaxReducedRateSecond());
+		return $this->taxReducedRateSecond ? $this->taxReducedRateSecond->getAmount() : null;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getCurrency()
+	public function getCurrency(): string
 	{
-		return $this->currency;
+		return $this->sum->getCurrency()->getCode();
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseNoVat()
+	public function getTaxBaseNoVat(): ?Money
 	{
 		return $this->taxBaseNoVat;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getSubsequentDrawing()
+	public function getSubsequentDrawing(): ?Money
 	{
 		return $this->subsequentDrawing;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	public function getSubsequentlyDrawn()
+	public function getSubsequentDrawingInCents(): ?string
+	{
+		return $this->subsequentDrawing ? $this->subsequentDrawing->getAmount() : null;
+	}
+
+	public function getSubsequentlyDrawn(): ?Money
 	{
 		return $this->subsequentlyDrawn;
 	}
 
-	/**
-	 * @param float $sum
-	 * @return void
-	 */
-	public function setSum($sum)
+	public function getSubsequentlyDrawnInCents(): ?Money
+	{
+		return $this->subsequentlyDrawn ? $this->subsequentlyDrawn->getAmount() : null;
+	}
+
+	public function setSum(Money $sum): void
 	{
 		$this->sum = $sum;
 	}
 
-	/**
-	 * @param float $taxBase
-	 * @return void
-	 */
-	public function setTaxBase($taxBase)
+	public function setTaxBase(Money $taxBase): void
 	{
 		$this->taxBase = $taxBase;
 	}
 
-	/**
-	 * @param float $tax
-	 * @return void
-	 */
-	public function setTax($tax)
+	public function setTax(Money $tax): void
 	{
 		$this->tax = $tax;
 	}
 
-	/**
-	 * @param float $taxBaseReducedRateFirst
-	 * @return void
-	 */
-	public function setTaxBaseReducedRateFirst($taxBaseReducedRateFirst)
+	public function setTaxBaseReducedRateFirst(Money $taxBaseReducedRateFirst): void
 	{
 		$this->taxBaseReducedRateFirst = $taxBaseReducedRateFirst;
 	}
 
-	/**
-	 * @param float $taxReducedRateFirst
-	 * @return void
-	 */
-	public function setTaxReducedRateFirst($taxReducedRateFirst)
+	public function setTaxReducedRateFirst(Money $taxReducedRateFirst): void
 	{
 		$this->taxReducedRateFirst = $taxReducedRateFirst;
 	}
 
-	/**
-	 * @param float $taxBaseReducedRateSecond
-	 * @return void
-	 */
-	public function setTaxBaseReducedRateSecond($taxBaseReducedRateSecond)
+	public function setTaxBaseReducedRateSecond(Money $taxBaseReducedRateSecond): void
 	{
 		$this->taxBaseReducedRateSecond = $taxBaseReducedRateSecond;
 	}
 
-	/**
-	 * @param float $taxReducedRateSecond
-	 * @return void
-	 */
-	public function setTaxReducedRateSecond($taxReducedRateSecond)
+	public function setTaxReducedRateSecond(Money $taxReducedRateSecond): void
 	{
 		$this->taxReducedRateSecond = $taxReducedRateSecond;
 	}
 
-	/**
-	 * @param string $currency
-	 * @return void
-	 */
-	public function setCurrency($currency)
-	{
-		$this->currency = $currency;
-	}
-
-	/**
-	 * @param float $taxBaseNoVat
-	 * @return void
-	 */
-	public function setTaxBaseNoVat($taxBaseNoVat)
+	public function setTaxBaseNoVat(Money $taxBaseNoVat): void
 	{
 		$this->taxBaseNoVat = $taxBaseNoVat;
 	}
 
-	/**
-	 * HELPERS *****************************************************************
-	 */
+	public function getTotal(): Money
+	{
+		$total = new Money(0, new Currency($this->getCurrency()));
+
+		if ($this->tax) {
+			$total = $total->add($this->tax);
+		}
+
+		if ($this->taxBaseNoVat) {
+			$total = $total->add($this->taxBaseNoVat);
+		}
+
+		if ($this->taxBase) {
+			$total = $total->add($this->taxBase);
+		}
+
+		if ($this->taxBaseReducedRateFirst) {
+			$total = $total->add($this->taxBaseReducedRateFirst);
+		}
+
+		if ($this->taxReducedRateFirst) {
+			$total = $total->add($this->taxReducedRateFirst);
+		}
+
+		if ($this->taxBaseReducedRateSecond) {
+			$total = $total->add($this->taxBaseReducedRateSecond);
+		}
+
+		if ($this->taxReducedRateSecond) {
+			$total = $total->add($this->taxReducedRateSecond);
+		}
+
+		if ($this->subsequentDrawing) {
+			$total = $total->add($this->subsequentDrawing);
+		}
+
+		if ($this->subsequentlyDrawn) {
+			$total = $total->add($this->subsequentlyDrawn);
+		}
+
+		return $total;
+	}
 
 	/**
-	 * ABSTRACT ****************************************************************
+	 * @return mixed[]
 	 */
-
-	/**
-	 * @return array
-	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
 
-		if ($this->getTaxBaseNoVat() !== NULL) {
+		if ($this->getTaxBaseNoVat()) {
 			$data['zakl_nepodl_dph'] = $this->getTaxBaseNoVat();
 		}
 
-		if ($this->getTaxBase() !== NULL && $this->getTax() !== NULL) {
+		if ($this->getTaxBase() && $this->getTax()) {
 			$data['zakl_dan1'] = $this->getTaxBaseInCents();
 			$data['dan1'] = $this->getTaxInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateFirst() !== NULL && $this->getTaxReducedRateFirst() !== NULL) {
+		if ($this->getTaxBaseReducedRateFirst() && $this->getTaxReducedRateFirst()) {
 			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirstInCents();
 			$data['dan2'] = $this->getTaxReducedRateFirstInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateSecond() !== NULL && $this->getTaxReducedRateSecond() !== NULL) {
+		if ($this->getTaxBaseReducedRateSecond() && $this->getTaxReducedRateSecond()) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}
 
 		if ($this->getSubsequentDrawing() !== NULL) {
-			$data['urceno_cerp_zuct'] = $this->getSubsequentDrawing();
+			$data['urceno_cerp_zuct'] = $this->getSubsequentDrawingInCents();
 		}
 
 		if ($this->getSubsequentlyDrawn() !== NULL) {
-			$data['cerp_zuct'] = $this->getSubsequentlyDrawn();
+			$data['cerp_zuct'] = $this->getSubsequentlyDrawnInCents();
 		}
 
 		return $data;

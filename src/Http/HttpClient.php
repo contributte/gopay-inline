@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Http;
 
@@ -10,23 +10,16 @@ class HttpClient implements Http
 	/** @var Io */
 	protected $io;
 
-	/**
-	 * @return Io
-	 */
-	public function getIo()
+	public function getIo(): Io
 	{
-		if ($this->io === NULL) {
+		if (!$this->io) {
 			$this->io = new Curl();
 		}
 
 		return $this->io;
 	}
 
-	/**
-	 * @param Io $io
-	 * @return void
-	 */
-	public function setIo(Io $io)
+	public function setIo(Io $io): void
 	{
 		$this->io = $io;
 	}
@@ -37,14 +30,11 @@ class HttpClient implements Http
 
 	/**
 	 * Take request and execute him
-	 *
-	 * @param Request $request
-	 * @return Response
 	 */
-	public function doRequest(Request $request)
+	public function doRequest(Request $request): Response
 	{
 		$response = $this->getIo()->call($request);
-		if ($response === FALSE || $response->getError() !== NULL) {
+		if (!$response->isSuccess()) {
 			// cURL error
 			throw new HttpException('Request failed');
 		}

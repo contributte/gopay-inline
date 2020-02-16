@@ -13,16 +13,17 @@
 	"require": {
 		"php": "^7.2",
 		"ext-curl": "*",
-		"ext-json": "*"
+		"ext-json": "*",
+		"moneyphp/money": "^3.3"
 	},
 	"require-dev": {
-		"ninjify/qa": "^0.3.3",
-		"ninjify/nunjuck": "^0.1.4",
-		"nette/tester": "^1.7.0",
-		"mockery/mockery": "^0.9.6",
-		"nette/di": "^2.4.4|^3.0",
+		"ninjify/qa": "^0.10",
+		"ninjify/nunjuck": "^0.3",
+		"nette/tester": "^2.3",
+		"mockery/mockery": "^1.3",
 		"phpstan/phpstan": "^0.12",
-		"phpstan/phpstan-strict-rules": "^0.12"
+		"phpstan/phpstan-strict-rules": "^0.12",
+		"nette/di": "^2.4.4|^3.0"
 	},
 	"suggest": {
 		"nette/di": "For GopayExtension"
@@ -44,13 +45,13 @@
 			"@qa-tester"
 		],
 		"qa-codesniffer": [
-			"Ninjify\\Composer\\Script\\CodeSniffer::execute"
+			"vendor/bin/codesniffer"
 		],
 		"qa-codefixer": [
-			"Ninjify\\Composer\\Script\\CodeFixer::execute"
+			"vendor/bin/codefixer"
 		],
 		"qa-linter": [
-			"Ninjify\\Composer\\Script\\Linter::execute"
+			"vendor/bin/linter"
 		],
 		"qa-tester": [
 			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini"

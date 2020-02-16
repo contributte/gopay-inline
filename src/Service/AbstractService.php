@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Service;
 
@@ -14,34 +14,27 @@ use Contributte\GopayInline\Http\Response;
 abstract class AbstractService
 {
 
-	/** @var array */
+	/** @var callable[] */
 	public $onRequest = [];
 
-	/** @var array */
+	/** @var callable[] */
 	public $onAuthorization = [];
 
 	/** @var Client */
 	protected $client;
 
-	/** @var array */
+	/** @var mixed[] */
 	protected $options = [
-		CURLOPT_SSL_VERIFYPEER => FALSE,
-		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_RETURNTRANSFER => true,
 	];
 
-	/**
-	 * @param Client $client
-	 */
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
 	}
 
-	/**
-	 * @param string $scope
-	 * @return string
-	 */
-	protected function doAuthorization($scope = Scope::PAYMENT_ALL)
+	protected function doAuthorization(string $scope = Scope::PAYMENT_ALL): string
 	{
 		// Invoke events
 		$this->trigger('onAuthorization', [$scope]);
@@ -52,13 +45,9 @@ abstract class AbstractService
 	/**
 	 * Build request and execute him
 	 *
-	 * @param string $method
-	 * @param string $uri
-	 * @param array $data
-	 * @param string|NULL $contentType
-	 * @return Response
+	 * @param mixed[] $data
 	 */
-	protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
+	protected function makeRequest(string $method, string $uri, ?array $data = null, ?string $contentType = Http::CONTENT_JSON): Response
 	{
 		// Invoke events
 		$this->trigger('onRequest', [$method, $uri, $data]);
@@ -91,7 +80,7 @@ abstract class AbstractService
 			// GET =========================================
 			case HttpClient::METHOD_GET:
 				$request->appendOpts([
-					CURLOPT_HTTPGET => TRUE,
+					CURLOPT_HTTPGET => true,
 				]);
 
 				break;
@@ -99,12 +88,11 @@ abstract class AbstractService
 			// POST ========================================
 			case HttpClient::METHOD_POST:
 				$request->appendOpts([
-					CURLOPT_POST => TRUE,
+					CURLOPT_POST => true,
 					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
 				]);
 
 				break;
-
 			default:
 				throw new InvalidStateException('Unsupported http method');
 		}
@@ -113,11 +101,9 @@ abstract class AbstractService
 	}
 
 	/**
-	 * @param string $event
-	 * @param array $data
-	 * @return void
+	 * @param mixed[] $data
 	 */
-	protected function trigger($event, array $data)
+	protected function trigger(string $event, array $data): void
 	{
 		foreach ($this->{$event} as $callback) {
 			call_user_func_array($callback, $data);

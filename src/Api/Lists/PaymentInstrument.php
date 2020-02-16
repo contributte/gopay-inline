@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
@@ -6,42 +6,42 @@ class PaymentInstrument
 {
 
 	// Payment cards
-	const PAYMENT_CARD = 'PAYMENT_CARD';
+	public const PAYMENT_CARD = 'PAYMENT_CARD';
 
 	// Bank transfer
-	const BANK_ACCOUNT = 'BANK_ACCOUNT';
+	public const BANK_ACCOUNT = 'BANK_ACCOUNT';
 
 	// Premium SMS
-	const PRSMS = 'PRSMS';
+	public const PRSMS = 'PRSMS';
 
 	// mPayment
-	const MPAYMENT = 'MPAYMENT';
+	public const MPAYMENT = 'MPAYMENT';
 
 	// Paysafecard
-	const PAYSAFECARD = 'PAYSAFECARD';
+	public const PAYSAFECARD = 'PAYSAFECARD';
 
 	// superCASH
-	const SUPERCASH = 'SUPERCASH';
+	public const SUPERCASH = 'SUPERCASH';
 
 	// GoPay account
-	const GOPAY = 'GOPAY';
+	public const GOPAY = 'GOPAY';
 
 	// PayPal account
-	const PAYPAL = 'PAYPAL';
+	public const PAYPAL = 'PAYPAL';
 
 	// BITCOIN account
-	const BITCOIN = 'BITCOIN';
+	public const BITCOIN = 'BITCOIN';
 
 	// Google Pay
-	const GPAY = 'GPAY';
+	public const GPAY = 'GPAY';
 
 	// Apple Pay
 	const APPLE_PAY = 'APPLE_PAY';
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function all()
+	public static function all(): array
 	{
 		return [
 			self::PAYMENT_CARD,

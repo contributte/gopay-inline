@@ -14,6 +14,11 @@ $ composer require markette/gopay-inline
 
 Why is the package still called Markette? Because we don't want to break other people's projects (for now).
 
+## Migrating to v2
+
+- Parameters `goId`, `clientId` and `clientSecret` in `GopayInline\Config` are strings. You may need to change your `config.neon` file.
+- `Payment` works with `Money` object.
+
 ## Requirements
 
 From GoPay you need:

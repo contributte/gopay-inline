@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
-use Contributte\GopayInline\Utils\Money;
+use Money\Money;
 
 class Item extends AbstractObject
 {
 
-	/** @var string */
+	/** @var string|null */
 	public $name;
 
-	/** @var float */
+	/** @var Money */
 	public $amount;
 
 	/** @var int */
@@ -22,95 +22,57 @@ class Item extends AbstractObject
 	/** @var int|null */
 	public $vatRate;
 
-	/**
-	 * @return string
-	 */
-	public function getName()
+	public function getName(): ?string
 	{
 		return $this->name;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmount()
+	public function getAmount(): Money
 	{
 		return $this->amount;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getCount()
+	public function getCount(): int
 	{
 		return $this->count;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmountInCents()
+	public function getAmountInCents(): string
 	{
-		return Money::toCents($this->getAmount());
+		return $this->amount->getAmount();
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getType()
+	public function getType(): ?string
 	{
 		return $this->type;
 	}
 
-	/**
-	 * @return int|null
-	 */
-	public function getVatRate()
+	public function getVatRate(): ?int
 	{
 		return $this->vatRate;
 	}
 
-	/**
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name)
+	public function setName(string $name): void
 	{
 		$this->name = $name;
 	}
 
-	/**
-	 * @param float $amount
-	 * @return void
-	 */
-	public function setAmount($amount)
+	public function setAmount(Money $amount): void
 	{
 		$this->amount = $amount;
 	}
 
-	/**
-	 * @param int $count
-	 * @return void
-	 */
-	public function setCount($count)
+	public function setCount(int $count): void
 	{
-		$this->count = intval($count);
+		$this->count = $count;
 	}
 
-	/**
-	 * @param string $type
-	 * @return void
-	 */
-	public function setType($type)
+	public function setType(string $type): void
 	{
 		$this->type = $type;
 	}
 
-	/**
-	 * @param int $vatRate
-	 * @return void
-	 */
-	public function setVatRate($vatRate)
+	public function setVatRate(int $vatRate): void
 	{
 		$this->vatRate = $vatRate;
 	}
@@ -120,9 +82,9 @@ class Item extends AbstractObject
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 		$data['name'] = $this->getName();
@@ -132,12 +94,12 @@ class Item extends AbstractObject
 		// NOT REQUIRED ====================================
 
 		$type = $this->getType();
-		if ($type !== NULL) {
+		if ($type) {
 			$data['type'] = $type;
 		}
 
 		$vatRate = $this->getVatRate();
-		if ($vatRate !== NULL) {
+		if ($vatRate) {
 			$data['vat_rate'] = $vatRate;
 		}
 

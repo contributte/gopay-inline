@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Entity;
 
@@ -7,156 +7,108 @@ use Contributte\GopayInline\Api\Objects\Item;
 use Contributte\GopayInline\Api\Objects\Parameter;
 use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
-use Contributte\GopayInline\Utils\Money;
+use Money\Money;
 
 class Payment extends AbstractEntity
 {
 
-	/** @var Payer|NULL */
+	/** @var Payer|null */
 	protected $payer;
 
 	/** @var Target */
 	protected $target;
 
-	/** @var float */
+	/** @var Money */
 	protected $amount;
 
-	/** @var string */
-	protected $currency;
-
-	/** @var string */
+	/** @var string|null */
 	protected $orderNumber;
 
-	/** @var string */
+	/** @var string|null */
 	protected $orderDescription;
 
 	/** @var Item[] */
 	protected $items = [];
 
-	/** @var string */
+	/** @var string|null */
 	protected $returnUrl;
 
-	/** @var string */
+	/** @var string|null */
 	protected $notifyUrl;
 
 	/** @var Parameter[] */
 	protected $parameters = [];
 
-	/** @var string|NULL */
+	/** @var string|null */
 	protected $lang;
 
-	/** @var Eet|NULL */
+	/** @var Eet|null */
 	protected $eet;
 
 	/** @var bool */
-	protected $preauthorization = FALSE;
+	protected $preauthorization = false;
 
-	/**
-	 * @return Payer|NULL
-	 */
-	public function getPayer()
+	public function getPayer(): ?Payer
 	{
 		return $this->payer;
 	}
 
-	/**
-	 * @param Payer $payer
-	 * @return void
-	 */
-	public function setPayer(Payer $payer)
+	public function setPayer(Payer $payer): void
 	{
 		$this->payer = $payer;
 	}
 
-	/**
-	 * @return Target|null
-	 */
-	public function getTarget()
+	public function getTarget(): Target
 	{
 		return $this->target;
 	}
 
-	/**
-	 * @param Target $target
-	 * @return void
-	 */
-	public function setTarget(Target $target)
+	public function hasTarget(): bool
+	{
+		return $this->target !== null;
+	}
+
+	public function setTarget(Target $target): void
 	{
 		$this->target = $target;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmount()
+	public function getAmount(): Money
 	{
 		return $this->amount;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmountInCents()
+	public function getAmountInCents(): string
 	{
-		return Money::toCents($this->getAmount());
+		return $this->amount->getAmount();
 	}
 
-	/**
-	 * @param float $amount
-	 * @return void
-	 */
-	public function setAmount($amount)
+	public function setAmount(Money $amount): void
 	{
 		$this->amount = $amount;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getCurrency()
+	public function getCurrency(): string
 	{
-		return $this->currency;
+		return $this->amount->getCurrency()->getCode();
 	}
 
-	/**
-	 * @param string $currency
-	 * @return void
-	 */
-	public function setCurrency($currency)
-	{
-		$this->currency = $currency;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getOrderNumber()
+	public function getOrderNumber(): ?string
 	{
 		return $this->orderNumber;
 	}
 
-	/**
-	 * @param string $orderNumber
-	 * @return void
-	 */
-	public function setOrderNumber($orderNumber)
+	public function setOrderNumber(string $orderNumber): void
 	{
 		$this->orderNumber = $orderNumber;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getOrderDescription()
+	public function getOrderDescription(): ?string
 	{
 		return $this->orderDescription;
 	}
 
-	/**
-	 * @param string $description
-	 * @return void
-	 */
-	public function setOrderDescription($description)
+	public function setOrderDescription(string $description): void
 	{
 		$this->orderDescription = $description;
 	}
@@ -164,59 +116,40 @@ class Payment extends AbstractEntity
 	/**
 	 * @return Item[]
 	 */
-	public function getItems()
+	public function getItems(): array
 	{
 		return $this->items;
 	}
 
 	/**
 	 * @param Item[] $items
-	 * @return void
 	 */
-	public function setItems(array $items)
+	public function setItems(array $items): void
 	{
 		$this->items = $items;
 	}
 
-	/**
-	 * @param Item $item
-	 * @return void
-	 */
-	public function addItem(Item $item)
+	public function addItem(Item $item): void
 	{
 		$this->items[] = $item;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getReturnUrl()
+	public function getReturnUrl(): ?string
 	{
 		return $this->returnUrl;
 	}
 
-	/**
-	 * @param string $url
-	 * @return void
-	 */
-	public function setReturnUrl($url)
+	public function setReturnUrl(string $url): void
 	{
 		$this->returnUrl = $url;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getNotifyUrl()
+	public function getNotifyUrl(): ?string
 	{
 		return $this->notifyUrl;
 	}
 
-	/**
-	 * @param string $url
-	 * @return void
-	 */
-	public function setNotifyUrl($url)
+	public function setNotifyUrl(string $url): void
 	{
 		$this->notifyUrl = $url;
 	}
@@ -224,76 +157,50 @@ class Payment extends AbstractEntity
 	/**
 	 * @return Parameter[]
 	 */
-	public function getParameters()
+	public function getParameters(): array
 	{
 		return $this->parameters;
 	}
 
 	/**
 	 * @param Parameter[] $parameters
-	 * @return void
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}
 
-	/**
-	 * @param Parameter $parameter
-	 * @return void
-	 */
-	public function addParameter(Parameter $parameter)
+	public function addParameter(Parameter $parameter): void
 	{
 		$this->parameters[] = $parameter;
 	}
 
-	/**
-	 * @return string|NULL
-	 */
-	public function getLang()
+	public function getLang(): ?string
 	{
 		return $this->lang;
 	}
 
-	/**
-	 * @param string $lang
-	 * @return void
-	 */
-	public function setLang($lang)
+	public function setLang(string $lang): void
 	{
 		$this->lang = $lang;
 	}
 
-	/**
-	 * @return Eet|NULL
-	 */
-	public function getEet()
+	public function getEet(): ?Eet
 	{
 		return $this->eet;
 	}
 
-	/**
-	 * @param Eet $eet
-	 * @return void
-	 */
-	public function setEet(Eet $eet)
+	public function setEet(Eet $eet): void
 	{
 		$this->eet = $eet;
 	}
 
-	/**
-	 * @return boolean
-	 */
-	public function isPreauthorization()
+	public function isPreauthorization(): bool
 	{
 		return $this->preauthorization;
 	}
 
-	/**
-	 * @param boolean $preauth
-	 * @return void
-	 */
-	public function setPreauthorization($preauth)
+	public function setPreauthorization(bool $preauth): void
 	{
 		$this->preauthorization = boolval($preauth);
 	}
@@ -304,11 +211,13 @@ class Payment extends AbstractEntity
 
 	/**
 	 * @param mixed|Item[] $items
-	 * @return array
+	 * @return mixed[]
 	 */
-	protected function formatItems($items)
+	protected function formatItems($items): array
 	{
-		if (!is_array($items)) return [];
+		if (!$items) {
+			return [];
+		}
 
 		// Format items
 		return array_map(function (Item $item) {
@@ -318,11 +227,13 @@ class Payment extends AbstractEntity
 
 	/**
 	 * @param mixed|Parameter[] $parameters
-	 * @return array
+	 * @return mixed[]
 	 */
-	protected function formatParameters($parameters)
+	protected function formatParameters($parameters): array
 	{
-		if (!is_array($parameters)) return [];
+		if (!$parameters) {
+			return [];
+		}
 
 		// Format items
 		return array_map(function (Parameter $param) {
@@ -335,9 +246,9 @@ class Payment extends AbstractEntity
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 
@@ -358,22 +269,22 @@ class Payment extends AbstractEntity
 		// NOT REQUIRED ====================================
 
 		$payer = $this->getPayer();
-		if ($payer !== NULL) {
+		if ($payer) {
 			$data['payer'] = $payer->toArray();
 		}
 
 		$parameters = $this->getParameters();
-		if (count($parameters) > 0) {
+		if ($parameters) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
 
 		$lang = $this->getLang();
-		if ($lang !== NULL) {
+		if ($lang) {
 			$data['lang'] = $lang;
 		}
 
 		$eet = $this->getEet();
-		if ($eet !== NULL) {
+		if ($eet) {
 			$data['eet'] = $eet->toArray();
 		}
 

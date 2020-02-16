@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Client
@@ -19,8 +19,8 @@ use Tester\Assert;
 require __DIR__ . '/../../bootstrap.php';
 
 // Default Auth/Http
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$mock = Mockery::mock(Client::class, [$config])
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
@@ -30,14 +30,14 @@ test(function () {
 });
 
 // Token
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
 
 	Assert::false($client->hasToken());
 	Assert::null($client->getToken());
 
-	$client->setToken($token = new Token);
+	$client->setToken($token = new Token());
 	$token->accessToken = time();
 	Assert::equal($token->accessToken, $client->getToken()->accessToken);
 
@@ -46,8 +46,8 @@ test(function () {
 });
 
 // Services
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
 
 	Assert::type(PaymentsService::class, $client->createPaymentsService());
@@ -58,8 +58,8 @@ test(function () {
 });
 
 // Services (same service)
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
 
 	$payments1 = $client->payments;
@@ -80,20 +80,20 @@ test(function () {
 });
 
 // Call without token
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
 
-	Assert::throws(function () use ($client) {
+	Assert::throws(function () use ($client): void {
 		$client->call(new Request());
 	}, GopayException::class);
 });
 
 // Auth
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
-	$token = 12345;
+	$token = '12345';
 
 	$mock = Mockery::mock(Auth::class);
 	$mock->shouldReceive('authenticate')->andReturnUsing(function () use ($token) {
@@ -109,8 +109,8 @@ test(function () {
 });
 
 // Request
-test(function () {
-	$config = new Config(1, 2, 3);
+test(function (): void {
+	$config = new Config('1', '2', '3');
 	$client = new Client($config);
 	$client->setToken(12345);
 	$data = ['foo' => 'bar'];

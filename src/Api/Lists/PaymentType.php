@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
 class PaymentType
 {
 
-	const ITEM = 'ITEM';
+	public const ITEM = 'ITEM';
 
-	const DISCOUNT = 'DISCOUNT';
+	public const DISCOUNT = 'DISCOUNT';
 
-	const DELIVERY = 'DELIVERY';
+	public const DELIVERY = 'DELIVERY';
 
-	const POSTAGE = 'POSTAGE';
+	public const POSTAGE = 'POSTAGE';
 
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline;
 
@@ -33,25 +33,19 @@ class Client
 	/** @var Token|null */
 	private $token;
 
-	/** @var array */
+	/** @var array<string, object> */
 	private static $services = [
-		'authentication' => NULL,
-		'accounts' => NULL,
-		'payments' => NULL,
+		'authentication' => null,
+		'accounts' => null,
+		'payments' => null,
 	];
 
-	/**
-	 * @param Config $config
-	 */
-	public function __construct($config)
+	public function __construct(Config $config)
 	{
 		$this->config = $config;
 	}
 
-	/**
-	 * @return Auth
-	 */
-	protected function getAuth()
+	protected function getAuth(): Auth
 	{
 		if ($this->auth === NULL) {
 			$this->auth = new Oauth2Client($this, $this->getHttp());
@@ -60,19 +54,12 @@ class Client
 		return $this->auth;
 	}
 
-	/**
-	 * @param Auth $auth
-	 * @return void
-	 */
-	public function setAuth(Auth $auth)
+	public function setAuth(Auth $auth): void
 	{
 		$this->auth = $auth;
 	}
 
-	/**
-	 * @return Http
-	 */
-	protected function getHttp()
+	protected function getHttp(): Http
 	{
 		if ($this->http === NULL) {
 			$this->http = new HttpClient();
@@ -81,63 +68,43 @@ class Client
 		return $this->http;
 	}
 
-	/**
-	 * @param Http $http
-	 * @return void
-	 */
-	public function setHttp(Http $http)
+	public function setHttp(Http $http): void
 	{
 		$this->http = $http;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getGoId()
+	public function getGoId(): string
 	{
 		return $this->config->getGoId();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getClientId()
+	public function getClientId(): string
 	{
 		return $this->config->getClientId();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getClientSecret()
+	public function getClientSecret(): string
 	{
 		return $this->config->getClientSecret();
 	}
 
-	/**
-	 * @return Token
-	 */
-	public function getToken()
+	public function getToken(): ?Token
 	{
 		return $this->token;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasToken()
+	public function hasToken(): bool
 	{
-		return $this->token !== NULL;
+		return $this->token !== null;
 	}
 
 	/**
-	 * @param mixed $token
-	 * @return void
+	 * @param string|Token $token
 	 */
-	public function setToken($token)
+	public function setToken($token): void
 	{
 		if (is_string($token)) {
-			$this->token = new Token;
+			$this->token = new Token();
 			$this->token->accessToken = $token;
 		} else {
 			$this->token = $token;
@@ -149,10 +116,9 @@ class Client
 	 */
 
 	/**
-	 * @param array $credentials
-	 * @return string
+	 * @param mixed[] $credentials
 	 */
-	public function authenticate(array $credentials)
+	public function authenticate(array $credentials): string
 	{
 		if ($this->token === NULL) {
 			$response = $this->getAuth()->authenticate($credentials);
@@ -162,11 +128,7 @@ class Client
 		return $this->token->accessToken;
 	}
 
-	/**
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function call(Request $request)
+	public function call(Request $request): Response
 	{
 		if ($this->token === NULL) {
 			throw new GopayException('Invalid token. Please do authorization.');
@@ -175,30 +137,17 @@ class Client
 		return $this->getHttp()->doRequest($request);
 	}
 
-	/**
-	 * SERVICES ****************************************************************
-	 */
-
-	/**
-	 * @return PaymentsService
-	 */
-	public function createPaymentsService()
+	public function createPaymentsService(): PaymentsService
 	{
 		return new PaymentsService($this);
 	}
 
-	/**
-	 * @return AccountsService
-	 */
-	public function createAccountsService()
+	public function createAccountsService(): AccountsService
 	{
 		return new AccountsService($this);
 	}
 
-	/**
-	 * @return AuthenticationService
-	 */
-	public function createAuthenticationService()
+	public function createAuthenticationService(): AuthenticationService
 	{
 		return new AuthenticationService($this);
 	}
@@ -208,20 +157,19 @@ class Client
 	 */
 
 	/**
-	 * @param string $name
 	 * @return mixed
 	 */
-	public function __get($name)
+	public function __get(string $name)
 	{
 		if (array_key_exists($name, self::$services)) {
-			if (self::$services[$name] === NULL) {
+			if (self::$services[$name] === null) {
 				self::$services[$name] = call_user_func_array([$this, 'create' . ucfirst($name) . 'Service'], [$this]);
 			}
 
 			return self::$services[$name];
 		}
 
-		return NULL;
+		return null;
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
@@ -6,27 +6,27 @@ class PaymentState
 {
 
 	// Payment created
-	const CREATED = 'CREATED';
+	public const CREATED = 'CREATED';
 
 	// Payment method chosen
-	const PAYMENT_METHOD_CHOSEN = 'PAYMENT_METHOD_CHOSEN';
+	public const PAYMENT_METHOD_CHOSEN = 'PAYMENT_METHOD_CHOSEN';
 
 	// Payment paid
-	const PAID = 'PAID';
+	public const PAID = 'PAID';
 
 	// Payment pre-authorized
-	const AUTHORIZED = 'AUTHORIZED';
+	public const AUTHORIZED = 'AUTHORIZED';
 
 	// Payment canceled
-	const CANCELED = 'CANCELED';
+	public const CANCELED = 'CANCELED';
 
 	// Payment timeouted
-	const TIMEOUTED = 'TIMEOUTED';
+	public const TIMEOUTED = 'TIMEOUTED';
 
 	// Payment refunded
-	const REFUNDED = 'REFUNDED';
+	public const REFUNDED = 'REFUNDED';
 
 	// Payment partially refunded
-	const PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED';
+	public const PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED';
 
 }

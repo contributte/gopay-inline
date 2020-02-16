@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Bridges\Nette\DI;
 
@@ -15,10 +15,8 @@ class GopayExtension extends CompilerExtension
 
 	/**
 	 * Register services
-	 *
-	 * @return void
 	 */
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$config = $this->config;
 		$builder = $this->getContainerBuilder();
@@ -29,7 +27,7 @@ class GopayExtension extends CompilerExtension
 					$config->goId,
 					$config->clientId,
 					$config->clientSecret,
-					$config->test !== FALSE ? Config::TEST : Config::PROD,
+					$config->test !== false ? Config::TEST : Config::PROD,
 				]),
 			]);
 	}
@@ -40,7 +38,7 @@ class GopayExtension extends CompilerExtension
 			'goId' => Expect::anyOf(new Type('string'), new Type('int'))->required(),
 			'clientId' => Expect::anyOf(new Type('string'), new Type('int'))->required(),
 			'clientSecret' => Expect::string()->required(),
-			'test' => Expect::bool(TRUE),
+			'test' => Expect::bool(true),
 		]);
 	}
 

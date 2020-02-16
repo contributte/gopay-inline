@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Entity;
 
@@ -7,22 +7,15 @@ use Contributte\GopayInline\Api\Objects\Recurrence;
 class RecurrentPayment extends Payment
 {
 
-	/** @var Recurrence|NULL */
+	/** @var Recurrence|null */
 	protected $recurrence;
 
-	/**
-	 * @return Recurrence|NULL
-	 */
-	public function getRecurrence()
+	public function getRecurrence(): ?Recurrence
 	{
 		return $this->recurrence;
 	}
 
-	/**
-	 * @param Recurrence $recurrence
-	 * @return void
-	 */
-	public function setRecurrence(Recurrence $recurrence)
+	public function setRecurrence(Recurrence $recurrence): void
 	{
 		$this->recurrence = $recurrence;
 	}
@@ -32,15 +25,14 @@ class RecurrentPayment extends Payment
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$payment = parent::toArray();
 
-		$recurrence = $this->getRecurrence();
-		if ($recurrence !== NULL) {
-			$payment['recurrence'] = $recurrence->toArray();
+		if ($this->recurrence) {
+			$payment['recurrence'] = $this->recurrence->toArray();
 		}
 
 		return $payment;

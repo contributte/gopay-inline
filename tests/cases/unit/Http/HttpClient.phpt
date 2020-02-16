@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Http\HttpClient
@@ -14,19 +14,22 @@ use Tester\Assert;
 require __DIR__ . '/../../../bootstrap.php';
 
 // FALSE response
-test(function () {
+test(function (): void {
+	$response = new Response();
+	$response->setError('Error');
+
 	$io = Mockery::mock(Io::class);
-	$io->shouldReceive('call')->andReturn(FALSE);
+	$io->shouldReceive('call')->andReturn($response);
 	$http = new HttpClient();
 	$http->setIo($io);
 
-	Assert::throws(function () use ($http) {
+	Assert::throws(function () use ($http): void {
 		$http->doRequest(new Request());
 	}, HttpException::class);
 });
 
 // Error response
-test(function () {
+test(function (): void {
 	$error = (object) ['error_code' => 500, 'scope' => 'S', 'field' => 'F', 'message' => 'M'];
 	$io = Mockery::mock(Io::class);
 	$io->shouldReceive('call')->andReturnUsing(function () use ($error) {
@@ -38,13 +41,13 @@ test(function () {
 	$http = new HttpClient();
 	$http->setIo($io);
 
-	Assert::throws(function () use ($http, $error) {
+	Assert::throws(function () use ($http): void {
 		$http->doRequest(new Request());
 	}, HttpException::class, HttpException::format($error));
 });
 
 // Success response
-test(function () {
+test(function (): void {
 	$data = ['a' => 'b'];
 	$io = Mockery::mock(Io::class);
 	$io->shouldReceive('call')->andReturnUsing(function () use ($data) {

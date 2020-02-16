@@ -1,176 +1,140 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Http;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use RecursiveArrayIterator;
 
 /**
- * @property-read mixed $data
- * @property-read mixed $headers
- * @property-read int $code
- * @property-read string $error
+ * @property-read array $data
+ * @property-read array $headers
+ * @property-read int|null $code
+ * @property-read string|null $error
  */
-class Response implements \ArrayAccess, \Countable, \IteratorAggregate
+class Response implements ArrayAccess, Countable, IteratorAggregate
 {
 
-	/** @var mixed */
-	protected $data;
+	/** @var mixed[] */
+	protected $data = [];
 
-	/** @var mixed */
-	protected $headers;
+	/** @var array<string, string> */
+	protected $headers = [];
 
-	/** @var int */
+	/** @var int|null */
 	protected $code;
 
 	/** @var string|null */
 	protected $error;
 
 	/**
-	 * @return array|FALSE
+	 * @return mixed[]
 	 */
-	public function getData()
+	public function getData(): array
 	{
 		return $this->data;
 	}
 
 	/**
 	 * @param mixed $data
-	 * @return void
 	 */
-	public function setData($data)
+	public function setData($data): void
 	{
-		if (!is_bool($data) && $data !== NULL) {
+		if (!is_bool($data) && ($data === null || $data)) {
 			$data = (array) $data;
 		}
+
 		$this->data = $data;
 	}
 
 	/**
-	 * @return array
+	 * @return array<string, string>
 	 */
-	public function getHeaders()
+	public function getHeaders(): array
 	{
 		return $this->headers;
 	}
 
 	/**
-	 * @param mixed $headers
-	 * @return void
+	 * @param mixed[] $headers
 	 */
-	public function setHeaders($headers)
+	public function setHeaders(array $headers): void
 	{
 		$this->headers = $headers;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getCode()
+	public function getCode(): ?int
 	{
 		return $this->code;
 	}
 
-	/**
-	 * @param mixed $code
-	 * @return void
-	 */
-	public function setCode($code)
+	public function setCode(int $code): void
 	{
-		$this->code = (int) $code;
+		$this->code = $code;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function getError()
+	public function getError(): ?string
 	{
 		return $this->error;
 	}
 
-	/**
-	 * @param string $error
-	 * @return void
-	 */
-	public function setError($error)
+	public function setError(string $error): void
 	{
 		$this->error = $error;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isSuccess()
+	public function isSuccess(): bool
 	{
-		return $this->error == FALSE;
+		return $this->error === null;
 	}
 
-	/**
-	 * ARRAY ACCESS ************************************************************
-	 */
-
-	/**
-	 * @param mixed $offset
-	 * @return bool
-	 */
-	public function offsetExists($offset)
+	// phpcs:disable
+	public function offsetExists($offset): bool
 	{
-		if (is_array($this->data)) {
+		if ($this->data) {
 			return isset($this->data[$offset]);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
-	 * @param mixed $offset
 	 * @return mixed
 	 */
 	public function offsetGet($offset)
 	{
-		if (!is_array($this->data)) return NULL;
+		if (!$this->data) {
+			return null;
+		}
 
 		return $this->data[$offset];
 	}
 
 	/**
-	 * @param mixed $offset
-	 * @param mixed $value
-	 * @return void
+	 * @param mixed[] $value
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
-		if (is_array($this->data)) {
+		if ($this->data) {
 			$this->data[$offset] = $value;
 		}
 	}
 
-	/**
-	 * @param mixed $offset
-	 * @return void
-	 */
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
-		if (is_array($this->data)) {
+		if ($this->data) {
 			unset($this->data[$offset]);
 		}
 	}
+	// phpcs:enable
 
-	/**
-	 * @return int
-	 */
-	public function count()
+	public function count(): int
 	{
-		return $this->data === NULL ? 0 : count($this->data);
+		return $this->data === null ? 0 : count($this->data);
 	}
 
-	/**
-	 * ITERATOR AGGREGATE ******************************************************
-	 */
-
-	/**
-	 * @return RecursiveArrayIterator
-	 */
-	public function getIterator()
+	public function getIterator(): RecursiveArrayIterator
 	{
 		return new RecursiveArrayIterator($this->data);
 	}
@@ -180,10 +144,9 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	 **/
 
 	/**
-	 * @param string $name
 	 * @return mixed
 	 */
-	public function __get($name)
+	public function __get(string $name)
 	{
 		if (isset($this->$name)) {
 			return $this->$name;

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Exception/HttpException
@@ -10,7 +10,7 @@ use Tester\Assert;
 require __DIR__ . '/../../../bootstrap.php';
 
 // All data
-test(function () {
+test(function (): void {
 	$error = (object) [
 		'field' => 'foobar',
 		'error_code' => 400,
@@ -22,7 +22,7 @@ test(function () {
 });
 
 // Without field
-test(function () {
+test(function (): void {
 	$error = (object) [
 		'error_code' => 400,
 		'scope' => 'validation',
@@ -33,7 +33,7 @@ test(function () {
 });
 
 // Without field
-test(function () {
+test(function (): void {
 	$error = (object) [
 		'error_code' => 400,
 		'message' => 'Invalid field',
@@ -43,7 +43,7 @@ test(function () {
 });
 
 // Without message, with description
-test(function () {
+test(function (): void {
 	$error = (object) [
 		'error_code' => 400,
 		'scope' => 'validation',
@@ -54,7 +54,7 @@ test(function () {
 });
 
 // With message and description
-test(function () {
+test(function (): void {
 	$error = (object) [
 		'scope' => 'G',
 		'error_code' => 111,

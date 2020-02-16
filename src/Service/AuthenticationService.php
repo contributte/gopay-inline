@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Service;
 
@@ -8,18 +8,15 @@ use Contributte\GopayInline\Exception\HttpException;
 class AuthenticationService extends AbstractService
 {
 
-	/**
-	 * @param string $scope
-	 * @return bool
-	 */
-	public function verify($scope = Scope::PAYMENT_ALL)
+	public function verify(string $scope = Scope::PAYMENT_ALL): bool
 	{
 		try {
 			$this->doAuthorization($scope);
 		} catch (HttpException $e) {
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+
+		return true;
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api;
 
@@ -6,68 +6,35 @@ class Gateway
 {
 
 	// Modes
-	const TEST = 'TEST';
-	const PROD = 'PROD';
+	public const TEST = 'TEST';
+	public const PROD = 'PROD';
 
 	/** @var string */
 	private static $mode;
 
-	/**
-	 * @param string $mode
-	 * @return void
-	 */
-	public static function init($mode)
+	public static function init(string $mode): void
 	{
 		self::$mode = $mode;
 	}
 
-	/**
-	 * @return string
-	 */
-	public static function getOauth2TokenUrl()
+	public static function getOauth2TokenUrl(): string
 	{
-		if (self::$mode === self::PROD) {
-			return 'https://gate.gopay.cz/api/oauth2/token';
-		} else {
-			return 'https://gw.sandbox.gopay.com/api/oauth2/token';
-		}
+		return self::$mode === self::PROD ? 'https://gate.gopay.cz/api/oauth2/token' : 'https://gw.sandbox.gopay.com/api/oauth2/token';
 	}
 
-	/**
-	 * @return string
-	 */
-	public static function getBaseApiUrl()
+	public static function getBaseApiUrl(): string
 	{
-		if (self::$mode === self::PROD) {
-			return 'https://gate.gopay.cz/api';
-		} else {
-			return 'https://gw.sandbox.gopay.com/api';
-		}
+		return self::$mode === self::PROD ? 'https://gate.gopay.cz/api' : 'https://gw.sandbox.gopay.com/api';
 	}
 
-	/**
-	 * @param string $uri
-	 * @return string
-	 */
-	public static function getFullApiUrl($uri)
+	public static function getFullApiUrl(string $uri): string
 	{
-		if (self::$mode === self::PROD) {
-			return 'https://gate.gopay.cz/api/' . trim($uri, '/');
-		} else {
-			return 'https://gw.sandbox.gopay.com/api/' . trim($uri, '/');
-		}
+		return self::$mode === self::PROD ? 'https://gate.gopay.cz/api/' . trim($uri, '/') : 'https://gw.sandbox.gopay.com/api/' . trim($uri, '/');
 	}
 
-	/**
-	 * @return string
-	 */
-	public static function getInlineJsUrl()
+	public static function getInlineJsUrl(): string
 	{
-		if (self::$mode === self::PROD) {
-			return 'https://gate.gopay.cz/gp-gw/js/embed.js';
-		} else {
-			return 'https://gw.sandbox.gopay.com/gp-gw/js/embed.js';
-		}
+		return self::$mode === self::PROD ? 'https://gate.gopay.cz/gp-gw/js/embed.js' : 'https://gw.sandbox.gopay.com/gp-gw/js/embed.js';
 	}
 
 }

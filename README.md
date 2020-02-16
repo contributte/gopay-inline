@@ -19,7 +19,7 @@ Gopay Payment Gateway implementation for Nette Framework.
 
 | State       | Version | Branch   | Nette       | PHP     |
 |-------------|---------|----------|-------------|---------|
-| TBA         | `^2.0`  | `master` | 2.4 / ^3.0  | `^7.2`  |
+| dev         | `^2.0`  | `master` | 2.4 / ^3.0  | `^7.2`  |
 | stable      | `^1.2`  | `master` | 2.4 / ^3.0  | `^7.1`  |
 
 ## Maintainers

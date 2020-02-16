@@ -1,21 +1,23 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Entity\PaymentFactory
  */
+
 use Contributte\GopayInline\Api\Entity\Payment;
 use Contributte\GopayInline\Api\Entity\PaymentFactory;
 use Contributte\GopayInline\Api\Lists\PaymentType;
 use Contributte\GopayInline\Api\Lists\TargetType;
 use Contributte\GopayInline\Api\Objects\Eet;
 use Contributte\GopayInline\Exception\ValidationException;
+use Money\Money;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Required fields
-test(function () {
-	Assert::throws(function () {
+test(function (): void {
+	Assert::throws(function (): void {
 		PaymentFactory::create([]);
 	}, ValidationException::class, '%a%' . implode(', ', PaymentFactory::$required) . '%a%');
 });
@@ -30,19 +32,18 @@ test(function () {
 			'order_description' => 4,
 			'items' => [],
 			'callback' => [
-				'return_url' => 6,
+				'return_url' => '6',
 			],
 		]);
 	}, ValidationException::class, 'Missing keys "notify_url" in callback definition');
 });
 
 // Not allowed field
-test(function () {
+test(function (): void {
 	$required = [
-		'amount' => 1,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(1),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => 5,
 		'callback' => [
 			'return_url' => 'http://www.eshop.cz/return',
@@ -53,19 +54,19 @@ test(function () {
 		'foo' => 8,
 		'bar' => 9,
 	];
-	Assert::throws(function () use ($required, $fields) {
+	Assert::throws(function () use ($required, $fields): void {
 		PaymentFactory::create(array_merge($required, $fields));
 	}, ValidationException::class, '%a%' . implode(', ', array_keys($fields)) . '%a%');
 });
 
 // Simple payment
-test(function () {
+test(function (): void {
 	$eet = [
-		'celk_trzba' => 550,
-		'zakl_dan1' => 100,
-		'dan1' => 50,
-		'zakl_dan2' => 300,
-		'dan2' => 100,
+		'celk_trzba' => Money::CZK(550),
+		'zakl_dan1' => Money::CZK(100),
+		'dan1' => Money::CZK(50),
+		'zakl_dan2' => Money::CZK(300),
+		'dan2' => Money::CZK(100),
 	];
 	$data = [
 		'payer' => [
@@ -88,15 +89,14 @@ test(function () {
 			'goid' => 123456,
 			'type' => TargetType::ACCOUNT,
 		],
-		'amount' => 550,
-		'currency' => 'CZK',
+		'amount' => Money::CZK(550),
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 100, 'count' => 2],
-			['name' => 'item02', 'amount' => 100],
-			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
-			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
+			['name' => 'item01', 'amount' => Money::CZK(50), 'count' => 2],
+			['name' => 'item02', 'amount' => Money::CZK(100)],
+			['name' => 'item03', 'amount' => Money::CZK(150), 'vat_rate' => 21],
+			['name' => 'item04', 'amount' => Money::CZK(200), 'type' => PaymentType::ITEM],
 		],
 		'eet' => $eet,
 		'additional_params' => [
@@ -118,7 +118,7 @@ test(function () {
 });
 
 // Preauthorized payment
-test(function () {
+test(function (): void {
 	$data = [
 		'payer' => [
 			'default_payment_instrument' => 'BANK_ACCOUNT',
@@ -140,17 +140,16 @@ test(function () {
 			'goid' => 123456,
 			'type' => TargetType::ACCOUNT,
 		],
-		'amount' => 550,
-		'currency' => 'CZK',
+		'amount' => Money::CZK(550),
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 100, 'count' => 2],
-			['name' => 'item02', 'amount' => 100],
-			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
-			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
+			['name' => 'item01', 'amount' => Money::CZK(50), 'count' => 2],
+			['name' => 'item02', 'amount' => Money::CZK(100)],
+			['name' => 'item03', 'amount' => Money::CZK(150), 'vat_rate' => 21],
+			['name' => 'item04', 'amount' => Money::CZK(200), 'type' => PaymentType::ITEM],
 		],
-		'preauthorization' => TRUE,
+		'preauthorization' => true,
 		'additional_params' => [
 			['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
@@ -169,170 +168,163 @@ test(function () {
 });
 
 // Validate order price and items price
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
-			['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 2],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		PaymentFactory::create($data);
 	}, ValidationException::class, '%a% (200) %a% (150) %a%');
 });
 
 // Validate items name
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['amount' => 50],
+			['amount' => Money::CZK(50)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		PaymentFactory::create($data);
 	}, ValidationException::class, "Item's name can't be empty or null.");
 });
 
 // Turn off validators
-test(function () {
+test(function (): void {
 	// Invalid total price and items price
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50],
-			['name' => 'Item 02', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
+			['name' => 'Item 02', 'amount' => Money::CZK(50)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 	];
 
 	try {
-		PaymentFactory::create($data, [PaymentFactory::V_PRICES => FALSE]);
-	} catch (Exception $e) {
-		Assert::fail('Exception should not have been threw', $e, NULL);
+		PaymentFactory::create($data, [PaymentFactory::V_PRICES => false]);
+	} catch (Throwable $e) {
+		Assert::fail('Exception should not have been threw', $e, null);
 	}
 
 	// Invalid scheme
 	$data = [
-		'amount' => 100,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(100),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['amount' => 50],
-			['amount' => 50],
+			['amount' => Money::CZK(50)],
+			['amount' => Money::CZK(50)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 		'x_unknown' => 1234,
 		'y_foobar' => 5678,
 	];
 
 	try {
-		PaymentFactory::create($data, [PaymentFactory::V_SCHEME => FALSE]);
-	} catch (Exception $e) {
-		Assert::fail('Exception should not have been threw', $e, NULL);
+		PaymentFactory::create($data, [PaymentFactory::V_SCHEME => false]);
+	} catch (Throwable $e) {
+		Assert::fail('Exception should not have been threw', $e, null);
 	}
 });
 
 // Validate EET sum and EET tax sum
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 150, 'count' => 3],
-			['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 3],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 200,
-			'zakl_dan1' => 80,
-			'dan1' => 30,
-			'zakl_dan2' => 50,
-			'dan2' => 20,
+			'celk_trzba' => Money::CZK(200),
+			'zakl_dan1' => Money::CZK(80),
+			'dan1' => Money::CZK(30),
+			'zakl_dan2' => Money::CZK(50),
+			'dan2' => Money::CZK(20),
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		PaymentFactory::create($data);
 	}, ValidationException::class, '%a% (200) %a% (180) %a%');
 });
 
 // Validate EET sum and order sum
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 100,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(100),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 2],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 110,
-			'zakl_dan1' => 80,
-			'dan1' => 30,
+			'celk_trzba' => Money::CZK(110),
+			'zakl_dan1' => Money::CZK(80),
+			'dan1' => Money::CZK(30),
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		PaymentFactory::create($data);
 	}, ValidationException::class, '%a% (110) %a% (100) %a%');
 });
 
 // Validate EET sum and order sum (double/float)
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 174.0,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(17400),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'x', 'amount' => 174.0],
+			['name' => 'x', 'amount' => Money::CZK(17400)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 174.0,
-			'zakl_dan1' => 143.80165289256,
-			'dan1' => 30.198347107438,
+			'celk_trzba' => Money::CZK(17400),
+			'zakl_dan1' => Money::CZK(14380),
+			'dan1' => Money::CZK(3020),
 		],
 	];
 
@@ -344,24 +336,23 @@ test(function () {
 });
 
 // Validate EET sum and order sum (item without VAT)
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 274.0,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(27400),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'x', 'amount' => 274.0],
+			['name' => 'x', 'amount' => Money::CZK(27400)],
 		],
 		'callback' => [
-			'return_url' => 6,
-			'notify_url' => 7,
+			'return_url' => '6',
+			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 274.0,
-			'zakl_nepodl_dph' => 100.0,
-			'zakl_dan1' => 143.80165289256,
-			'dan1' => 30.198347107438,
+			'celk_trzba' => Money::CZK(27400),
+			'zakl_nepodl_dph' => Money::CZK(10000),
+			'zakl_dan1' => Money::CZK(14380),
+			'dan1' => Money::CZK(3020),
 		],
 	];
 	try {

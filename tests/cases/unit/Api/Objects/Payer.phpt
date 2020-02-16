@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Lists\Objects\Payer
@@ -11,7 +11,7 @@ use Tester\Assert;
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Simple
-test(function () {
+test(function (): void {
 	$payer = new Payer();
 	$payer->allowedPaymentInstruments = [1, 2, 3];
 	$payer->defaultPaymentInstrument = 1;

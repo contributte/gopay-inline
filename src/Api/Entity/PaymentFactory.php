@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Entity;
 
@@ -10,18 +10,19 @@ use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Exception\ValidationException;
 use Contributte\GopayInline\Utils\Validator;
+use Money\Currency;
+use Money\Money;
 
 class PaymentFactory
 {
 
 	// Validator's types
-	const V_SCHEME = 1;
-	const V_PRICES = 2;
+	public const V_SCHEME = 1;
+	public const V_PRICES = 2;
 
-	/** @var array */
+	/** @var string[] */
 	public static $required = [
 		'amount',
-		'currency',
 		'order_number',
 		'items',
 		'callback',
@@ -33,7 +34,7 @@ class PaymentFactory
 		'notify_url',
 	];
 
-	/** @var array */
+	/** @var string[] */
 	public static $optional = [
 		'target', // see at AbstractPaymentService
 		'payer',
@@ -44,40 +45,39 @@ class PaymentFactory
 		'preauthorization',
 	];
 
-	/** @var array */
+	/** @var array<int, bool> */
 	public static $validators = [
-		self::V_SCHEME => TRUE,
-		self::V_PRICES => TRUE,
+		self::V_SCHEME => true,
+		self::V_PRICES => true,
 	];
 
 	/**
-	 * @param mixed $data
-	 * @param array $validators
-	 * @return Payment
+	 * @param mixed[] $data
+	 * @param mixed[] $validators
 	 */
-	public static function create($data, $validators = [])
+	public static function create(array $data, array $validators = []): Payment
 	{
 		// Convert to array
 		$data = (array) $data;
-		$validators = $validators + self::$validators;
+		$validators += self::$validators;
 
 		// CHECK REQUIRED DATA ###################
 
 		$res = Validator::validateRequired($data, self::$required);
-		if ($res !== TRUE) {
+		if ($res !== true) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '"');
 		}
 
 		$res = Validator::validateRequired($data['callback'], self::$requiredCallback);
-		if ($res !== TRUE) {
+		if ($res !== true) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '" in callback definition');
 		}
 
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== TRUE) {
-			if ($validators[self::V_SCHEME] === TRUE) {
+		if ($res !== true) {
+			if ($validators[self::V_SCHEME] === true) {
 				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
 			}
 		}
@@ -88,7 +88,7 @@ class PaymentFactory
 
 		// ### PAYER
 		if (isset($data['payer'])) {
-			$payer = new Payer;
+			$payer = new Payer();
 			self::map($payer, [
 				'allowed_payment_instruments' => 'allowedPaymentInstruments',
 				'default_payment_instrument' => 'defaultPaymentInstrument',
@@ -98,7 +98,7 @@ class PaymentFactory
 			$payment->setPayer($payer);
 
 			if (isset($data['payer']['contact'])) {
-				$contact = new Contact;
+				$contact = new Contact();
 				self::map($contact, [
 					'first_name' => 'firstname',
 					'last_name' => 'lastname',
@@ -115,14 +115,13 @@ class PaymentFactory
 
 		// ### TARGET
 		if (isset($data['target'])) {
-			$target = new Target;
+			$target = new Target();
 			self::map($target, ['type' => 'type', 'goid' => 'goid'], $data['target']);
 			$payment->setTarget($target);
 		}
 
 		// ### COMMON
 		$payment->setAmount($data['amount']);
-		$payment->setCurrency($data['currency']);
 		$payment->setOrderNumber($data['order_number']);
 		if (array_key_exists('order_description', $data)) {
 			$payment->setOrderDescription($data['order_description']);
@@ -133,11 +132,12 @@ class PaymentFactory
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
 			if (!isset($param['name']) || !$param['name']) {
-				if ($validators[self::V_SCHEME] === TRUE) {
+				if ($validators[self::V_SCHEME] === true) {
 					throw new ValidationException('Item\'s name can\'t be empty or null.');
 				}
 			}
-			$item = new Item;
+
+			$item = new Item();
 			self::map($item, [
 				'name' => 'name',
 				'amount' => 'amount',
@@ -151,7 +151,7 @@ class PaymentFactory
 		// ### ADDITIONAL PARAMETERS
 		if (isset($data['additional_params'])) {
 			foreach ($data['additional_params'] as $param) {
-				$parameter = new Parameter;
+				$parameter = new Parameter();
 				self::map($parameter, ['name' => 'name', 'value' => 'value'], $param);
 				$payment->addParameter($parameter);
 			}
@@ -163,14 +163,16 @@ class PaymentFactory
 		}
 
 		// VALIDATION PRICE & ITEMS PRICE ########
-		$itemsPrice = 0;
+		$itemsPrice = new Money(0, new Currency($payment->getCurrency()));
+
 		$orderPrice = $payment->getAmount();
 		foreach ($payment->getItems() as $item) {
-			$itemsPrice += $item->amount;
+			$itemsPrice = $itemsPrice->add($item->getAmount()->multiply($item->count));
 		}
-		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === TRUE) {
-				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
+
+		if (!$itemsPrice->equals($orderPrice)) {
+			if ($validators[self::V_PRICES] === true) {
+				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice->getAmount(), $itemsPrice->getAmount()));
 			}
 		}
 
@@ -192,23 +194,15 @@ class PaymentFactory
 			], $data['eet']);
 
 			$eetSum = $eet->getSum();
-			$eetTotal = $eet->getTax()
-				+ $eet->getTaxBaseNoVat()
-				+ $eet->getTaxBase()
-				+ $eet->getTaxBaseReducedRateFirst()
-				+ $eet->getTaxReducedRateFirst()
-				+ $eet->getTaxBaseReducedRateSecond()
-				+ $eet->getTaxReducedRateSecond()
-				+ $eet->getSubsequentDrawing()
-				+ $eet->getSubsequentlyDrawn();
+			$eetTotal = $eet->getTotal();
 
-			if ($validators[self::V_PRICES] === TRUE) {
-				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
-					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTotal));
+			if ($validators[self::V_PRICES] === true) {
+				if (!$eetSum->equals($eetTotal)) {
+					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum->getAmount(), $eetTotal->getAmount()));
 				}
 
-				if (number_format($eetSum, 8) !== number_format($orderPrice, 8)) {
-					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
+				if (!$eetSum->equals($orderPrice)) {
+					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum->getAmount(), $orderPrice->getAmount()));
 				}
 			}
 
@@ -224,12 +218,10 @@ class PaymentFactory
 	}
 
 	/**
-	 * @param object $obj
-	 * @param array $mapping
-	 * @param array $data
-	 * @return object
+	 * @param mixed[] $mapping
+	 * @param mixed[] $data
 	 */
-	public static function map($obj, array $mapping, array $data)
+	public static function map(object $obj, array $mapping, array $data): object
 	{
 		foreach ($mapping as $from => $to) {
 			if (isset($data[$from])) {

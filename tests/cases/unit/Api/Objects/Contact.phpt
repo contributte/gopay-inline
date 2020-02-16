@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Lists\Objects\Contact
@@ -10,7 +10,7 @@ use Tester\Assert;
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Simple
-test(function () {
+test(function (): void {
 	$contact = new Contact();
 	$contact->firstname = 'foo1';
 	$contact->lastname = 'foo2';
