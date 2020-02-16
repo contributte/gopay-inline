@@ -1,6 +1,5 @@
 language: php
 php:
-  - 7.1
   - 7.2
   - 7.3
   - 7.4
@@ -11,14 +10,7 @@ env:
 matrix:
   fast_finish: true
 
-  allow_failures:
-    - php: 7.4
-
   include:
-    - php: 7.1
-      env: COMPOSER_FLAG=--prefer-lowest
-    - php: 7.1
-      env: COMPOSER_FLAG=--prefer-stable
     - php: 7.2
       env: COMPOSER_FLAG=--prefer-lowest
     - php: 7.2
@@ -36,7 +28,7 @@ before_script:
   # Composer
   - travis_retry composer install --no-interaction
   # Coverage
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.2" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
 
 script:
   # Quality Assurance
