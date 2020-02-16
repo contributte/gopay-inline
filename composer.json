@@ -54,16 +54,16 @@
 			"vendor/bin/linter"
 		],
 		"qa-tester": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini"
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php"
 		],
 		"qa-tester-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -i"
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -i"
 		],
 		"qa-tester-coverage": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src"
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src"
 		],
 		"qa-tester-coverage-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src -i"
+			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src -i"
 		]
 	},
 	"extra": {
