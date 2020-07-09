@@ -34,6 +34,12 @@ class Eet extends AbstractObject
 	/** @var string */
 	public $currency;
 
+	/** @var float|null */
+	public $subsequentDrawing;
+
+	/** @var float|null */
+	public $subsequentlyDrawn;
+
 	/**
 	 * @return float
 	 */
@@ -163,6 +169,22 @@ class Eet extends AbstractObject
 	}
 
 	/**
+	 * @return float|null
+	 */
+	public function getSubsequentDrawing()
+	{
+		return $this->subsequentDrawing;
+	}
+
+	/**
+	 * @return float|null
+	 */
+	public function getSubsequentlyDrawn()
+	{
+		return $this->subsequentlyDrawn;
+	}
+
+	/**
 	 * @param float $sum
 	 * @return void
 	 */
@@ -277,6 +299,14 @@ class Eet extends AbstractObject
 		if ($this->getTaxBaseReducedRateSecond() !== NULL && $this->getTaxReducedRateSecond() !== NULL) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
+		}
+
+		if ($this->getSubsequentDrawing() !== NULL) {
+			$data['urceno_cerp_zuct'] = $this->getSubsequentDrawing();
+		}
+
+		if ($this->getSubsequentlyDrawn() !== NULL) {
+			$data['cerp_zuct'] = $this->getSubsequentlyDrawn();
 		}
 
 		return $data;
