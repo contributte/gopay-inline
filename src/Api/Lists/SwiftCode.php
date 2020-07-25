@@ -4,6 +4,7 @@ namespace Contributte\GopayInline\Api\Lists;
 
 class SwiftCode
 {
+	const OTHERS = 'OTHERS';
 
 	// cz
 	const AIR_BANK = 'AIRACZPP';
@@ -46,7 +47,7 @@ class SwiftCode
 	 */
 	public static function all()
 	{
-		return array_merge(self::cz(), self::sk());
+		return array_merge([self::OTHERS], self::cz(), self::sk());
 	}
 
 	/**
