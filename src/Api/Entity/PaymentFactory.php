@@ -24,16 +24,14 @@ class PaymentFactory
 		'amount',
 		'currency',
 		'order_number',
-		'order_description',
 		'items',
-		'return_url',
-		'notify_url',
+		'callback',
 	];
 
 	/** @var array */
 	public static $optional = [
-		'target',
 		'payer',
+		'order_description',
 		'additional_params',
 		'lang',
 		'eet',
@@ -115,9 +113,11 @@ class PaymentFactory
 		$payment->setAmount($data['amount']);
 		$payment->setCurrency($data['currency']);
 		$payment->setOrderNumber($data['order_number']);
-		$payment->setOrderDescription($data['order_description']);
-		$payment->setReturnUrl($data['return_url']);
-		$payment->setNotifyUrl($data['notify_url']);
+		if (!empty($data['order_description'])) {
+			$payment->setOrderDescription($data['order_description']);
+		}
+		$payment->setReturnUrl($data['callback']['return_url']);
+		$payment->setNotifyUrl($data['callback']['notify_url']);
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
