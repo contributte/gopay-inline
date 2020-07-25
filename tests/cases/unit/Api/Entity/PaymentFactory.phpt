@@ -20,6 +20,22 @@ test(function () {
 	}, ValidationException::class, '%a%' . implode(', ', PaymentFactory::$required) . '%a%');
 });
 
+// Required callback fields
+test(function () {
+	Assert::throws(function () {
+		PaymentFactory::create([
+			'amount' => 200,
+			'currency' => 2,
+			'order_number' => 3,
+			'order_description' => 4,
+			'items' => [],
+			'callback' => [
+				'return_url' => 6,
+			],
+		]);
+	}, ValidationException::class, 'Missing keys "notify_url" in callback definition');
+});
+
 // Not allowed field
 test(function () {
 	$required = [
@@ -28,8 +44,10 @@ test(function () {
 		'order_number' => 3,
 		'order_description' => 4,
 		'items' => 5,
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 'http://www.eshop.cz/return',
+			'notify_url' => 'http://www.eshop.cz/notify',
+		],
 	];
 	$fields = [
 		'foo' => 8,
@@ -84,8 +102,10 @@ test(function () {
 		'additional_params' => [
 			['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
-		'return_url' => 'http://www.eshop.cz/return',
-		'notify_url' => 'http://www.eshop.cz/notify',
+		'callback' => [
+			'return_url' => 'http://www.eshop.cz/return',
+			'notify_url' => 'http://www.eshop.cz/notify',
+		],
 		'lang' => 'cs',
 	];
 
@@ -134,8 +154,10 @@ test(function () {
 		'additional_params' => [
 			['name' => 'invoicenumber', 'value' => '2015001003'],
 		],
-		'return_url' => 'http://www.eshop.cz/return',
-		'notify_url' => 'http://www.eshop.cz/notify',
+		'callback' => [
+			'return_url' => 'http://www.eshop.cz/return',
+			'notify_url' => 'http://www.eshop.cz/notify',
+		],
 		'lang' => 'cs',
 	];
 
@@ -157,8 +179,10 @@ test(function () {
 			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
 			['name' => 'Item 01', 'amount' => 50],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 	];
 
 	Assert::throws(function () use ($data) {
@@ -176,8 +200,10 @@ test(function () {
 		'items' => [
 			['amount' => 50],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 	];
 
 	Assert::throws(function () use ($data) {
@@ -197,8 +223,10 @@ test(function () {
 			['name' => 'Item 01', 'amount' => 50],
 			['name' => 'Item 02', 'amount' => 50],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 	];
 
 	try {
@@ -217,8 +245,10 @@ test(function () {
 			['amount' => 50],
 			['amount' => 50],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 		'x_unknown' => 1234,
 		'y_foobar' => 5678,
 	];
@@ -241,8 +271,10 @@ test(function () {
 			['name' => 'Item 01', 'amount' => 150, 'count' => 3],
 			['name' => 'Item 01', 'amount' => 50],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 		'eet' => [
 			'celk_trzba' => 200,
 			'zakl_dan1' => 80,
@@ -267,8 +299,10 @@ test(function () {
 		'items' => [
 			['name' => 'Item 01', 'amount' => 100, 'count' => 2],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 		'eet' => [
 			'celk_trzba' => 110,
 			'zakl_dan1' => 80,
@@ -291,8 +325,10 @@ test(function () {
 		'items' => [
 			['name' => 'x', 'amount' => 174.0],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 		'eet' => [
 			'celk_trzba' => 174.0,
 			'zakl_dan1' => 143.80165289256,
@@ -317,8 +353,10 @@ test(function () {
 		'items' => [
 			['name' => 'x', 'amount' => 274.0],
 		],
-		'return_url' => 6,
-		'notify_url' => 7,
+		'callback' => [
+			'return_url' => 6,
+			'notify_url' => 7,
+		],
 		'eet' => [
 			'celk_trzba' => 274.0,
 			'zakl_nepodl_dph' => 100.0,

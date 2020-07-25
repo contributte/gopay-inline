@@ -20,20 +20,24 @@ class PaymentFactory
 
 	/** @var array */
 	public static $required = [
-		// 'target', # see at AbstractPaymentService
 		'amount',
 		'currency',
 		'order_number',
-		'order_description',
 		'items',
+		'callback',
+	];
+
+	/** @var string[] */
+	public static $requiredCallback = [
 		'return_url',
 		'notify_url',
 	];
 
 	/** @var array */
 	public static $optional = [
-		'target',
+		'target', // see at AbstractPaymentService
 		'payer',
+		'order_description',
 		'additional_params',
 		'lang',
 		'eet',
@@ -61,7 +65,12 @@ class PaymentFactory
 
 		$res = Validator::validateRequired($data, self::$required);
 		if ($res !== TRUE) {
-			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
+			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '"');
+		}
+
+		$res = Validator::validateRequired($data['callback'], self::$requiredCallback);
+		if ($res !== TRUE) {
+			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '" in callback definition');
 		}
 
 		// CHECK SCHEME DATA #####################
@@ -115,9 +124,11 @@ class PaymentFactory
 		$payment->setAmount($data['amount']);
 		$payment->setCurrency($data['currency']);
 		$payment->setOrderNumber($data['order_number']);
-		$payment->setOrderDescription($data['order_description']);
-		$payment->setReturnUrl($data['return_url']);
-		$payment->setNotifyUrl($data['notify_url']);
+		if (array_key_exists('order_description', $data)) {
+			$payment->setOrderDescription($data['order_description']);
+		}
+		$payment->setReturnUrl($data['callback']['return_url']);
+		$payment->setNotifyUrl($data['callback']['notify_url']);
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
