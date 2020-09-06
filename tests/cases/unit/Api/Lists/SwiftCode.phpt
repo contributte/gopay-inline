@@ -11,7 +11,7 @@ require __DIR__ . '/../../../../bootstrap.php';
 
 // All
 test(function () {
-	Assert::count(32, SwiftCode::all());
+	Assert::count(33, SwiftCode::all());
 });
 
 // CZ
