@@ -187,6 +187,8 @@ class PaymentFactory
 				'dan2' => 'taxReducedRateFirst',
 				'zakl_dan3' => 'taxBaseReducedRateSecond',
 				'dan3' => 'taxReducedRateSecond',
+				'urceno_cerp_zuct' => 'subsequentDrawing',
+				'cerp_zuct' => 'subsequentlyDrawn',
 			], $data['eet']);
 
 			$eetSum = $eet->getSum();
@@ -196,7 +198,9 @@ class PaymentFactory
 				+ $eet->getTaxBaseReducedRateFirst()
 				+ $eet->getTaxReducedRateFirst()
 				+ $eet->getTaxBaseReducedRateSecond()
-				+ $eet->getTaxReducedRateSecond();
+				+ $eet->getTaxReducedRateSecond()
+				+ $eet->getSubsequentDrawing()
+				+ $eet->getSubsequentlyDrawn();
 
 			if ($validators[self::V_PRICES] === TRUE) {
 				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
