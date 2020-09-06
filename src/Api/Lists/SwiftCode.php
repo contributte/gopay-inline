@@ -4,6 +4,7 @@ namespace Contributte\GopayInline\Api\Lists;
 
 class SwiftCode
 {
+
 	const OTHERS = 'OTHERS';
 
 	// cz
