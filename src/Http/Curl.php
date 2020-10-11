@@ -12,7 +12,8 @@ final class Curl implements Io
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, $request->getUrl());
-		array_walk($headers = $request->getHeaders(), function (&$item, $key) {
+		$headers = $request->getHeaders();
+		array_walk($headers, function (&$item, $key) {
 			$item = sprintf('%s:%s', $key, $item);
 		});
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array_values($headers));
