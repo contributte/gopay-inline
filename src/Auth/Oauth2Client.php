@@ -56,12 +56,11 @@ final class Oauth2Client implements Auth
 		if ($response->getData() === false) {
 			throw new AuthorizationException('cURL error: Authorization failed', $response->getCode());
 		}
-		if (isset($response->getData()->errors)) { // GoPay errors
-			$error = $response->getData()->errors[0];
+		if (isset($response->getData()['errors'])) { // GoPay errors
+			$error = $response->getData()['errors'][0];
 			throw new AuthorizationException(AuthorizationException::format($error), $error->error_code);
 		}
 
 		return $response;
 	}
-
 }
