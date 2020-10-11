@@ -42,7 +42,7 @@ final class Curl implements Io
 			if ($info['content_type'] === 'application/octet-stream') {
 				$response->setData($result); // TODO: Check this type?
 			} else {
-				$response->setData(json_decode($result));
+				$response->setData(json_decode($result, true));
 			}
 		}
 

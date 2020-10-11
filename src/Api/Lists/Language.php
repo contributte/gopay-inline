@@ -7,19 +7,13 @@ namespace Contributte\GopayInline\Api\Lists;
 
 final class Language
 {
+	public const CZ = 'CS'; // Czech
 
-	// Czech
-	public const CZ = 'CS';
+	public const EN = 'EN'; // English
 
-	// English
-	public const EN = 'EN';
+	public const SK = 'SK'; // Slovak
 
-	// Slovak
-	public const SK = 'SK';
+	public const DE = 'DE'; // German
 
-	// German
-	public const DE = 'DE';
-
-	// Russian
-	public const RU = 'RU';
+	public const RU = 'RU'; // Russian
 }

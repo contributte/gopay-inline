@@ -32,13 +32,12 @@ final class HttpClient implements Http
 
 	public function doRequest(Request $request): Response
 	{
-		$response = $this->getIo()->call($request);
-		if ($response === null || $response->getError() !== null) {
+		if (($response = $this->getIo()->call($request)) === null || $response->getError() !== null) {
 			throw new HttpException('cURL error: Request failed');
 		}
 		if (isset($response->getData()['errors'])) { // GoPay errors
 			$error = $response->getData()['errors'][0];
-			throw new HttpException(HttpException::format($error), $error->error_code);
+			throw new HttpException('GoPay HTTP error: ' . HttpException::format($error), $error['error_code'] ?? 500);
 		}
 
 		return $response;

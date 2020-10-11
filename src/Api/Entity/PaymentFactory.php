@@ -12,39 +12,15 @@ use Contributte\GopayInline\Api\Objects\Parameter;
 use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Exception\ValidationException;
-use Contributte\GopayInline\Utils\Validator;
+use Nette\Schema\Expect;
+use Nette\Schema\Processor;
+use Nette\Schema\Schema;
 
 final class PaymentFactory
 {
 	public const V_SCHEME = 1;
 
 	public const V_PRICES = 2;
-
-	/** @var string[] */
-	public static $required = [
-		'amount',
-		'currency',
-		'order_number',
-		'items',
-		'callback',
-	];
-
-	/** @var string[] */
-	public static $requiredCallback = [
-		'return_url',
-		'notify_url',
-	];
-
-	/** @var string[] */
-	public static $optional = [
-		'target', // see at AbstractPaymentService
-		'payer',
-		'order_description',
-		'additional_params',
-		'lang',
-		'eet',
-		'preauthorization',
-	];
 
 	/** @var true[] (int => true) */
 	public static $validators = [
@@ -53,41 +29,76 @@ final class PaymentFactory
 	];
 
 
+	public static function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'amount' => Expect::type('float|int')->castTo('float')->required(),
+			'currency' => Expect::string()->required(),
+			'order_number' => Expect::type('string|int')->castTo('string')->required(),
+			'items' => Expect::arrayOf(Expect::structure([
+				'name' => Expect::string()->required(),
+				'amount' => Expect::type('int|float')->castTo('float')->required(),
+				'count' => Expect::int()->default(1),
+				'type' => Expect::string(),
+				'vat_rate' => Expect::int(),
+			])->castTo('array'))->castTo('array'),
+			'callback' => Expect::structure([
+				'return_url' => Expect::string()->required(),
+				'notify_url' => Expect::string()->required(),
+			])->castTo('array')->required(),
+			'payer' => Expect::structure([
+				'default_payment_instrument' => Expect::string()->required(),
+				'allowed_payment_instruments' => Expect::arrayOf(Expect::string()),
+				'contact' => Expect::structure([
+					'first_name' => Expect::string(),
+					'last_name' => Expect::string(),
+					'email' => Expect::string(),
+					'phone_number' => Expect::string(),
+					'city' => Expect::string(),
+					'street' => Expect::string(),
+					'postal_code' => Expect::string(),
+					'country_code' => Expect::string(),
+				])->castTo('array')->required(),
+			])->castTo('array')->required(),
+			'lang' => Expect::string()->pattern('[A-Z]{2}'),
+			'target' => Expect::structure([
+				'type' => Expect::string(),
+				'goid' => Expect::float(),
+			])->castTo('array'),
+			'order_description' => Expect::string(),
+			'additional_params' => Expect::arrayOf(Expect::structure([
+				'name' => Expect::string()->required(),
+				'value' => Expect::mixed(),
+			])->castTo('array'))->castTo('array'),
+			'eet' => Expect::structure([
+				'mena' => Expect::string(),
+				'celk_trzba' => Expect::float(),
+				'zakl_dan1' => Expect::float(),
+				'zakl_nepodl_dph' => Expect::float(),
+				'dan1' => Expect::float(),
+				'zakl_dan2' => Expect::float(),
+				'dan2' => Expect::float(),
+				'zakl_dan3' => Expect::float(),
+				'dan3' => Expect::float(),
+				'urceno_cerp_zuct' => Expect::float(),
+				'cerp_zuct' => Expect::float(),
+			])->castTo('array'),
+			'preauthorization' => Expect::bool(),
+		])->castTo('array')->otherItems();
+	}
+
+
 	/**
-	 * @param mixed $data
+	 * @param mixed[] $data
 	 * @param mixed[] $validators
 	 * @return Payment
 	 */
-	public static function create($data, $validators = []): Payment
+	public static function create(array $data, array $validators = []): Payment
 	{
-		// Convert to array
-		$data = (array) $data;
 		$validators = $validators + self::$validators;
+		$data = (new Processor)->process(self::getConfigSchema(), $data);
 
-		// CHECK REQUIRED DATA ###################
-
-		$res = Validator::validateRequired($data, self::$required);
-		if ($res !== true) {
-			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '"');
-		}
-
-		$res = Validator::validateRequired($data['callback'], self::$requiredCallback);
-		if ($res !== true) {
-			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '" in callback definition');
-		}
-
-		// CHECK SCHEME DATA #####################
-
-		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== true && $validators[self::V_SCHEME] === true) {
-			throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '".');
-		}
-
-		// CREATE PAYMENT ########################
-
-		$payment = new Payment();
-
-		// ### PAYER
+		$payment = new Payment;
 		if (isset($data['payer'])) {
 			$payer = new Payer;
 			self::map($payer, [
@@ -113,29 +124,22 @@ final class PaymentFactory
 				$payer->contact = $contact;
 			}
 		}
-
-		// ### TARGET
-		if (isset($data['target'])) {
+		if (isset($data['target']['goid'])) {
 			$target = new Target;
 			self::map($target, ['type' => 'type', 'goid' => 'goid'], $data['target']);
 			$payment->setTarget($target);
 		}
 
-		// ### COMMON
-		$payment->setAmount($data['amount']);
+		$payment->setAmount((float) $data['amount']);
 		$payment->setCurrency($data['currency']);
-		$payment->setOrderNumber($data['order_number']);
-		if (array_key_exists('order_description', $data)) {
+		$payment->setOrderNumber((string) $data['order_number']);
+		if (isset($data['order_description'])) {
 			$payment->setOrderDescription($data['order_description']);
 		}
 		$payment->setReturnUrl($data['callback']['return_url']);
 		$payment->setNotifyUrl($data['callback']['notify_url']);
 
-		// ### ITEMS
-		foreach ($data['items'] as $param) {
-			if ((!isset($param['name']) || !$param['name']) && $validators[self::V_SCHEME] === true) {
-				throw new ValidationException('Item\'s name can\'t be empty or null.');
-			}
+		foreach ($data['items'] as $orderItem) {
 			$item = new Item;
 			self::map($item, [
 				'name' => 'name',
@@ -143,25 +147,20 @@ final class PaymentFactory
 				'count' => 'count',
 				'vat_rate' => 'vatRate',
 				'type' => 'type',
-			], $param);
+			], $orderItem);
 			$payment->addItem($item);
 		}
-
-		// ### ADDITIONAL PARAMETERS
 		if (isset($data['additional_params'])) {
-			foreach ($data['additional_params'] as $param) {
+			foreach ($data['additional_params'] as $orderItem) {
 				$parameter = new Parameter;
-				self::map($parameter, ['name' => 'name', 'value' => 'value'], $param);
+				self::map($parameter, ['name' => 'name', 'value' => 'value'], $orderItem);
 				$payment->addParameter($parameter);
 			}
 		}
-
-		// ### LANG
 		if (isset($data['lang'])) {
 			$payment->setLang($data['lang']);
 		}
 
-		// VALIDATION PRICE & ITEMS PRICE ########
 		$itemsPrice = 0;
 		$orderPrice = $payment->getAmount();
 		foreach ($payment->getItems() as $item) {
@@ -170,10 +169,8 @@ final class PaymentFactory
 		if ($itemsPrice !== $orderPrice && $validators[self::V_PRICES] === true) {
 			throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 		}
-
-		// ### EET
-		if (isset($data['eet'])) {
-			$eet = new Eet();
+		if (isset($data['eet']['mena'])) {
+			$eet = new Eet;
 			self::map($eet, [
 				'mena' => 'currency',
 				'celk_trzba' => 'sum',
@@ -203,7 +200,6 @@ final class PaymentFactory
 				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTotal));
 				}
-
 				if (number_format($eetSum, 8) !== number_format($orderPrice, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
@@ -211,8 +207,6 @@ final class PaymentFactory
 
 			$payment->setEet($eet);
 		}
-
-		// ### PREAUTHORIZATION
 		if (isset($data['preauthorization'])) {
 			$payment->setPreauthorization($data['preauthorization']);
 		}
