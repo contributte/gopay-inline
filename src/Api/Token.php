@@ -17,6 +17,7 @@ class Token
 	/** @var int */
 	public $expireIn;
 
+
 	/**
 	 * @param array $data
 	 * @return Token

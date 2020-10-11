@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Objects;
 
+
 use Contributte\GopayInline\Utils\Money;
 
 class Eet extends AbstractObject
@@ -40,6 +41,7 @@ class Eet extends AbstractObject
 	/** @var float|null */
 	public $subsequentlyDrawn;
 
+
 	/**
 	 * @return float
 	 */
@@ -48,141 +50,6 @@ class Eet extends AbstractObject
 		return $this->sum;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getSumInCents()
-	{
-		return Money::toCents($this->getSum());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBase()
-	{
-		return $this->taxBase;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseInCents()
-	{
-		return Money::toCents($this->getTaxBase());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTax()
-	{
-		return $this->tax;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxInCents()
-	{
-		return Money::toCents($this->getTax());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseReducedRateFirst()
-	{
-		return $this->taxBaseReducedRateFirst;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseReducedRateFirstInCents()
-	{
-		return Money::toCents($this->getTaxBaseReducedRateFirst());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxReducedRateFirst()
-	{
-		return $this->taxReducedRateFirst;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxReducedRateFirstInCents()
-	{
-		return Money::toCents($this->getTaxReducedRateFirst());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseReducedRateSecond()
-	{
-		return $this->taxBaseReducedRateSecond;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxBaseReducedRateSecondInCents()
-	{
-		return Money::toCents($this->getTaxBaseReducedRateSecond());
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxReducedRateSecond()
-	{
-		return $this->taxReducedRateSecond;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getTaxReducedRateSecondInCents()
-	{
-		return Money::toCents($this->getTaxReducedRateSecond());
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCurrency()
-	{
-		return $this->currency;
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getTaxBaseNoVat()
-	{
-		return $this->taxBaseNoVat;
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getSubsequentDrawing()
-	{
-		return $this->subsequentDrawing;
-	}
-
-	/**
-	 * @return float|null
-	 */
-	public function getSubsequentlyDrawn()
-	{
-		return $this->subsequentlyDrawn;
-	}
 
 	/**
 	 * @param float $sum
@@ -193,6 +60,25 @@ class Eet extends AbstractObject
 		$this->sum = $sum;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getSumInCents()
+	{
+		return Money::toCents($this->getSum());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxBase()
+	{
+		return $this->taxBase;
+	}
+
+
 	/**
 	 * @param float $taxBase
 	 * @return void
@@ -201,6 +87,25 @@ class Eet extends AbstractObject
 	{
 		$this->taxBase = $taxBase;
 	}
+
+
+	/**
+	 * @return float
+	 */
+	public function getTaxBaseInCents()
+	{
+		return Money::toCents($this->getTaxBase());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTax()
+	{
+		return $this->tax;
+	}
+
 
 	/**
 	 * @param float $tax
@@ -211,6 +116,25 @@ class Eet extends AbstractObject
 		$this->tax = $tax;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getTaxInCents()
+	{
+		return Money::toCents($this->getTax());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxBaseReducedRateFirst()
+	{
+		return $this->taxBaseReducedRateFirst;
+	}
+
+
 	/**
 	 * @param float $taxBaseReducedRateFirst
 	 * @return void
@@ -219,6 +143,25 @@ class Eet extends AbstractObject
 	{
 		$this->taxBaseReducedRateFirst = $taxBaseReducedRateFirst;
 	}
+
+
+	/**
+	 * @return float
+	 */
+	public function getTaxBaseReducedRateFirstInCents()
+	{
+		return Money::toCents($this->getTaxBaseReducedRateFirst());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxReducedRateFirst()
+	{
+		return $this->taxReducedRateFirst;
+	}
+
 
 	/**
 	 * @param float $taxReducedRateFirst
@@ -229,6 +172,25 @@ class Eet extends AbstractObject
 		$this->taxReducedRateFirst = $taxReducedRateFirst;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getTaxReducedRateFirstInCents()
+	{
+		return Money::toCents($this->getTaxReducedRateFirst());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxBaseReducedRateSecond()
+	{
+		return $this->taxBaseReducedRateSecond;
+	}
+
+
 	/**
 	 * @param float $taxBaseReducedRateSecond
 	 * @return void
@@ -237,6 +199,25 @@ class Eet extends AbstractObject
 	{
 		$this->taxBaseReducedRateSecond = $taxBaseReducedRateSecond;
 	}
+
+
+	/**
+	 * @return float
+	 */
+	public function getTaxBaseReducedRateSecondInCents()
+	{
+		return Money::toCents($this->getTaxBaseReducedRateSecond());
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxReducedRateSecond()
+	{
+		return $this->taxReducedRateSecond;
+	}
+
 
 	/**
 	 * @param float $taxReducedRateSecond
@@ -247,6 +228,25 @@ class Eet extends AbstractObject
 		$this->taxReducedRateSecond = $taxReducedRateSecond;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getTaxReducedRateSecondInCents()
+	{
+		return Money::toCents($this->getTaxReducedRateSecond());
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCurrency()
+	{
+		return $this->currency;
+	}
+
+
 	/**
 	 * @param string $currency
 	 * @return void
@@ -255,6 +255,16 @@ class Eet extends AbstractObject
 	{
 		$this->currency = $currency;
 	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getTaxBaseNoVat()
+	{
+		return $this->taxBaseNoVat;
+	}
+
 
 	/**
 	 * @param float $taxBaseNoVat
@@ -265,6 +275,24 @@ class Eet extends AbstractObject
 		$this->taxBaseNoVat = $taxBaseNoVat;
 	}
 
+
+	/**
+	 * @return float|null
+	 */
+	public function getSubsequentDrawing()
+	{
+		return $this->subsequentDrawing;
+	}
+
+
+	/**
+	 * @return float|null
+	 */
+	public function getSubsequentlyDrawn()
+	{
+		return $this->subsequentlyDrawn;
+	}
+
 	/**
 	 * HELPERS *****************************************************************
 	 */
@@ -272,6 +300,7 @@ class Eet extends AbstractObject
 	/**
 	 * ABSTRACT ****************************************************************
 	 */
+
 
 	/**
 	 * @return array
@@ -282,30 +311,30 @@ class Eet extends AbstractObject
 		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
 
-		if ($this->getTaxBaseNoVat() !== NULL) {
+		if ($this->getTaxBaseNoVat() !== null) {
 			$data['zakl_nepodl_dph'] = $this->getTaxBaseNoVat();
 		}
 
-		if ($this->getTaxBase() !== NULL && $this->getTax() !== NULL) {
+		if ($this->getTaxBase() !== null && $this->getTax() !== null) {
 			$data['zakl_dan1'] = $this->getTaxBaseInCents();
 			$data['dan1'] = $this->getTaxInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateFirst() !== NULL && $this->getTaxReducedRateFirst() !== NULL) {
+		if ($this->getTaxBaseReducedRateFirst() !== null && $this->getTaxReducedRateFirst() !== null) {
 			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirstInCents();
 			$data['dan2'] = $this->getTaxReducedRateFirstInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateSecond() !== NULL && $this->getTaxReducedRateSecond() !== NULL) {
+		if ($this->getTaxBaseReducedRateSecond() !== null && $this->getTaxReducedRateSecond() !== null) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}
 
-		if ($this->getSubsequentDrawing() !== NULL) {
+		if ($this->getSubsequentDrawing() !== null) {
 			$data['urceno_cerp_zuct'] = $this->getSubsequentDrawing();
 		}
 
-		if ($this->getSubsequentlyDrawn() !== NULL) {
+		if ($this->getSubsequentlyDrawn() !== null) {
 			$data['cerp_zuct'] = $this->getSubsequentlyDrawn();
 		}
 

@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Entity;
 
+
 use Contributte\GopayInline\Api\Objects\Item;
 use Contributte\GopayInline\Api\Objects\Parameter;
 use Contributte\GopayInline\Exception\ValidationException;
@@ -12,6 +13,7 @@ class RecurringPaymentFactory
 
 	// Validator's types
 	const V_SCHEME = 1;
+
 	const V_PRICES = 2;
 
 	/** @var array */
@@ -30,9 +32,10 @@ class RecurringPaymentFactory
 
 	/** @var array */
 	public static $validators = [
-		self::V_SCHEME => TRUE,
-		self::V_PRICES => TRUE,
+		self::V_SCHEME => true,
+		self::V_PRICES => true,
 	];
+
 
 	/**
 	 * @param mixed $data
@@ -48,15 +51,15 @@ class RecurringPaymentFactory
 		// CHECK REQUIRED DATA ###################
 
 		$res = Validator::validateRequired($data, self::$required);
-		if ($res !== TRUE) {
+		if ($res !== true) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
 		}
 
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== TRUE) {
-			if ($validators[self::V_SCHEME] === TRUE) {
+		if ($res !== true) {
+			if ($validators[self::V_SCHEME] === true) {
 				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
 			}
 		}
@@ -74,7 +77,7 @@ class RecurringPaymentFactory
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
 			if (!isset($param['name']) || !$param['name']) {
-				if ($validators[self::V_SCHEME] === TRUE) {
+				if ($validators[self::V_SCHEME] === true) {
 					throw new ValidationException('Item\'s name can\'t be empty or null.');
 				}
 			}
@@ -105,13 +108,14 @@ class RecurringPaymentFactory
 			$itemsPrice += $item->amount * $item->count;
 		}
 		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === TRUE) {
+			if ($validators[self::V_PRICES] === true) {
 				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 			}
 		}
 
 		return $recurringPayment;
 	}
+
 
 	/**
 	 * @param object $obj

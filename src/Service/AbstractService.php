@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Service;
 
+
 use Contributte\GopayInline\Api\Gateway;
 use Contributte\GopayInline\Api\Lists\Scope;
 use Contributte\GopayInline\Client;
@@ -25,9 +26,10 @@ abstract class AbstractService
 
 	/** @var array */
 	protected $options = [
-		CURLOPT_SSL_VERIFYPEER => FALSE,
-		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_RETURNTRANSFER => true,
 	];
+
 
 	/**
 	 * @param Client $client
@@ -36,6 +38,7 @@ abstract class AbstractService
 	{
 		$this->client = $client;
 	}
+
 
 	/**
 	 * @param string $scope
@@ -49,6 +52,7 @@ abstract class AbstractService
 		return $this->client->authenticate(['scope' => $scope]);
 	}
 
+
 	/**
 	 * Build request and execute him
 	 *
@@ -58,7 +62,7 @@ abstract class AbstractService
 	 * @param string|NULL $contentType
 	 * @return Response
 	 */
-	protected function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
+	protected function makeRequest($method, $uri, array $data = null, $contentType = Http::CONTENT_JSON)
 	{
 		// Invoke events
 		$this->trigger('onRequest', [$method, $uri, $data]);
@@ -91,7 +95,7 @@ abstract class AbstractService
 			// GET =========================================
 			case HttpClient::METHOD_GET:
 				$request->appendOpts([
-					CURLOPT_HTTPGET => TRUE,
+					CURLOPT_HTTPGET => true,
 				]);
 
 				break;
@@ -99,7 +103,7 @@ abstract class AbstractService
 			// POST ========================================
 			case HttpClient::METHOD_POST:
 				$request->appendOpts([
-					CURLOPT_POST => TRUE,
+					CURLOPT_POST => true,
 					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
 				]);
 
@@ -111,6 +115,7 @@ abstract class AbstractService
 
 		return $this->client->call($request);
 	}
+
 
 	/**
 	 * @param string $event

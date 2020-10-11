@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Bridges\Nette\DI;
 
+
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
@@ -13,11 +14,12 @@ class GopayExtension extends CompilerExtension
 
 	/** @var array */
 	private $defaults = [
-		'goId' => NULL,
-		'clientId' => NULL,
-		'clientSecret' => NULL,
-		'test' => TRUE,
+		'goId' => null,
+		'clientId' => null,
+		'clientSecret' => null,
+		'test' => true,
 	];
+
 
 	/**
 	 * Register services
@@ -40,7 +42,7 @@ class GopayExtension extends CompilerExtension
 					$config['goId'],
 					$config['clientId'],
 					$config['clientSecret'],
-					$config['test'] !== FALSE ? Config::TEST : Config::PROD,
+					$config['test'] !== false ? Config::TEST : Config::PROD,
 				]),
 			]);
 	}

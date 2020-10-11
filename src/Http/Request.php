@@ -17,6 +17,7 @@ class Request
 	/** @var array */
 	protected $data = [];
 
+
 	/**
 	 * @return string
 	 */
@@ -24,6 +25,7 @@ class Request
 	{
 		return $this->url;
 	}
+
 
 	/**
 	 * @param string $url
@@ -34,6 +36,7 @@ class Request
 		$this->url = $url;
 	}
 
+
 	/**
 	 * @return array
 	 */
@@ -41,6 +44,7 @@ class Request
 	{
 		return $this->headers;
 	}
+
 
 	/**
 	 * @param array $headers
@@ -50,6 +54,7 @@ class Request
 	{
 		$this->headers = $headers;
 	}
+
 
 	/**
 	 * @param string $name
@@ -61,6 +66,7 @@ class Request
 		$this->headers[$name] = $value;
 	}
 
+
 	/**
 	 * @param array $headers
 	 * @return void
@@ -70,6 +76,7 @@ class Request
 		$this->headers += $headers;
 	}
 
+
 	/**
 	 * @return array
 	 */
@@ -77,6 +84,7 @@ class Request
 	{
 		return $this->opts;
 	}
+
 
 	/**
 	 * @param array $opts
@@ -86,6 +94,7 @@ class Request
 	{
 		$this->opts = $opts;
 	}
+
 
 	/**
 	 * @param string $name
@@ -97,6 +106,7 @@ class Request
 		$this->opts[$name] = $value;
 	}
 
+
 	/**
 	 * @param array $opts
 	 * @return void
@@ -106,6 +116,7 @@ class Request
 		$this->opts += $opts;
 	}
 
+
 	/**
 	 * @return array
 	 */
@@ -113,6 +124,7 @@ class Request
 	{
 		return $this->data;
 	}
+
 
 	/**
 	 * @param array $data

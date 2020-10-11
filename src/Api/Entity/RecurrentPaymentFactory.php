@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Entity;
 
+
 use Contributte\GopayInline\Api\Objects\Contact;
 use Contributte\GopayInline\Api\Objects\Eet;
 use Contributte\GopayInline\Api\Objects\Item;
@@ -17,6 +18,7 @@ class RecurrentPaymentFactory
 
 	// Validator's types
 	const V_SCHEME = 1;
+
 	const V_PRICES = 2;
 
 	/** @var array */
@@ -43,9 +45,10 @@ class RecurrentPaymentFactory
 
 	/** @var array */
 	public static $validators = [
-		self::V_SCHEME => TRUE,
-		self::V_PRICES => TRUE,
+		self::V_SCHEME => true,
+		self::V_PRICES => true,
 	];
+
 
 	/**
 	 * @param mixed $data
@@ -61,15 +64,15 @@ class RecurrentPaymentFactory
 		// CHECK REQUIRED DATA ###################
 
 		$res = Validator::validateRequired($data, self::$required);
-		if ($res !== TRUE) {
+		if ($res !== true) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
 		}
 
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== TRUE) {
-			if ($validators[self::V_SCHEME] === TRUE) {
+		if ($res !== true) {
+			if ($validators[self::V_SCHEME] === true) {
 				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
 			}
 		}
@@ -123,7 +126,7 @@ class RecurrentPaymentFactory
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
 			if (!isset($param['name']) || !$param['name']) {
-				if ($validators[self::V_SCHEME] === TRUE) {
+				if ($validators[self::V_SCHEME] === true) {
 					throw new ValidationException('Item\'s name can\'t be empty or null.');
 				}
 			}
@@ -166,7 +169,7 @@ class RecurrentPaymentFactory
 			$itemsPrice += $item->amount * $item->count;
 		}
 		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === TRUE) {
+			if ($validators[self::V_PRICES] === true) {
 				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 			}
 		}
@@ -195,7 +198,7 @@ class RecurrentPaymentFactory
 				+ $eet->getTaxBaseReducedRateSecond()
 				+ $eet->getTaxReducedRateSecond();
 
-			if ($validators[self::V_PRICES] === TRUE) {
+			if ($validators[self::V_PRICES] === true) {
 				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTotal));
 				}
@@ -210,6 +213,7 @@ class RecurrentPaymentFactory
 
 		return $recurrentPayment;
 	}
+
 
 	/**
 	 * @param object $obj

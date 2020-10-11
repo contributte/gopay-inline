@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Objects;
 
+
 use Contributte\GopayInline\Api\Lists\TargetType;
 
 class Target extends AbstractObject

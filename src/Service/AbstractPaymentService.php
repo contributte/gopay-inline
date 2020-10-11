@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Service;
 
+
 use Contributte\GopayInline\Api\Entity\Payment;
 use Contributte\GopayInline\Api\Lists\TargetType;
 use Contributte\GopayInline\Api\Objects\Target;
@@ -17,7 +18,7 @@ abstract class AbstractPaymentService extends AbstractService
 	 */
 	protected function preConfigure(Payment $payment)
 	{
-		if ($payment->getTarget() === NULL) {
+		if ($payment->getTarget() === null) {
 			$target = new Target();
 			$target->goid = $this->client->getGoId();
 			$target->type = TargetType::ACCOUNT;

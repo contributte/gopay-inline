@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Entity;
 
+
 use Contributte\GopayInline\Api\Objects\Recurrence;
 
 class RecurrentPayment extends Payment
@@ -10,6 +11,7 @@ class RecurrentPayment extends Payment
 	/** @var Recurrence|NULL */
 	protected $recurrence;
 
+
 	/**
 	 * @return Recurrence|NULL
 	 */
@@ -17,6 +19,7 @@ class RecurrentPayment extends Payment
 	{
 		return $this->recurrence;
 	}
+
 
 	/**
 	 * @param Recurrence $recurrence
@@ -39,7 +42,7 @@ class RecurrentPayment extends Payment
 		$payment = parent::toArray();
 
 		$recurrence = $this->getRecurrence();
-		if ($recurrence !== NULL) {
+		if ($recurrence !== null) {
 			$payment['recurrence'] = $recurrence->toArray();
 		}
 

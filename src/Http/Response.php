@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Http;
 
+
 use RecursiveArrayIterator;
 
 /**
@@ -25,6 +26,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	/** @var string|null */
 	protected $error;
 
+
 	/**
 	 * @return array|FALSE
 	 */
@@ -33,17 +35,19 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		return $this->data;
 	}
 
+
 	/**
 	 * @param mixed $data
 	 * @return void
 	 */
 	public function setData($data)
 	{
-		if (!is_bool($data) && $data !== NULL) {
+		if (!is_bool($data) && $data !== null) {
 			$data = (array) $data;
 		}
 		$this->data = $data;
 	}
+
 
 	/**
 	 * @return array
@@ -52,6 +56,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		return $this->headers;
 	}
+
 
 	/**
 	 * @param mixed $headers
@@ -62,6 +67,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		$this->headers = $headers;
 	}
 
+
 	/**
 	 * @return int
 	 */
@@ -69,6 +75,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		return $this->code;
 	}
+
 
 	/**
 	 * @param mixed $code
@@ -79,6 +86,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		$this->code = (int) $code;
 	}
 
+
 	/**
 	 * @return string|null
 	 */
@@ -86,6 +94,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	{
 		return $this->error;
 	}
+
 
 	/**
 	 * @param string $error
@@ -96,12 +105,13 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		$this->error = $error;
 	}
 
+
 	/**
 	 * @return bool
 	 */
 	public function isSuccess()
 	{
-		return $this->error == FALSE;
+		return $this->error == false;
 	}
 
 	/**
@@ -118,8 +128,9 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 			return isset($this->data[$offset]);
 		}
 
-		return FALSE;
+		return false;
 	}
+
 
 	/**
 	 * @param mixed $offset
@@ -127,10 +138,12 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	 */
 	public function offsetGet($offset)
 	{
-		if (!is_array($this->data)) return NULL;
+		if (!is_array($this->data))
+			return null;
 
 		return $this->data[$offset];
 	}
+
 
 	/**
 	 * @param mixed $offset
@@ -144,6 +157,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		}
 	}
 
+
 	/**
 	 * @param mixed $offset
 	 * @return void
@@ -155,12 +169,13 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 		}
 	}
 
+
 	/**
 	 * @return int
 	 */
 	public function count()
 	{
-		return $this->data === NULL ? 0 : count($this->data);
+		return $this->data === null ? 0 : count($this->data);
 	}
 
 	/**

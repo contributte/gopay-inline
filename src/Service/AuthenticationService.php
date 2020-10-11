@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Service;
 
+
 use Contributte\GopayInline\Api\Lists\Scope;
 use Contributte\GopayInline\Exception\HttpException;
 
@@ -17,9 +18,10 @@ class AuthenticationService extends AbstractService
 		try {
 			$this->doAuthorization($scope);
 		} catch (HttpException $e) {
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+
+		return true;
 	}
 
 }

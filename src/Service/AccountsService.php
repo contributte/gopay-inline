@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Service;
 
+
 use Contributte\GopayInline\Http\Response;
 
 class AccountsService extends AbstractService

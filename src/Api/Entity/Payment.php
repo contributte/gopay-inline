@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Entity;
 
+
 use Contributte\GopayInline\Api\Objects\Eet;
 use Contributte\GopayInline\Api\Objects\Item;
 use Contributte\GopayInline\Api\Objects\Parameter;
@@ -49,7 +50,8 @@ class Payment extends AbstractEntity
 	protected $eet;
 
 	/** @var bool */
-	protected $preauthorization = FALSE;
+	protected $preauthorization = false;
+
 
 	/**
 	 * @return Payer|NULL
@@ -58,6 +60,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->payer;
 	}
+
 
 	/**
 	 * @param Payer $payer
@@ -68,6 +71,7 @@ class Payment extends AbstractEntity
 		$this->payer = $payer;
 	}
 
+
 	/**
 	 * @return Target|null
 	 */
@@ -75,6 +79,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->target;
 	}
+
 
 	/**
 	 * @param Target $target
@@ -85,6 +90,7 @@ class Payment extends AbstractEntity
 		$this->target = $target;
 	}
 
+
 	/**
 	 * @return float
 	 */
@@ -93,13 +99,6 @@ class Payment extends AbstractEntity
 		return $this->amount;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmountInCents()
-	{
-		return Money::toCents($this->getAmount());
-	}
 
 	/**
 	 * @param float $amount
@@ -110,6 +109,16 @@ class Payment extends AbstractEntity
 		$this->amount = $amount;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getAmountInCents()
+	{
+		return Money::toCents($this->getAmount());
+	}
+
+
 	/**
 	 * @return string
 	 */
@@ -117,6 +126,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->currency;
 	}
+
 
 	/**
 	 * @param string $currency
@@ -127,6 +137,7 @@ class Payment extends AbstractEntity
 		$this->currency = $currency;
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -134,6 +145,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->orderNumber;
 	}
+
 
 	/**
 	 * @param string $orderNumber
@@ -144,6 +156,7 @@ class Payment extends AbstractEntity
 		$this->orderNumber = $orderNumber;
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -151,6 +164,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->orderDescription;
 	}
+
 
 	/**
 	 * @param string $description
@@ -161,6 +175,7 @@ class Payment extends AbstractEntity
 		$this->orderDescription = $description;
 	}
 
+
 	/**
 	 * @return Item[]
 	 */
@@ -168,6 +183,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->items;
 	}
+
 
 	/**
 	 * @param Item[] $items
@@ -178,6 +194,7 @@ class Payment extends AbstractEntity
 		$this->items = $items;
 	}
 
+
 	/**
 	 * @param Item $item
 	 * @return void
@@ -187,6 +204,7 @@ class Payment extends AbstractEntity
 		$this->items[] = $item;
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -194,6 +212,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->returnUrl;
 	}
+
 
 	/**
 	 * @param string $url
@@ -204,6 +223,7 @@ class Payment extends AbstractEntity
 		$this->returnUrl = $url;
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -211,6 +231,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->notifyUrl;
 	}
+
 
 	/**
 	 * @param string $url
@@ -221,6 +242,7 @@ class Payment extends AbstractEntity
 		$this->notifyUrl = $url;
 	}
 
+
 	/**
 	 * @return Parameter[]
 	 */
@@ -228,6 +250,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->parameters;
 	}
+
 
 	/**
 	 * @param Parameter[] $parameters
@@ -238,6 +261,7 @@ class Payment extends AbstractEntity
 		$this->parameters = $parameters;
 	}
 
+
 	/**
 	 * @param Parameter $parameter
 	 * @return void
@@ -247,6 +271,7 @@ class Payment extends AbstractEntity
 		$this->parameters[] = $parameter;
 	}
 
+
 	/**
 	 * @return string|NULL
 	 */
@@ -254,6 +279,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->lang;
 	}
+
 
 	/**
 	 * @param string $lang
@@ -264,6 +290,7 @@ class Payment extends AbstractEntity
 		$this->lang = $lang;
 	}
 
+
 	/**
 	 * @return Eet|NULL
 	 */
@@ -271,6 +298,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->eet;
 	}
+
 
 	/**
 	 * @param Eet $eet
@@ -281,6 +309,7 @@ class Payment extends AbstractEntity
 		$this->eet = $eet;
 	}
 
+
 	/**
 	 * @return boolean
 	 */
@@ -288,6 +317,7 @@ class Payment extends AbstractEntity
 	{
 		return $this->preauthorization;
 	}
+
 
 	/**
 	 * @param boolean $preauth
@@ -302,37 +332,6 @@ class Payment extends AbstractEntity
 	 * HELPERS *****************************************************************
 	 */
 
-	/**
-	 * @param mixed|Item[] $items
-	 * @return array
-	 */
-	protected function formatItems($items)
-	{
-		if (!is_array($items)) return [];
-
-		// Format items
-		return array_map(function (Item $item) {
-			return $item->toArray();
-		}, $items);
-	}
-
-	/**
-	 * @param mixed|Parameter[] $parameters
-	 * @return array
-	 */
-	protected function formatParameters($parameters)
-	{
-		if (!is_array($parameters)) return [];
-
-		// Format items
-		return array_map(function (Parameter $param) {
-			return $param->toArray();
-		}, $parameters);
-	}
-
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
 	 * @return array
@@ -358,7 +357,7 @@ class Payment extends AbstractEntity
 		// NOT REQUIRED ====================================
 
 		$payer = $this->getPayer();
-		if ($payer !== NULL) {
+		if ($payer !== null) {
 			$data['payer'] = $payer->toArray();
 		}
 
@@ -368,12 +367,12 @@ class Payment extends AbstractEntity
 		}
 
 		$lang = $this->getLang();
-		if ($lang !== NULL) {
+		if ($lang !== null) {
 			$data['lang'] = $lang;
 		}
 
 		$eet = $this->getEet();
-		if ($eet !== NULL) {
+		if ($eet !== null) {
 			$data['eet'] = $eet->toArray();
 		}
 
@@ -383,6 +382,42 @@ class Payment extends AbstractEntity
 		}
 
 		return $data;
+	}
+
+
+	/**
+	 * @param mixed|Item[] $items
+	 * @return array
+	 */
+	protected function formatItems($items)
+	{
+		if (!is_array($items))
+			return [];
+
+		// Format items
+		return array_map(function (Item $item) {
+			return $item->toArray();
+		}, $items);
+	}
+
+	/**
+	 * ABSTRACT ****************************************************************
+	 */
+
+
+	/**
+	 * @param mixed|Parameter[] $parameters
+	 * @return array
+	 */
+	protected function formatParameters($parameters)
+	{
+		if (!is_array($parameters))
+			return [];
+
+		// Format items
+		return array_map(function (Parameter $param) {
+			return $param->toArray();
+		}, $parameters);
 	}
 
 }

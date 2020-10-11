@@ -14,8 +14,9 @@ final class Validator
 	{
 		$diff = array_diff_key(array_flip($keys), $array);
 
-		return count($diff) > 0 ? array_keys($diff) : TRUE;
+		return count($diff) > 0 ? array_keys($diff) : true;
 	}
+
 
 	/**
 	 * @param mixed[] $array
@@ -26,7 +27,7 @@ final class Validator
 	{
 		$diff = array_diff_key($array, array_flip($keys));
 
-		return count($diff) > 0 ? array_keys($diff) : TRUE;
+		return count($diff) > 0 ? array_keys($diff) : true;
 	}
 
 }

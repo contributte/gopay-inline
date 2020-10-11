@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Auth;
 
+
 use Contributte\GopayInline\Http\Response;
 
 interface Auth

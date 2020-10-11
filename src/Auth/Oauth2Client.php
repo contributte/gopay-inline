@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Auth;
 
+
 use Contributte\GopayInline\Api\Gateway;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Exception\AuthorizationException;
@@ -18,6 +19,7 @@ class Oauth2Client implements Auth
 	/** @var Http */
 	private $http;
 
+
 	/**
 	 * @param Client $client
 	 * @param Http $http
@@ -27,6 +29,7 @@ class Oauth2Client implements Auth
 		$this->client = $client;
 		$this->http = $http;
 	}
+
 
 	/**
 	 * @param array $credentials
@@ -55,9 +58,9 @@ class Oauth2Client implements Auth
 
 		// Set-up opts
 		$opts = [
-			CURLOPT_SSL_VERIFYPEER => FALSE,
-			CURLOPT_POST => TRUE,
-			CURLOPT_RETURNTRANSFER => TRUE,
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_POST => true,
+			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_USERPWD => $this->client->getClientId() . ':' . $this->client->getClientSecret(),
 			CURLOPT_POSTFIELDS => $data,
 		];
@@ -66,7 +69,7 @@ class Oauth2Client implements Auth
 		// Make request
 		$response = $this->http->doRequest($request);
 
-		if ($response->getData() === FALSE) {
+		if ($response->getData() === false) {
 			// cURL errors
 			throw new AuthorizationException('Authorization failed', $response->getCode());
 		}

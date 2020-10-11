@@ -35,6 +35,7 @@ class PaymentInstrument
 	// Google Pay
 	const GPAY = 'GPAY';
 
+
 	/**
 	 * @return array
 	 */

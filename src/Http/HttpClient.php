@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Http;
 
+
 use Contributte\GopayInline\Exception\HttpException;
 
 class HttpClient implements Http
@@ -10,17 +11,19 @@ class HttpClient implements Http
 	/** @var Io */
 	protected $io;
 
+
 	/**
 	 * @return Io
 	 */
 	public function getIo()
 	{
-		if ($this->io === NULL) {
+		if ($this->io === null) {
 			$this->io = new Curl();
 		}
 
 		return $this->io;
 	}
+
 
 	/**
 	 * @param Io $io
@@ -44,7 +47,7 @@ class HttpClient implements Http
 	public function doRequest(Request $request)
 	{
 		$response = $this->getIo()->call($request);
-		if ($response === FALSE || $response->getError() !== NULL) {
+		if ($response === false || $response->getError() !== null) {
 			// cURL error
 			throw new HttpException('Request failed');
 		}

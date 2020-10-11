@@ -28,6 +28,7 @@ class RecurringPayment extends Payment
 		if (count($parameters) > 0) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
+
 		return $data;
 	}
 

@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Service;
 
+
 use Contributte\GopayInline\Api\Entity\Payment;
 use Contributte\GopayInline\Api\Entity\RecurrentPayment;
 use Contributte\GopayInline\Api\Entity\RecurringPayment;
@@ -18,8 +19,9 @@ class PaymentsService extends AbstractPaymentService
 	public function verify($id)
 	{
 		// Make request
-		return $this->makeRequest('GET', 'payments/payment/' . $id, NULL, Http::CONTENT_FORM);
+		return $this->makeRequest('GET', 'payments/payment/' . $id, null, Http::CONTENT_FORM);
 	}
+
 
 	/**
 	 * @param Payment $payment
@@ -37,6 +39,7 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment', $data);
 	}
 
+
 	/**
 	 * @param RecurrentPayment $payment
 	 * @return Response
@@ -53,6 +56,7 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment', $data);
 	}
 
+
 	/**
 	 * @param string $recurrencePaymentId
 	 * @param RecurringPayment $payment
@@ -67,6 +71,7 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/create-recurrence', $data);
 	}
 
+
 	/**
 	 * @param int|float $id
 	 * @param float $amount
@@ -74,10 +79,10 @@ class PaymentsService extends AbstractPaymentService
 	 * @param array $eet Use in case you need to refund payment with EET
 	 * @return Response
 	 */
-	public function refundPayment($id, $amount, $items = NULL, $eet = NULL)
+	public function refundPayment($id, $amount, $items = null, $eet = null)
 	{
 		// without EET
-		if ($items === NULL || $eet === NULL) {
+		if ($items === null || $eet === null) {
 			return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', ['amount' => round($amount * 100)], Http::CONTENT_FORM);
 		}
 
@@ -91,21 +96,23 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment/' . $id . '/refund', $data, Http::CONTENT_JSON);
 	}
 
+
 	/**
 	 * @param int|float $id
 	 * @param float $amount
 	 * @return Response
 	 */
-	public function capturePayment($id, $amount = NULL)
+	public function capturePayment($id, $amount = null)
 	{
 		$data = [];
 
-		if ($amount !== NULL) {
+		if ($amount !== null) {
 			$data['amount'] = round($amount * 100);
 		}
 
 		return $this->makeRequest('POST', 'payments/payment/' . $id . '/capture', $data);
 	}
+
 
 	/**
 	 * @param string $currency
@@ -114,8 +121,9 @@ class PaymentsService extends AbstractPaymentService
 	public function getPaymentInstruments($currency)
 	{
 		// Make request
-		return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, NULL, NULL);
+		return $this->makeRequest('GET', 'eshops/eshop/' . $this->client->getGoId() . '/payment-instruments/' . $currency, null, null);
 	}
+
 
 	/**
 	 * @param int|float $id ID of payment for which we need list of EET receipts

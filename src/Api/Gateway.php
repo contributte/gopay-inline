@@ -7,10 +7,12 @@ class Gateway
 
 	// Modes
 	const TEST = 'TEST';
+
 	const PROD = 'PROD';
 
 	/** @var string */
 	private static $mode;
+
 
 	/**
 	 * @param string $mode
@@ -20,6 +22,7 @@ class Gateway
 	{
 		self::$mode = $mode;
 	}
+
 
 	/**
 	 * @return string
@@ -33,6 +36,7 @@ class Gateway
 		}
 	}
 
+
 	/**
 	 * @return string
 	 */
@@ -44,6 +48,7 @@ class Gateway
 			return 'https://gw.sandbox.gopay.com/api';
 		}
 	}
+
 
 	/**
 	 * @param string $uri
@@ -57,6 +62,7 @@ class Gateway
 			return 'https://gw.sandbox.gopay.com/api/' . trim($uri, '/');
 		}
 	}
+
 
 	/**
 	 * @return string

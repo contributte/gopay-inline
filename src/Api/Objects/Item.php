@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Objects;
 
+
 use Contributte\GopayInline\Utils\Money;
 
 class Item extends AbstractObject
@@ -22,6 +23,7 @@ class Item extends AbstractObject
 	/** @var int|null */
 	public $vatRate;
 
+
 	/**
 	 * @return string
 	 */
@@ -30,45 +32,6 @@ class Item extends AbstractObject
 		return $this->name;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getCount()
-	{
-		return $this->count;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getAmountInCents()
-	{
-		return Money::toCents($this->getAmount());
-	}
-
-	/**
-	 * @return string|null
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
-
-	/**
-	 * @return int|null
-	 */
-	public function getVatRate()
-	{
-		return $this->vatRate;
-	}
 
 	/**
 	 * @param string $name
@@ -79,6 +42,16 @@ class Item extends AbstractObject
 		$this->name = $name;
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+
+
 	/**
 	 * @param float $amount
 	 * @return void
@@ -87,6 +60,16 @@ class Item extends AbstractObject
 	{
 		$this->amount = $amount;
 	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getCount()
+	{
+		return $this->count;
+	}
+
 
 	/**
 	 * @param int $count
@@ -97,6 +80,25 @@ class Item extends AbstractObject
 		$this->count = intval($count);
 	}
 
+
+	/**
+	 * @return float
+	 */
+	public function getAmountInCents()
+	{
+		return Money::toCents($this->getAmount());
+	}
+
+
+	/**
+	 * @return string|null
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+
+
 	/**
 	 * @param string $type
 	 * @return void
@@ -105,6 +107,16 @@ class Item extends AbstractObject
 	{
 		$this->type = $type;
 	}
+
+
+	/**
+	 * @return int|null
+	 */
+	public function getVatRate()
+	{
+		return $this->vatRate;
+	}
+
 
 	/**
 	 * @param int $vatRate
@@ -132,12 +144,12 @@ class Item extends AbstractObject
 		// NOT REQUIRED ====================================
 
 		$type = $this->getType();
-		if ($type !== NULL) {
+		if ($type !== null) {
 			$data['type'] = $type;
 		}
 
 		$vatRate = $this->getVatRate();
-		if ($vatRate !== NULL) {
+		if ($vatRate !== null) {
 			$data['vat_rate'] = $vatRate;
 		}
 
