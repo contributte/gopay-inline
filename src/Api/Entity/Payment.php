@@ -12,7 +12,7 @@ use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Utils\Money;
 
-final class Payment extends AbstractEntity
+class Payment extends AbstractEntity
 {
 
 	/** @var Payer|null */

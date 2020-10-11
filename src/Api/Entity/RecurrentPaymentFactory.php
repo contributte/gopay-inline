@@ -17,8 +17,6 @@ use Contributte\GopayInline\Utils\Validator;
 
 final class RecurrentPaymentFactory
 {
-
-	// Validator's types
 	public const V_SCHEME = 1;
 
 	public const V_PRICES = 2;
