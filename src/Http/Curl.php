@@ -11,23 +11,14 @@ final class Curl implements Io
 	{
 		$ch = curl_init();
 
-		// Set-up URL
 		curl_setopt($ch, CURLOPT_URL, $request->getUrl());
-
-		// Set-up headers
-		$headers = $request->getHeaders();
-		array_walk($headers, function (&$item, $key) {
+		array_walk($headers = $request->getHeaders(), function (&$item, $key) {
 			$item = sprintf('%s:%s', $key, $item);
 		});
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array_values($headers));
-
-		// Set-up others
 		curl_setopt_array($ch, $request->getOpts());
-
-		// Receive result
 		$result = curl_exec($ch);
 
-		// Parse response
 		$response = new Response;
 		if ($result === false) {
 			$response->setError(curl_strerror(curl_errno($ch)));
@@ -38,15 +29,10 @@ final class Curl implements Io
 			$info = curl_getinfo($ch);
 			$response->setCode(curl_getinfo($ch, CURLINFO_HTTP_CODE));
 			$response->setHeaders($info);
-
-			if ($info['content_type'] === 'application/octet-stream') {
-				$response->setData($result); // TODO: Check this type?
-			} else {
-				$response->setData(json_decode($result, true));
-			}
+			$response->setData(json_decode($result, true));
+			// Note: Sometimes cURL can return $info['content_type'] === 'application/octet-stream'
 		}
 
-		// Close cURL
 		curl_close($ch);
 
 		return $response;

@@ -53,7 +53,7 @@ final class Oauth2Client implements Auth
 		]);
 		$response = $this->http->doRequest($request);
 
-		if ($response->getData() === false) {
+		if ($response->getData() === null) {
 			throw new AuthorizationException('cURL error: Authorization failed', $response->getCode());
 		}
 		if (isset($response->getData()['errors'])) { // GoPay errors

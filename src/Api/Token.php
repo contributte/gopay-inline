@@ -43,4 +43,10 @@ final class Token
 
 		return $token;
 	}
+
+
+	public function __toString(): string
+	{
+		return $this->accessToken;
+	}
 }

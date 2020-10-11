@@ -74,14 +74,10 @@ final class Client
 	}
 
 
-	public function setToken($token): void
+	public function setToken(string $token): void
 	{
-		if (is_string($token)) {
-			$this->token = new Token;
-			$this->token->accessToken = $token;
-		} else {
-			$this->token = $token;
-		}
+		$this->token = new Token;
+		$this->token->accessToken = $token;
 	}
 
 
@@ -98,8 +94,11 @@ final class Client
 	public function authenticate(array $credentials): string
 	{
 		if ($this->token === null) {
-			$response = $this->getAuth()->authenticate($credentials);
-			$this->token = Token::create($response->getData());
+			if (($response = $this->getAuth()->authenticate($credentials)->getData()) === null) {
+				throw new \RuntimeException('Token for given credentials does not work.');
+			}
+
+			$this->token = Token::create($response);
 		}
 
 		return $this->token->accessToken;
