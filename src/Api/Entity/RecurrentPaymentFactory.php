@@ -15,15 +15,15 @@ use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Exception\ValidationException;
 use Contributte\GopayInline\Utils\Validator;
 
-class RecurrentPaymentFactory
+final class RecurrentPaymentFactory
 {
 
 	// Validator's types
-	const V_SCHEME = 1;
+	public const V_SCHEME = 1;
 
-	const V_PRICES = 2;
+	public const V_PRICES = 2;
 
-	/** @var array */
+	/** @var string[] */
 	public static $required = [
 		// 'target', # see at AbstractPaymentService
 		'amount',
@@ -36,7 +36,7 @@ class RecurrentPaymentFactory
 		'notify_url',
 	];
 
-	/** @var array */
+	/** @var string[] */
 	public static $optional = [
 		'target',
 		'payer',
@@ -45,7 +45,7 @@ class RecurrentPaymentFactory
 		'eet',
 	];
 
-	/** @var array */
+	/** @var true[] (int => true) */
 	public static $validators = [
 		self::V_SCHEME => true,
 		self::V_PRICES => true,
@@ -54,10 +54,10 @@ class RecurrentPaymentFactory
 
 	/**
 	 * @param mixed $data
-	 * @param array $validators
+	 * @param mixed[] $validators
 	 * @return RecurrentPayment
 	 */
-	public static function create($data, $validators = [])
+	public static function create($data, $validators = []): RecurrentPayment
 	{
 		// Convert to array
 		$data = (array) $data;
@@ -73,10 +73,8 @@ class RecurrentPaymentFactory
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== true) {
-			if ($validators[self::V_SCHEME] === true) {
-				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
-			}
+		if ($res !== true && $validators[self::V_SCHEME] === true) {
+			throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
 		}
 
 		// CREATE RECURRENT PAYMENT ########################
@@ -127,10 +125,8 @@ class RecurrentPaymentFactory
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
-			if (!isset($param['name']) || !$param['name']) {
-				if ($validators[self::V_SCHEME] === true) {
-					throw new ValidationException('Item\'s name can\'t be empty or null.');
-				}
+			if ((!isset($param['name']) || !$param['name']) && $validators[self::V_SCHEME] === true) {
+				throw new ValidationException('Item\'s name can\'t be empty or null.');
 			}
 			$item = new Item;
 			self::map($item, [
@@ -170,10 +166,8 @@ class RecurrentPaymentFactory
 		foreach ($recurrentPayment->getItems() as $item) {
 			$itemsPrice += $item->amount * $item->count;
 		}
-		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === true) {
-				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
-			}
+		if ($itemsPrice !== $orderPrice && $validators[self::V_PRICES] === true) {
+			throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 		}
 
 		// ### EET
@@ -204,7 +198,6 @@ class RecurrentPaymentFactory
 				if (number_format($eetSum, 8) !== number_format($eetTotal, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and EET tax sum (%s) do not match', $eetSum, $eetTotal));
 				}
-
 				if (number_format($eetSum, 8) !== number_format($orderPrice, 8)) {
 					throw new ValidationException(sprintf('EET sum (%s) and order sum (%s) do not match', $eetSum, $orderPrice));
 				}
@@ -219,8 +212,8 @@ class RecurrentPaymentFactory
 
 	/**
 	 * @param object $obj
-	 * @param array $mapping
-	 * @param array $data
+	 * @param mixed[] $mapping
+	 * @param mixed[] $data
 	 * @return object
 	 */
 	public static function map($obj, array $mapping, array $data)
@@ -233,5 +226,4 @@ class RecurrentPaymentFactory
 
 		return $obj;
 	}
-
 }

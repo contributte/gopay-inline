@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Http;
 
-class Curl implements Io
-{
 
-	/**
-	 * @param Request $request
-	 * @return Response|FALSE
-	 */
-	public function call(Request $request)
+final class Curl implements Io
+{
+	public function call(Request $request): ?Response
 	{
-		// Create cURL
 		$ch = curl_init();
 
 		// Set-up URL
@@ -33,10 +28,10 @@ class Curl implements Io
 		$result = curl_exec($ch);
 
 		// Parse response
-		$response = new Response();
+		$response = new Response;
 		if ($result === false) {
 			$response->setError(curl_strerror(curl_errno($ch)));
-			$response->setData(false);
+			$response->setData(null);
 			$response->setCode(curl_errno($ch));
 			$response->setHeaders(curl_getinfo($ch));
 		} else {
@@ -44,8 +39,8 @@ class Curl implements Io
 			$response->setCode(curl_getinfo($ch, CURLINFO_HTTP_CODE));
 			$response->setHeaders($info);
 
-			if ($info['content_type'] == 'application/octet-stream') {
-				$response->setData($result);
+			if ($info['content_type'] === 'application/octet-stream') {
+				$response->setData($result); // TODO: Check this type?
 			} else {
 				$response->setData(json_decode($result));
 			}
@@ -56,5 +51,4 @@ class Curl implements Io
 
 		return $response;
 	}
-
 }

@@ -12,7 +12,7 @@ use Contributte\GopayInline\Http\Http;
 use Contributte\GopayInline\Http\Request;
 use Contributte\GopayInline\Http\Response;
 
-class Oauth2Client implements Auth
+final class Oauth2Client implements Auth
 {
 
 	/** @var Client */
@@ -22,10 +22,6 @@ class Oauth2Client implements Auth
 	private $http;
 
 
-	/**
-	 * @param Client $client
-	 * @param Http $http
-	 */
 	public function __construct(Client $client, Http $http)
 	{
 		$this->client = $client;
@@ -34,50 +30,33 @@ class Oauth2Client implements Auth
 
 
 	/**
-	 * @param array $credentials
+	 * @param mixed[] $credentials
 	 * @return Response
 	 */
-	public function authenticate(array $credentials)
+	public function authenticate(array $credentials): Response
 	{
-		$request = new Request();
-
-		// Set URL
+		$request = new Request;
 		$request->setUrl(Gateway::getOauth2TokenUrl());
-
-		// Prepare data
-		$args = [
-			'grant_type' => 'client_credentials',
-			'scope' => $credentials['scope'],
-		];
-		$data = http_build_query($args);
-
-		// Set-up headers
-		$headers = [
+		$request->setHeaders([
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/x-www-form-urlencoded',
-		];
-		$request->setHeaders($headers);
-
-		// Set-up opts
-		$opts = [
-			CURLOPT_SSL_VERIFYPEER => false,
+		]);
+		$request->setOpts([
+			CURLOPT_SSL_VERIFYPEER => false, // TODO: [EA] Exposes a connection to MITM attacks. Use true (default) to stay safe.
 			CURLOPT_POST => true,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_USERPWD => $this->client->getClientId() . ':' . $this->client->getClientSecret(),
-			CURLOPT_POSTFIELDS => $data,
-		];
-		$request->setOpts($opts);
-
-		// Make request
+			CURLOPT_POSTFIELDS => http_build_query([
+				'grant_type' => 'client_credentials',
+				'scope' => $credentials['scope'],
+			]),
+		]);
 		$response = $this->http->doRequest($request);
 
 		if ($response->getData() === false) {
-			// cURL errors
-			throw new AuthorizationException('Authorization failed', $response->getCode());
+			throw new AuthorizationException('cURL error: Authorization failed', $response->getCode());
 		}
-
-		if (isset($response->getData()->errors)) {
-			// GoPay errors
+		if (isset($response->getData()->errors)) { // GoPay errors
 			$error = $response->getData()->errors[0];
 			throw new AuthorizationException(AuthorizationException::format($error), $error->error_code);
 		}

@@ -11,22 +11,14 @@ use Contributte\GopayInline\Api\Objects\Target;
 
 abstract class AbstractPaymentService extends AbstractService
 {
-
-	/**
-	 * Add required target field
-	 *
-	 * @param Payment $payment
-	 * @return void
-	 */
-	protected function preConfigure(Payment $payment)
+	protected function preConfigure(Payment $payment): void
 	{
 		if ($payment->getTarget() === null) {
-			$target = new Target();
+			$target = new Target;
 			$target->goid = $this->client->getGoId();
 			$target->type = TargetType::ACCOUNT;
 
 			$payment->setTarget($target);
 		}
 	}
-
 }

@@ -14,15 +14,13 @@ use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Exception\ValidationException;
 use Contributte\GopayInline\Utils\Validator;
 
-class PaymentFactory
+final class PaymentFactory
 {
+	public const V_SCHEME = 1;
 
-	// Validator's types
-	const V_SCHEME = 1;
+	public const V_PRICES = 2;
 
-	const V_PRICES = 2;
-
-	/** @var array */
+	/** @var string[] */
 	public static $required = [
 		'amount',
 		'currency',
@@ -37,7 +35,7 @@ class PaymentFactory
 		'notify_url',
 	];
 
-	/** @var array */
+	/** @var string[] */
 	public static $optional = [
 		'target', // see at AbstractPaymentService
 		'payer',
@@ -48,7 +46,7 @@ class PaymentFactory
 		'preauthorization',
 	];
 
-	/** @var array */
+	/** @var true[] (int => true) */
 	public static $validators = [
 		self::V_SCHEME => true,
 		self::V_PRICES => true,
@@ -57,10 +55,10 @@ class PaymentFactory
 
 	/**
 	 * @param mixed $data
-	 * @param array $validators
+	 * @param mixed[] $validators
 	 * @return Payment
 	 */
-	public static function create($data, $validators = [])
+	public static function create($data, $validators = []): Payment
 	{
 		// Convert to array
 		$data = (array) $data;
@@ -81,10 +79,8 @@ class PaymentFactory
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== true) {
-			if ($validators[self::V_SCHEME] === true) {
-				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
-			}
+		if ($res !== true && $validators[self::V_SCHEME] === true) {
+			throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '".');
 		}
 
 		// CREATE PAYMENT ########################
@@ -137,10 +133,8 @@ class PaymentFactory
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
-			if (!isset($param['name']) || !$param['name']) {
-				if ($validators[self::V_SCHEME] === true) {
-					throw new ValidationException('Item\'s name can\'t be empty or null.');
-				}
+			if ((!isset($param['name']) || !$param['name']) && $validators[self::V_SCHEME] === true) {
+				throw new ValidationException('Item\'s name can\'t be empty or null.');
 			}
 			$item = new Item;
 			self::map($item, [
@@ -173,10 +167,8 @@ class PaymentFactory
 		foreach ($payment->getItems() as $item) {
 			$itemsPrice += $item->amount;
 		}
-		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === true) {
-				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
-			}
+		if ($itemsPrice !== $orderPrice && $validators[self::V_PRICES] === true) {
+			throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 		}
 
 		// ### EET
@@ -231,8 +223,8 @@ class PaymentFactory
 
 	/**
 	 * @param object $obj
-	 * @param array $mapping
-	 * @param array $data
+	 * @param mixed[] $mapping
+	 * @param mixed[] $data
 	 * @return object
 	 */
 	public static function map($obj, array $mapping, array $data)
@@ -245,5 +237,4 @@ class PaymentFactory
 
 		return $obj;
 	}
-
 }

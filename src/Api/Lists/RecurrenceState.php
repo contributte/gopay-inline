@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class RecurrenceState
+
+final class RecurrenceState
 {
+	public const REQUESTED = 'REQUESTED';
 
-	const REQUESTED = 'REQUESTED';
+	public const STARTED = 'STARTED';
 
-	const STARTED = 'STARTED';
-
-	const STOPPED = 'STOPPED';
-
+	public const STOPPED = 'STOPPED';
 }

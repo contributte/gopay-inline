@@ -9,5 +9,4 @@ use RuntimeException;
 
 class GopayException extends RuntimeException
 {
-
 }

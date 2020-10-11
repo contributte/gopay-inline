@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Entity;
 
+
 abstract class AbstractEntity
 {
-
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	abstract public function toArray();
-
+	abstract public function toArray(): array;
 }

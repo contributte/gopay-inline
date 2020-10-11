@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class Result
+
+final class Result
 {
 
 	// Request accepted
-	const ACCEPTED = 'ACCEPTED';
+	public const ACCEPTED = 'ACCEPTED';
 
 	// Operation finished
-	const FINISHED = 'FINISHED';
+	public const FINISHED = 'FINISHED';
 
 	// Operation failed
-	const FAILED = 'FAILED';
-
+	public const FAILED = 'FAILED';
 }

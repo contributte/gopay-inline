@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
-class Payer extends AbstractObject
+
+final class Payer extends AbstractObject
 {
 
 	/** @var string[] */
@@ -22,38 +23,29 @@ class Payer extends AbstractObject
 	/** @var Contact */
 	public $contact;
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
-		$data = [];
-
+		$return = [];
 		if ($this->allowedPaymentInstruments !== null) {
-			$data['allowed_payment_instruments'] = $this->allowedPaymentInstruments;
+			$return['allowed_payment_instruments'] = $this->allowedPaymentInstruments;
 		}
-
 		if ($this->defaultPaymentInstrument !== null) {
-			$data['default_payment_instrument'] = $this->defaultPaymentInstrument;
+			$return['default_payment_instrument'] = $this->defaultPaymentInstrument;
 		}
-
 		if ($this->defaultSwift !== null) {
-			$data['default_swift'] = $this->defaultSwift;
+			$return['default_swift'] = $this->defaultSwift;
 		}
-
 		if ($this->allowedSwifts !== null) {
-			$data['allowed_swifts'] = $this->allowedSwifts;
+			$return['allowed_swifts'] = $this->allowedSwifts;
 		}
-
 		if ($this->contact !== null) {
-			$data['contact'] = $this->contact->toArray();
+			$return['contact'] = $this->contact->toArray();
 		}
 
-		return $data;
+		return $return;
 	}
-
 }

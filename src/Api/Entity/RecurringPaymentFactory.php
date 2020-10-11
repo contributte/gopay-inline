@@ -10,15 +10,14 @@ use Contributte\GopayInline\Api\Objects\Parameter;
 use Contributte\GopayInline\Exception\ValidationException;
 use Contributte\GopayInline\Utils\Validator;
 
-class RecurringPaymentFactory
+
+final class RecurringPaymentFactory
 {
+	public const V_SCHEME = 1;
 
-	// Validator's types
-	const V_SCHEME = 1;
+	public const V_PRICES = 2;
 
-	const V_PRICES = 2;
-
-	/** @var array */
+	/** @var mixed[] */
 	public static $required = [
 		'amount',
 		'currency',
@@ -27,12 +26,12 @@ class RecurringPaymentFactory
 		'items',
 	];
 
-	/** @var array */
+	/** @var string[] */
 	public static $optional = [
 		'additional_params',
 	];
 
-	/** @var array */
+	/** @var true[] (int => true) */
 	public static $validators = [
 		self::V_SCHEME => true,
 		self::V_PRICES => true,
@@ -41,10 +40,10 @@ class RecurringPaymentFactory
 
 	/**
 	 * @param mixed $data
-	 * @param array $validators
+	 * @param mixed[] $validators
 	 * @return RecurringPayment
 	 */
-	public static function create($data, $validators = [])
+	public static function create($data, $validators = []): RecurringPayment
 	{
 		// Convert to array
 		$data = (array) $data;
@@ -60,10 +59,8 @@ class RecurringPaymentFactory
 		// CHECK SCHEME DATA #####################
 
 		$res = Validator::validateOptional($data, array_merge(self::$required, self::$optional));
-		if ($res !== true) {
-			if ($validators[self::V_SCHEME] === true) {
-				throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
-			}
+		if ($res !== true && $validators[self::V_SCHEME] === true) {
+			throw new ValidationException('Not allowed keys "' . (implode(', ', $res)) . '""');
 		}
 
 		// CREATE RECURRENT PAYMENT ########################
@@ -109,10 +106,8 @@ class RecurringPaymentFactory
 		foreach ($recurringPayment->getItems() as $item) {
 			$itemsPrice += $item->amount * $item->count;
 		}
-		if ($itemsPrice !== $orderPrice) {
-			if ($validators[self::V_PRICES] === true) {
-				throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
-			}
+		if ($itemsPrice !== $orderPrice && $validators[self::V_PRICES] === true) {
+			throw new ValidationException(sprintf('Payment price (%s) and items price (%s) do not match', $orderPrice, $itemsPrice));
 		}
 
 		return $recurringPayment;
@@ -121,8 +116,8 @@ class RecurringPaymentFactory
 
 	/**
 	 * @param object $obj
-	 * @param array $mapping
-	 * @param array $data
+	 * @param mixed[] $mapping
+	 * @param mixed[] $data
 	 * @return object
 	 */
 	public static function map($obj, array $mapping, array $data)
@@ -135,5 +130,4 @@ class RecurringPaymentFactory
 
 		return $obj;
 	}
-
 }

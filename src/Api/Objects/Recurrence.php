@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
-class Recurrence extends AbstractObject
+
+final class Recurrence extends AbstractObject
 {
 
 	/** @var string */
@@ -16,14 +17,11 @@ class Recurrence extends AbstractObject
 	/** @var string */
 	public $dateTo;
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'recurrence_cycle' => $this->cycle,
@@ -32,4 +30,21 @@ class Recurrence extends AbstractObject
 		];
 	}
 
+
+	public function getCycle(): string
+	{
+		return $this->cycle;
+	}
+
+
+	public function getPeriod(): float
+	{
+		return $this->period;
+	}
+
+
+	public function getDateTo(): string
+	{
+		return $this->dateTo;
+	}
 }

@@ -9,19 +9,11 @@ use Contributte\GopayInline\Http\Response;
 
 class AccountsService extends AbstractService
 {
-
-	/**
-	 * @param string $date_from yyyy-mm-dd
-	 * @param string $date_to yyyy-mm-dd
-	 * @param string $currency
-	 * @param string $format
-	 * @return Response
-	 */
-	public function getAccountStatement($date_from, $date_to, $currency, $format)
+	public function getAccountStatement(string $dateFrom, string $dateTo, string $currency, string $format): Response
 	{
 		$data = [
-			'date_from' => $date_from,
-			'date_to' => $date_to,
+			'date_from' => $dateFrom, // format "yyyy-mm-dd"
+			'date_to' => $dateTo, // format "yyyy-mm-dd"
 			'currency' => $currency,
 			'format' => $format,
 			'goid' => $this->client->getGoId(),
@@ -29,5 +21,4 @@ class AccountsService extends AbstractService
 
 		return $this->makeRequest('POST', 'accounts/account-statement', $data);
 	}
-
 }

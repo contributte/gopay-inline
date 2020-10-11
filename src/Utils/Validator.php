@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Utils;
 
+
 final class Validator
 {
 
 	/**
 	 * @param mixed[] $array
 	 * @param string[] $keys
-	 * @return TRUE|string[]
+	 * @return true|string[]
 	 */
 	public static function validateRequired(array $array, array $keys)
 	{
@@ -23,7 +24,7 @@ final class Validator
 	/**
 	 * @param mixed[] $array
 	 * @param string[] $keys
-	 * @return TRUE|string[]
+	 * @return true|string[]
 	 */
 	public static function validateOptional(array $array, array $keys)
 	{
@@ -31,5 +32,4 @@ final class Validator
 
 		return count($diff) > 0 ? array_keys($diff) : true;
 	}
-
 }

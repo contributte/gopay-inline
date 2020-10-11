@@ -4,77 +4,67 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
-class Contact extends AbstractObject
+
+final class Contact extends AbstractObject
 {
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $firstname;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $lastname;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $email;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $phone;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $city;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $street;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $zip;
 
-	/** @var string|NULL */
+	/** @var string|null */
 	public $country;
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
-		$data = [];
+		$return = [];
 
 		if ($this->firstname !== null) {
-			$data['first_name'] = $this->firstname;
+			$return['first_name'] = $this->firstname;
 		}
-
 		if ($this->lastname !== null) {
-			$data['last_name'] = $this->lastname;
+			$return['last_name'] = $this->lastname;
 		}
-
 		if ($this->email !== null) {
-			$data['email'] = $this->email;
+			$return['email'] = $this->email;
 		}
-
 		if ($this->phone !== null) {
-			$data['phone_number'] = $this->phone;
+			$return['phone_number'] = $this->phone;
 		}
-
 		if ($this->city !== null) {
-			$data['city'] = $this->city;
+			$return['city'] = $this->city;
 		}
-
 		if ($this->street !== null) {
-			$data['street'] = $this->street;
+			$return['street'] = $this->street;
 		}
-
 		if ($this->zip !== null) {
-			$data['postal_code'] = $this->zip;
+			$return['postal_code'] = $this->zip;
 		}
-
 		if ($this->country !== null) {
-			$data['country_code'] = $this->country;
+			$return['country_code'] = $this->country;
 		}
 
-		return $data;
+		return $return;
 	}
-
 }

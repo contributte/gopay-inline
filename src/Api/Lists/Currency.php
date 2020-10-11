@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class Currency
+
+final class Currency
 {
 
 	// Czech crowns
-	const CZK = 'CZK';
+	public const CZK = 'CZK';
 
 	// Euros
-	const EUR = 'EUR';
-
+	public const EUR = 'EUR';
 }

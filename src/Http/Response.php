@@ -7,19 +7,13 @@ namespace Contributte\GopayInline\Http;
 
 use RecursiveArrayIterator;
 
-/**
- * @property-read mixed $data
- * @property-read mixed $headers
- * @property-read int $code
- * @property-read string $error
- */
-class Response implements \ArrayAccess, \Countable, \IteratorAggregate
+final class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 {
 
-	/** @var mixed */
+	/** @var mixed[]|null */
 	protected $data;
 
-	/** @var mixed */
+	/** @var mixed[] */
 	protected $headers;
 
 	/** @var int */
@@ -30,129 +24,96 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 
 
 	/**
-	 * @return array|FALSE
+	 * @return mixed[]|null
 	 */
-	public function getData()
+	public function getData(): ?array
 	{
 		return $this->data;
 	}
 
 
 	/**
-	 * @param mixed $data
-	 * @return void
+	 * @param mixed[] $data
 	 */
-	public function setData($data)
+	public function setData(?array $data): void
 	{
-		if (!is_bool($data) && $data !== null) {
-			$data = (array) $data;
-		}
 		$this->data = $data;
 	}
 
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function getHeaders()
+	public function getHeaders(): array
 	{
 		return $this->headers;
 	}
 
 
 	/**
-	 * @param mixed $headers
-	 * @return void
+	 * @param mixed[] $headers
 	 */
-	public function setHeaders($headers)
+	public function setHeaders(array $headers): void
 	{
 		$this->headers = $headers;
 	}
 
 
-	/**
-	 * @return int
-	 */
-	public function getCode()
+	public function getCode(): int
 	{
 		return $this->code;
 	}
 
 
-	/**
-	 * @param mixed $code
-	 * @return void
-	 */
-	public function setCode($code)
+	public function setCode(int $code): void
 	{
-		$this->code = (int) $code;
+		$this->code = $code;
 	}
 
 
-	/**
-	 * @return string|null
-	 */
-	public function getError()
+	public function getError(): ?string
 	{
 		return $this->error;
 	}
 
 
-	/**
-	 * @param string $error
-	 * @return void
-	 */
-	public function setError($error)
+	public function setError(string $error): void
 	{
 		$this->error = $error;
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	public function isSuccess()
+	public function isSuccess(): bool
 	{
-		return $this->error == false;
-	}
-
-	/**
-	 * ARRAY ACCESS ************************************************************
-	 */
-
-	/**
-	 * @param mixed $offset
-	 * @return bool
-	 */
-	public function offsetExists($offset)
-	{
-		if (is_array($this->data)) {
-			return isset($this->data[$offset]);
-		}
-
-		return false;
+		return $this->error === null;
 	}
 
 
 	/**
 	 * @param mixed $offset
-	 * @return mixed
+	 * @return bool
+	 */
+	public function offsetExists($offset): bool
+	{
+		return isset($this->data[$offset]);
+	}
+
+
+	/**
+	 * @param mixed $offset
+	 * @return mixed|null
 	 */
 	public function offsetGet($offset)
 	{
-		if (!is_array($this->data))
-			return null;
-
-		return $this->data[$offset];
+		return $this->data[$offset] ?? null;
 	}
 
 
 	/**
 	 * @param mixed $offset
 	 * @param mixed $value
-	 * @return void
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		if (is_array($this->data)) {
 			$this->data[$offset] = $value;
@@ -162,9 +123,8 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 
 	/**
 	 * @param mixed $offset
-	 * @return void
 	 */
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		if (is_array($this->data)) {
 			unset($this->data[$offset]);
@@ -172,41 +132,23 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
 	}
 
 
-	/**
-	 * @return int
-	 */
-	public function count()
+	public function count(): int
 	{
-		return $this->data === null ? 0 : count($this->data);
+		return $this->data === null ? 0 : \count($this->data);
 	}
 
-	/**
-	 * ITERATOR AGGREGATE ******************************************************
-	 */
 
-	/**
-	 * @return RecursiveArrayIterator
-	 */
-	public function getIterator()
+	public function getIterator(): \RecursiveArrayIterator
 	{
 		return new RecursiveArrayIterator($this->data);
 	}
 
-	/**
-	 * MAGIC *******************************************************************
-	 **/
 
 	/**
-	 * @param string $name
 	 * @return mixed
 	 */
-	public function __get($name)
+	public function __get(string $name)
 	{
-		if (isset($this->$name)) {
-			return $this->$name;
-		}
-
-		return $this->offsetGet($name);
+		return $this->$name ?? $this->offsetGet($name);
 	}
-
 }

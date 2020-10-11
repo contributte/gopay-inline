@@ -6,22 +6,13 @@ namespace Contributte\GopayInline\Http;
 
 interface Http
 {
+	public const METHOD_GET = 'GET';
 
-	// Http methods
-	const METHOD_GET = 'GET';
+	public const METHOD_POST = 'POST';
 
-	const METHOD_POST = 'POST';
+	public const CONTENT_JSON = 'application/json';
 
-	// Content types
-	const CONTENT_JSON = 'application/json';
+	public const CONTENT_FORM = 'application/x-www-form-urlencoded';
 
-	const CONTENT_FORM = 'application/x-www-form-urlencoded';
-
-
-	/**
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function doRequest(Request $request);
-
+	public function doRequest(Request $request): Response;
 }

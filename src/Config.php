@@ -7,13 +7,11 @@ namespace Contributte\GopayInline;
 
 use Contributte\GopayInline\Api\Gateway;
 
-class Config
+final class Config
 {
+	public const PROD = 'PROD';
 
-	// Modes
-	const PROD = 'PROD';
-
-	const TEST = 'TEST';
+	public const TEST = 'TEST';
 
 	/** @var float */
 	private $goId;
@@ -28,13 +26,7 @@ class Config
 	private $mode;
 
 
-	/**
-	 * @param float $goId
-	 * @param string $clientId
-	 * @param string $clientSecret
-	 * @param string $mode
-	 */
-	public function __construct($goId, $clientId, $clientSecret, $mode = self::TEST)
+	public function __construct(float $goId, string $clientId, string $clientSecret, string $mode = self::TEST)
 	{
 		$this->goId = $goId;
 		$this->clientId = $clientId;
@@ -43,47 +35,31 @@ class Config
 	}
 
 
-	/**
-	 * @return float
-	 */
-	public function getGoId()
+	public function getGoId(): float
 	{
 		return $this->goId;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getClientId()
+	public function getClientId(): string
 	{
 		return $this->clientId;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getClientSecret()
+	public function getClientSecret(): string
 	{
 		return $this->clientSecret;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getMode()
+	public function getMode(): string
 	{
 		return $this->mode;
 	}
 
 
-	/**
-	 * @param string $mode
-	 * @return void
-	 */
-	public function setMode($mode): void
+	public function setMode(string $mode): void
 	{
 		if ($mode === self::PROD) {
 			Gateway::init(Gateway::PROD);

@@ -11,9 +11,8 @@ interface Auth
 {
 
 	/**
-	 * @param array $credentials
+	 * @param mixed[] $credentials
 	 * @return Response
 	 */
-	public function authenticate(array $credentials);
-
+	public function authenticate(array $credentials): Response;
 }

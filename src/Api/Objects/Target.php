@@ -7,7 +7,7 @@ namespace Contributte\GopayInline\Api\Objects;
 
 use Contributte\GopayInline\Api\Lists\TargetType;
 
-class Target extends AbstractObject
+final class Target extends AbstractObject
 {
 
 	/** @var string */
@@ -16,14 +16,12 @@ class Target extends AbstractObject
 	/** @var float */
 	public $goid;
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
-	 * @return array
+	 * @deprecated use native getters
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'type' => $this->type,
@@ -31,4 +29,15 @@ class Target extends AbstractObject
 		];
 	}
 
+
+	public function getType(): string
+	{
+		return $this->type;
+	}
+
+
+	public function getGoid(): float
+	{
+		return $this->goid;
+	}
 }

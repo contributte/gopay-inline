@@ -4,91 +4,91 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class SwiftCode
-{
 
-	const OTHERS = 'OTHERS';
+final class SwiftCode
+{
+	public const OTHERS = 'OTHERS';
 
 	// cz
-	const AIR_BANK = 'AIRACZPP';
+	public const AIR_BANK = 'AIRACZPP';
 
-	const CESKA_SPORITELNA = 'GIBACZPX';
+	public const CESKA_SPORITELNA = 'GIBACZPX';
 
-	const CSOB = 'CEKOCZPP';
+	public const CSOB = 'CEKOCZPP';
 
-	const EQUA_BANK = 'EQBKCZPP';
+	public const EQUA_BANK = 'EQBKCZPP';
 
-	const ERA = 'CEKOCZPP-ERA';
+	public const ERA = 'CEKOCZPP-ERA';
 
-	const EXPO_BANK = 'EXPNCZPP';
+	public const EXPO_BANK = 'EXPNCZPP';
 
-	const FIO_BANKA = 'FIOBCZPP';
+	public const FIO_BANKA = 'FIOBCZPP';
 
-	const HELLO_BANK = 'BPPFCZP1';
+	public const HELLO_BANK = 'BPPFCZP1';
 
-	const ING_BANK = 'INGBCZPP';
+	public const ING_BANK = 'INGBCZPP';
 
-	const KOMERCNI_BANKA = 'KOMBCZPP';
+	public const KOMERCNI_BANKA = 'KOMBCZPP';
 
-	const MBANK = 'BREXCZPP';
+	public const MBANK = 'BREXCZPP';
 
-	const MONETA_MONEY_BANK = 'AGBACZPP';
+	public const MONETA_MONEY_BANK = 'AGBACZPP';
 
-	const OBER_BANK = 'OBKLCZ2X';
+	public const OBER_BANK = 'OBKLCZ2X';
 
-	const RAIFFEISENBANK = 'RZBCCZPP';
+	public const RAIFFEISENBANK = 'RZBCCZPP';
 
-	const SBER_BANK = 'VBOECZ2X';
+	public const SBER_BANK = 'VBOECZ2X';
 
-	const UNICREDIT_BANK_CZ = 'BACXCZPP';
+	public const UNICREDIT_BANK_CZ = 'BACXCZPP';
 
 	// sk
-	const BKS_BANK = 'BFKKSKBB';
+	public const BKS_BANK = 'BFKKSKBB';
 
-	const CITI_BANK_SK = 'CITISKBA';
+	public const CITI_BANK_SK = 'CITISKBA';
 
-	const CSOB_SK = 'CEKOSKBX';
+	public const CSOB_SK = 'CEKOSKBX';
 
-	const FIO_BANKA_SK = 'FIOZSKBA';
+	public const FIO_BANKA_SK = 'FIOZSKBA';
 
-	const ING_BANK_SK = 'INGBSKBX';
+	public const ING_BANK_SK = 'INGBSKBX';
 
-	const JT_BANKA_SK = 'JTBPSKBA';
+	public const JT_BANKA_SK = 'JTBPSKBA';
 
-	const MBANK_SK = 'BREXSKBX';
+	public const MBANK_SK = 'BREXSKBX';
 
-	const OBER_BANK_SK = 'OBKLSKBA';
+	public const OBER_BANK_SK = 'OBKLSKBA';
 
-	const OTP_BANKA = 'OTPVSKBX';
+	public const OTP_BANKA = 'OTPVSKBX';
 
-	const POSTOVA_BANKA = 'POBNSKBA';
+	public const POSTOVA_BANKA = 'POBNSKBA';
 
-	const PRIMA_BANKA = 'KOMASK2X';
+	public const PRIMA_BANKA = 'KOMASK2X';
 
-	const PRIVAT_BANKA = 'BSLOSK22';
+	public const PRIVAT_BANKA = 'BSLOSK22';
 
-	const SLOVENSKA_SPORITELNA = 'GIBASKBX';
+	public const SLOVENSKA_SPORITELNA = 'GIBASKBX';
 
-	const TATRA_BANKA = 'TATRSKBX';
+	public const TATRA_BANKA = 'TATRSKBX';
 
-	const UNICREDIT_BANK_SK = 'UNCRSKBX';
+	public const UNICREDIT_BANK_SK = 'UNCRSKBX';
 
-	const VUB_BANK = 'SUBASKBX';
+	public const VUB_BANK = 'SUBASKBX';
 
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function all()
+	public static function all(): array
 	{
 		return array_merge([self::OTHERS], self::cz(), self::sk());
 	}
 
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function cz()
+	public static function cz(): array
 	{
 		return [
 			self::AIR_BANK,
@@ -112,9 +112,9 @@ class SwiftCode
 
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function sk()
+	public static function sk(): array
 	{
 		return [
 			self::BKS_BANK,
@@ -135,5 +135,4 @@ class SwiftCode
 			self::VUB_BANK,
 		];
 	}
-
 }

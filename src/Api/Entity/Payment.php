@@ -12,10 +12,10 @@ use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
 use Contributte\GopayInline\Utils\Money;
 
-class Payment extends AbstractEntity
+final class Payment extends AbstractEntity
 {
 
-	/** @var Payer|NULL */
+	/** @var Payer|null */
 	protected $payer;
 
 	/** @var Target */
@@ -45,134 +45,89 @@ class Payment extends AbstractEntity
 	/** @var Parameter[] */
 	protected $parameters = [];
 
-	/** @var string|NULL */
+	/** @var string|null */
 	protected $lang;
 
-	/** @var Eet|NULL */
+	/** @var Eet|null */
 	protected $eet;
 
 	/** @var bool */
 	protected $preauthorization = false;
 
 
-	/**
-	 * @return Payer|NULL
-	 */
-	public function getPayer()
+	public function getPayer(): ?Payer
 	{
 		return $this->payer;
 	}
 
 
-	/**
-	 * @param Payer $payer
-	 * @return void
-	 */
-	public function setPayer(Payer $payer)
+	public function setPayer(Payer $payer): void
 	{
 		$this->payer = $payer;
 	}
 
 
-	/**
-	 * @return Target|null
-	 */
-	public function getTarget()
+	public function getTarget(): ?Target
 	{
 		return $this->target;
 	}
 
 
-	/**
-	 * @param Target $target
-	 * @return void
-	 */
-	public function setTarget(Target $target)
+	public function setTarget(Target $target): void
 	{
 		$this->target = $target;
 	}
 
 
-	/**
-	 * @return float
-	 */
-	public function getAmount()
+	public function getAmount(): float
 	{
 		return $this->amount;
 	}
 
 
-	/**
-	 * @param float $amount
-	 * @return void
-	 */
-	public function setAmount($amount)
+	public function setAmount(float $amount): void
 	{
 		$this->amount = $amount;
 	}
 
 
-	/**
-	 * @return float
-	 */
-	public function getAmountInCents()
+	public function getAmountInCents(): float
 	{
 		return Money::toCents($this->getAmount());
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getCurrency()
+	public function getCurrency(): string
 	{
 		return $this->currency;
 	}
 
 
-	/**
-	 * @param string $currency
-	 * @return void
-	 */
-	public function setCurrency($currency)
+	public function setCurrency(string $currency): void
 	{
 		$this->currency = $currency;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getOrderNumber()
+	public function getOrderNumber(): string
 	{
 		return $this->orderNumber;
 	}
 
 
-	/**
-	 * @param string $orderNumber
-	 * @return void
-	 */
-	public function setOrderNumber($orderNumber)
+	public function setOrderNumber(string $orderNumber): void
 	{
 		$this->orderNumber = $orderNumber;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getOrderDescription()
+	public function getOrderDescription(): string
 	{
 		return $this->orderDescription;
 	}
 
 
-	/**
-	 * @param string $description
-	 * @return void
-	 */
-	public function setOrderDescription($description)
+	public function setOrderDescription(string $description): void
 	{
 		$this->orderDescription = $description;
 	}
@@ -181,7 +136,7 @@ class Payment extends AbstractEntity
 	/**
 	 * @return Item[]
 	 */
-	public function getItems()
+	public function getItems(): array
 	{
 		return $this->items;
 	}
@@ -189,57 +144,38 @@ class Payment extends AbstractEntity
 
 	/**
 	 * @param Item[] $items
-	 * @return void
 	 */
-	public function setItems(array $items)
+	public function setItems(array $items): void
 	{
 		$this->items = $items;
 	}
 
 
-	/**
-	 * @param Item $item
-	 * @return void
-	 */
-	public function addItem(Item $item)
+	public function addItem(Item $item): void
 	{
 		$this->items[] = $item;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getReturnUrl()
+	public function getReturnUrl(): string
 	{
 		return $this->returnUrl;
 	}
 
 
-	/**
-	 * @param string $url
-	 * @return void
-	 */
-	public function setReturnUrl($url)
+	public function setReturnUrl(string $url): void
 	{
 		$this->returnUrl = $url;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getNotifyUrl()
+	public function getNotifyUrl(): string
 	{
 		return $this->notifyUrl;
 	}
 
 
-	/**
-	 * @param string $url
-	 * @return void
-	 */
-	public function setNotifyUrl($url)
+	public function setNotifyUrl(string $url): void
 	{
 		$this->notifyUrl = $url;
 	}
@@ -248,7 +184,7 @@ class Payment extends AbstractEntity
 	/**
 	 * @return Parameter[]
 	 */
-	public function getParameters()
+	public function getParameters(): array
 	{
 		return $this->parameters;
 	}
@@ -256,170 +192,119 @@ class Payment extends AbstractEntity
 
 	/**
 	 * @param Parameter[] $parameters
-	 * @return void
 	 */
-	public function setParameters(array $parameters)
+	public function setParameters(array $parameters): void
 	{
 		$this->parameters = $parameters;
 	}
 
 
-	/**
-	 * @param Parameter $parameter
-	 * @return void
-	 */
-	public function addParameter(Parameter $parameter)
+	public function addParameter(Parameter $parameter): void
 	{
 		$this->parameters[] = $parameter;
 	}
 
 
-	/**
-	 * @return string|NULL
-	 */
-	public function getLang()
+	public function getLang(): ?string
 	{
 		return $this->lang;
 	}
 
 
-	/**
-	 * @param string $lang
-	 * @return void
-	 */
-	public function setLang($lang)
+	public function setLang(string $lang): void
 	{
 		$this->lang = $lang;
 	}
 
 
-	/**
-	 * @return Eet|NULL
-	 */
-	public function getEet()
+	public function getEet(): ?Eet
 	{
 		return $this->eet;
 	}
 
 
-	/**
-	 * @param Eet $eet
-	 * @return void
-	 */
-	public function setEet(Eet $eet)
+	public function setEet(Eet $eet): void
 	{
 		$this->eet = $eet;
 	}
 
 
-	/**
-	 * @return boolean
-	 */
-	public function isPreauthorization()
+	public function isPreauthorization(): bool
 	{
 		return $this->preauthorization;
 	}
 
 
-	/**
-	 * @param boolean $preauth
-	 * @return void
-	 */
-	public function setPreauthorization($preauth)
+	public function setPreauthorization(bool $preauth): void
 	{
-		$this->preauthorization = boolval($preauth);
+		$this->preauthorization = $preauth;
 	}
 
-	/**
-	 * HELPERS *****************************************************************
-	 */
-
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
-		$data = [];
+		$return = [];
+		$return['target'] = $this->target->toArray();
+		$return['amount'] = $this->getAmountInCents();
+		$return['currency'] = $this->getCurrency();
+		$return['order_number'] = $this->getOrderNumber();
+		$return['order_description'] = $this->getOrderDescription();
+		$return['items'] = $this->formatItems($this->getItems());
+		$return['callback'] = [];
+		$return['callback']['return_url'] = $this->getReturnUrl();
+		$return['callback']['notification_url'] = $this->getNotifyUrl();
 
-		$data['target'] = $this->target->toArray();
-
-		$data['amount'] = $this->getAmountInCents();
-		$data['currency'] = $this->getCurrency();
-
-		$data['order_number'] = $this->getOrderNumber();
-		$data['order_description'] = $this->getOrderDescription();
-
-		$data['items'] = $this->formatItems($this->getItems());
-
-		$data['callback'] = [];
-		$data['callback']['return_url'] = $this->getReturnUrl();
-		$data['callback']['notification_url'] = $this->getNotifyUrl();
-
-		// NOT REQUIRED ====================================
-
-		$payer = $this->getPayer();
-		if ($payer !== null) {
-			$data['payer'] = $payer->toArray();
+		if (($payer = $this->getPayer()) !== null) {
+			$return['payer'] = $payer->toArray();
+		}
+		if (\count($parameters = $this->getParameters()) > 0) {
+			$return['additional_params'] = $this->formatParameters($parameters);
+		}
+		if (($lang = $this->getLang()) !== null) {
+			$return['lang'] = $lang;
+		}
+		if (($eet = $this->getEet()) !== null) {
+			$return['eet'] = $eet->toArray();
+		}
+		if (($preAuth = $this->isPreauthorization())) {
+			$return['preauthorization'] = $preAuth;
 		}
 
-		$parameters = $this->getParameters();
-		if (count($parameters) > 0) {
-			$data['additional_params'] = $this->formatParameters($parameters);
-		}
-
-		$lang = $this->getLang();
-		if ($lang !== null) {
-			$data['lang'] = $lang;
-		}
-
-		$eet = $this->getEet();
-		if ($eet !== null) {
-			$data['eet'] = $eet->toArray();
-		}
-
-		$preauth = $this->isPreauthorization();
-		if ($preauth) {
-			$data['preauthorization'] = $preauth;
-		}
-
-		return $data;
+		return $return;
 	}
 
 
 	/**
 	 * @param mixed|Item[] $items
-	 * @return array
+	 * @return mixed[]|Item[]
 	 */
-	protected function formatItems($items)
+	protected function formatItems($items): array
 	{
-		if (!is_array($items))
+		if (\is_array($items) === false) {
 			return [];
+		}
 
-		// Format items
-		return array_map(function (Item $item) {
+		return array_map(static function (Item $item): array {
 			return $item->toArray();
 		}, $items);
 	}
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
-
 
 	/**
 	 * @param mixed|Parameter[] $parameters
-	 * @return array
+	 * @return mixed[]|Parameter[]
 	 */
-	protected function formatParameters($parameters)
+	protected function formatParameters($parameters): array
 	{
-		if (!is_array($parameters))
+		if (is_array($parameters) === false) {
 			return [];
+		}
 
-		// Format items
-		return array_map(function (Parameter $param) {
+		return array_map(static function (Parameter $param): array {
 			return $param->toArray();
 		}, $parameters);
 	}
-
 }

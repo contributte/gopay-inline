@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class RecurrenceCycle
+
+final class RecurrenceCycle
 {
 
 	// Daily recurring
-	const DAY = 'DAY';
+	public const DAY = 'DAY';
 
 	// Weekly recurring
-	const WEEK = 'WEEK';
+	public const WEEK = 'WEEK';
 
 	// Monthly recurring
-	const MONTH = 'MONTH';
+	public const MONTH = 'MONTH';
 
 	// Set only at manual recurring payments
-	const ON_DEMAND = 'ON_DEMAND';
-
+	public const ON_DEMAND = 'ON_DEMAND';
 }

@@ -10,12 +10,7 @@ use Contributte\GopayInline\Exception\HttpException;
 
 class AuthenticationService extends AbstractService
 {
-
-	/**
-	 * @param string $scope
-	 * @return bool
-	 */
-	public function verify($scope = Scope::PAYMENT_ALL)
+	public function verify(string $scope = Scope::PAYMENT_ALL): bool
 	{
 		try {
 			$this->doAuthorization($scope);
@@ -25,5 +20,4 @@ class AuthenticationService extends AbstractService
 
 		return true;
 	}
-
 }

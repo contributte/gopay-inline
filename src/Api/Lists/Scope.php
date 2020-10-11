@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class Scope
+
+final class Scope
 {
 
 	// Allows only the establishment of payments
-	const PAYMENT_CREATE = 'payment-create';
+	public const PAYMENT_CREATE = 'payment-create';
 
 	// Allows all operations above payments
-	const PAYMENT_ALL = 'payment-all';
-
+	public const PAYMENT_ALL = 'payment-all';
 }

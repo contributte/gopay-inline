@@ -11,10 +11,10 @@ use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 use Nette\Utils\Validators;
 
-class GopayExtension extends CompilerExtension
+final class GopayExtension extends CompilerExtension
 {
 
-	/** @var array */
+	/** @var mixed[] */
 	private $defaults = [
 		'goId' => null,
 		'clientId' => null,
@@ -23,12 +23,7 @@ class GopayExtension extends CompilerExtension
 	];
 
 
-	/**
-	 * Register services
-	 *
-	 * @return void
-	 */
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$config = $this->validateConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
@@ -48,5 +43,4 @@ class GopayExtension extends CompilerExtension
 				]),
 			]);
 	}
-
 }

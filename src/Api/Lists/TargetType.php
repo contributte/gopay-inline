@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
-class TargetType
+
+final class TargetType
 {
-
-	// Account type (required for payments)
-	const ACCOUNT = 'ACCOUNT';
-
+	public const ACCOUNT = 'ACCOUNT'; // Account type (required for payments)
 }

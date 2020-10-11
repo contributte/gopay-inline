@@ -28,25 +28,18 @@ abstract class AbstractService
 
 	/** @var array */
 	protected $options = [
-		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYPEER => false, // TODO: [EA] Exposes a connection to MITM attacks. Use true (default) to stay safe.
 		CURLOPT_RETURNTRANSFER => true,
 	];
 
 
-	/**
-	 * @param Client $client
-	 */
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
 	}
 
 
-	/**
-	 * @param string $scope
-	 * @return string
-	 */
-	protected function doAuthorization($scope = Scope::PAYMENT_ALL)
+	protected function doAuthorization(string $scope = Scope::PAYMENT_ALL): string
 	{
 		// Invoke events
 		$this->trigger('onAuthorization', [$scope]);
@@ -56,63 +49,39 @@ abstract class AbstractService
 
 
 	/**
-	 * Build request and execute him
+	 * Build request and execute him.
 	 *
-	 * @param string $method
-	 * @param string $uri
-	 * @param array $data
-	 * @param string|NULL $contentType
+	 * @param mixed[] $data
 	 * @return Response
 	 */
-	protected function makeRequest($method, $uri, array $data = null, $contentType = Http::CONTENT_JSON)
+	protected function makeRequest(string $method, string $uri, array $data = null, ?string $contentType = Http::CONTENT_JSON): Response
 	{
-		// Invoke events
 		$this->trigger('onRequest', [$method, $uri, $data]);
 
-		// Verify that client is authenticated
-		if (!$this->client->hasToken()) {
-			// Do authorization
+		if ($this->client->hasToken() === false) {
 			$this->doAuthorization();
 		}
 
-		$request = new Request();
-
-		// Set-up URL
+		$request = new Request;
 		$request->setUrl(Gateway::getFullApiUrl($uri));
-
-		// Set-up headers
-		$headers = [
+		$request->setHeaders([
 			'Accept' => 'application/json',
 			'Authorization' => 'Bearer ' . $this->client->getToken()->accessToken,
 			'Content-Type' => $contentType,
-		];
-		$request->setHeaders($headers);
-
-		// Set-up opts
+		]);
 		$request->setOpts($this->options);
 
-		// Set-up method
-		switch ($method) {
-
-			// GET =========================================
-			case HttpClient::METHOD_GET:
-				$request->appendOpts([
-					CURLOPT_HTTPGET => true,
-				]);
-
-				break;
-
-			// POST ========================================
-			case HttpClient::METHOD_POST:
-				$request->appendOpts([
-					CURLOPT_POST => true,
-					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
-				]);
-
-				break;
-
-			default:
-				throw new InvalidStateException('Unsupported http method');
+		if ($method === HttpClient::METHOD_GET) {
+			$request->appendOpts([
+				CURLOPT_HTTPGET => true,
+			]);
+		} elseif ($method === HttpClient::METHOD_POST) {
+			$request->appendOpts([
+				CURLOPT_POST => true,
+				CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
+			]);
+		} else {
+			throw new InvalidStateException('Unsupported HTTP method, because "' . $method . '" given. Did you mean "GET" or "POST"?');
 		}
 
 		return $this->client->call($request);
@@ -120,15 +89,12 @@ abstract class AbstractService
 
 
 	/**
-	 * @param string $event
-	 * @param array $data
-	 * @return void
+	 * @param mixed[] $data
 	 */
-	protected function trigger($event, array $data)
+	protected function trigger(string $event, array $data): void
 	{
 		foreach ($this->{$event} as $callback) {
 			call_user_func_array($callback, $data);
 		}
 	}
-
 }

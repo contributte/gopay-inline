@@ -13,19 +13,15 @@ class Parameter extends AbstractObject
 	/** @var mixed */
 	public $value;
 
-	/**
-	 * ABSTRACT ****************************************************************
-	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'name' => $this->name,
 			'value' => $this->value,
 		];
 	}
-
 }
