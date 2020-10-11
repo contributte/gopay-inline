@@ -1,97 +1,45 @@
 {
-	"name": "markette/gopay-inline",
+	"name": "baraja-core/gopay-inline",
 	"description": "GoPay Inline Payment Gateway",
-	"keywords": ["eshop", "payment", "gopay", "api", "inline"],
-	"homepage": "https://github.com/Contributte/GopayInline",
+	"keywords": [
+		"eshop",
+		"payment",
+		"gopay",
+		"api",
+		"inline"
+	],
+	"homepage": "https://github.com/baraja-core/gopay-inline",
 	"license": "BSD-3-Clause",
 	"authors": [
+		{
+			"name": "Jan Barášek",
+			"homepage": "https://baraja.cz"
+		},
 		{
 			"name": "Milan Felix Šulc",
 			"email": "sulcmil@gmail.com"
 		}
 	],
 	"require": {
-		"php": ">=5.6",
+		"php": ">=7.1",
 		"ext-curl": "*",
-		"ext-json": "*"
+		"ext-json": "*",
+		"nette/di": "^3.0"
 	},
 	"require-dev": {
-		"ninjify/qa": "^0.3.3",
-		"ninjify/nunjuck": "^0.1.4",
-		"nette/tester": "^1.7.0",
-		"mockery/mockery": "^0.9.6",
-		"nette/di": "^2.4.4|^3.0",
-		"phpstan/phpstan": "^0.12",
-		"phpstan/phpstan-strict-rules": "^0.12"
-	},
-	"suggest": {
-		"nette/di": "For GopayExtension"
+		"symplify/easy-coding-standard": "^7.2",
+		"phpstan/phpstan": "^0.12.18",
+		"phpstan/phpstan-nette": "^0.12.6"
 	},
 	"autoload": {
-		"psr-4": {
-			"Contributte\\GopayInline\\": "src/"
-		}
-	},
-	"scripts": {
-		"qa": [
-			"@qa-linter",
-			"@qa-codesniffer"
-		],
-		"ci": [
-			"@qa-linter",
-			"@qa-codesniffer",
-			"@qa-tester-info",
-			"@qa-tester"
-		],
-		"qa-codesniffer": [
-			"Ninjify\\Composer\\Script\\CodeSniffer::execute"
-		],
-		"qa-codefixer": [
-			"Ninjify\\Composer\\Script\\CodeFixer::execute"
-		],
-		"qa-linter": [
-			"Ninjify\\Composer\\Script\\Linter::execute"
-		],
-		"qa-tester": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini"
-		],
-		"qa-tester-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -i"
-		],
-		"qa-tester-coverage": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src"
-		],
-		"qa-tester-coverage-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -c tests/php-unix.ini -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src -i"
+		"classmap": [
+			"src/"
 		]
 	},
-	"extra": {
-		"ninjify": {
-			"qa": {
-				"codesniffer": {
-					"ruleset": "nette",
-					"folders": [
-						"src",
-						"tests"
-					]
-				},
-				"codefixer": {
-					"ruleset": "nette",
-					"folders": [
-						"src",
-						"tests"
-					]
-				},
-				"linter": {
-					"folders": [
-						"src",
-						"tests"
-					]
-				}
-			}
-		},
-		"branch-alias": {
-			"dev-master": "1.2-dev"
-		}
-	}
+	"scripts": {
+		"phpstan": [
+			"vendor/bin/phpstan analyse src -c phpstan.neon --level 6 --no-progress"
+		]
+	},
+	"minimum-stability": "stable"
 }
