@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Contributte\GopayInline\Api\Objects;
 
 class Recurrence extends AbstractObject

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Contributte\GopayInline\Api\Entity;
 
 class RecurringPayment extends Payment

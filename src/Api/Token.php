@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Contributte\GopayInline\Api;
 
-class Token
+
+final class Token
 {
 
 	/** @var string */
@@ -19,12 +22,12 @@ class Token
 
 
 	/**
-	 * @param array $data
-	 * @return Token
+	 * @param mixed[] $data
+	 * @return self
 	 */
-	public static function create(array $data)
+	public static function create(array $data): self
 	{
-		$token = new Token;
+		$token = new self;
 		if (isset($data['token_type'])) {
 			$token->type = $data['token_type'];
 		}
@@ -40,5 +43,4 @@ class Token
 
 		return $token;
 	}
-
 }

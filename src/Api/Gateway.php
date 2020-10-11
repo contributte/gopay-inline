@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Contributte\GopayInline\Api;
 
 class Gateway
 {
 
 	// Modes
-	const TEST = 'TEST';
+	public const TEST = 'TEST';
 
 	const PROD = 'PROD';
 
