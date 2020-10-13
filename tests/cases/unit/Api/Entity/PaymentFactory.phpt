@@ -23,8 +23,8 @@ test(function (): void {
 });
 
 // Required callback fields
-test(function () {
-	Assert::throws(function () {
+test(function (): void {
+	Assert::throws(function (): void {
 		PaymentFactory::create([
 			'amount' => 200,
 			'currency' => 2,

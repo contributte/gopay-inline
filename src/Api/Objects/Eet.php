@@ -252,11 +252,11 @@ class Eet extends AbstractObject
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}
 
-		if ($this->getSubsequentDrawing() !== NULL) {
+		if ($this->getSubsequentDrawing() !== null) {
 			$data['urceno_cerp_zuct'] = $this->getSubsequentDrawingInCents();
 		}
 
-		if ($this->getSubsequentlyDrawn() !== NULL) {
+		if ($this->getSubsequentlyDrawn() !== null) {
 			$data['cerp_zuct'] = $this->getSubsequentlyDrawnInCents();
 		}
 

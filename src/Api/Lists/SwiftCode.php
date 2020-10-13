@@ -5,7 +5,7 @@ namespace Contributte\GopayInline\Api\Lists;
 class SwiftCode
 {
 
-	const OTHERS = 'OTHERS';
+	public const OTHERS = 'OTHERS';
 
 	// cz
 	public const CESKA_SPORITELNA = 'GIBACZPX';

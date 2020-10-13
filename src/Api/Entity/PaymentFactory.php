@@ -126,6 +126,7 @@ class PaymentFactory
 		if (array_key_exists('order_description', $data)) {
 			$payment->setOrderDescription($data['order_description']);
 		}
+
 		$payment->setReturnUrl($data['callback']['return_url']);
 		$payment->setNotifyUrl($data['callback']['notify_url']);
 
