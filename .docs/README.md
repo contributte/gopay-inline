@@ -142,8 +142,10 @@ $payment = [
 	'additional_params' => [
 		['name' => 'invoicenumber', 'value' => '2017001'],
 	],
-	'return_url' => 'http://www.myeshop.cz/api/gopay/return',
-	'notify_url' => 'http://www.myeshop.cz/api/gopay/notify',
+	'callback' => [
+		'return_url' => 'http://www.myeshop.cz/api/gopay/return',
+		'notify_url' => 'http://www.myeshop.cz/api/gopay/notify',
+	],
 	'lang' => Language::CZ,
 ];
 ```
