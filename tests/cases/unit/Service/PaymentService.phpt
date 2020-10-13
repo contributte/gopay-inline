@@ -179,15 +179,17 @@ test(function (): void {
 			'payments/payment/99/refund',
 			[
 				'amount' => 119990,
-				'items' => [[
-					'type' => 'ITEM',
-					'name' => 'lodicky',
-					//'product_url' => 'https://www.eshop.cz/boty/damske/lodicky-cervene',
-					//'ean' => 1234567890123,
-					'amount' => -119990,
-					'count' => 1,
-					'vat_rate' => 21,
-				]],
+				'items' => [
+					[
+						'type' => 'ITEM',
+						'name' => 'lodicky',
+						//'product_url' => 'https://www.eshop.cz/boty/damske/lodicky-cervene',
+						//'ean' => 1234567890123,
+						'amount' => -119990,
+						'count' => 1,
+						'vat_rate' => 21,
+					],
+				],
 				'eet' => [
 					'celk_trzba' => -119990,
 					'zakl_dan1' => -99165,
