@@ -59,7 +59,7 @@ test(function () {
 		return $request;
 	});
 
-	$service = Mockery::mock(DummyService::class, [$client]);
+	$service = new DummyService($client);
 
 	/** @var Request $request */
 	$request = $service->makeRequest('GET', 'foobar');
@@ -76,7 +76,7 @@ test(function () {
 		return $request;
 	});
 
-	$service = Mockery::mock(DummyService::class, [$client]);
+	$service = new DummyService($client);
 	$data = ['foo' => 1, 'bar' => 2];
 
 	/** @var Request $request */
@@ -95,7 +95,7 @@ test(function () {
 		return $request;
 	});
 
-	$service = Mockery::mock(DummyService::class, [$client]);
+	$service = new DummyService($client);
 
 	Assert::throws(function () use ($service) {
 		$service->makeRequest('FUCK', 'foobar');

@@ -28,6 +28,11 @@ class RecurrentPaymentFactory
 		'order_description',
 		'items',
 		'recurrence',
+		'callback',
+	];
+
+	/** @var string[] */
+	public static $requiredCallback = [
 		'return_url',
 		'notify_url',
 	];
@@ -63,6 +68,11 @@ class RecurrentPaymentFactory
 		$res = Validator::validateRequired($data, self::$required);
 		if ($res !== TRUE) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '""');
+		}
+
+		$res = Validator::validateRequired($data['callback'], self::$requiredCallback);
+		if ($res !== TRUE) {
+			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '" in callback definition');
 		}
 
 		// CHECK SCHEME DATA #####################
@@ -117,8 +127,8 @@ class RecurrentPaymentFactory
 		$recurrentPayment->setCurrency($data['currency']);
 		$recurrentPayment->setOrderNumber($data['order_number']);
 		$recurrentPayment->setOrderDescription($data['order_description']);
-		$recurrentPayment->setReturnUrl($data['return_url']);
-		$recurrentPayment->setNotifyUrl($data['notify_url']);
+		$recurrentPayment->setReturnUrl($data['callback']['return_url']);
+		$recurrentPayment->setNotifyUrl($data['callback']['notify_url']);
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
