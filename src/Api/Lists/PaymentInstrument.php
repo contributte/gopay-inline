@@ -35,6 +35,9 @@ class PaymentInstrument
 	// Google Pay
 	const GPAY = 'GPAY';
 
+	// Apple Pay
+	const APPLE_PAY = 'APPLE_PAY';
+
 	/**
 	 * @return array
 	 */
@@ -51,6 +54,7 @@ class PaymentInstrument
 			self::PAYPAL,
 			self::BITCOIN,
 			self::GPAY,
+			self::APPLE_PAY,
 		];
 	}
 
