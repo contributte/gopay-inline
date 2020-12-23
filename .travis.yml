@@ -23,6 +23,10 @@ matrix:
       env: COMPOSER_FLAG=--prefer-lowest
     - php: 7.4
       env: COMPOSER_FLAG=--prefer-stable
+    - php: 8.0
+      env: COMPOSER_FLAG=--prefer-lowest
+    - php: 8.0
+      env: COMPOSER_FLAG=--prefer-stable
 
 before_script:
   # Composer
