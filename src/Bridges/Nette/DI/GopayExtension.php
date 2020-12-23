@@ -2,6 +2,10 @@
 
 namespace Contributte\GopayInline\Bridges\Nette\DI;
 
+if (!class_exists('\Nette\DI\Definitions\Statement')) {
+	class_alias('\Nette\DI\Statement', '\Nette\DI\Definitions\Statement');
+}
+
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;
@@ -23,6 +27,10 @@ class GopayExtension extends CompilerExtension
 		$config = (object) $this->getConfig();
 		$builder = $this->getContainerBuilder();
 
+		if (!class_exists(Schema::class)) {
+			$this->validate($config);
+		}
+
 		$builder->addDefinition($this->prefix('client'))
 			->setFactory(Client::class, [
 				new Statement(Config::class, [
@@ -42,6 +50,25 @@ class GopayExtension extends CompilerExtension
 			'clientSecret' => Expect::string()->required(),
 			'test' => Expect::bool(true),
 		]);
+	}
+
+	private function validate(stdClass $config): void
+	{
+		if (!isset($config->goId)) {
+			throw new InvalidConfigurationException(\sprintf('Missing %s.goId configuration option.', $this->name));
+		}
+
+		if (!isset($config->clientId)) {
+			throw new InvalidConfigurationException(\sprintf('Missing %s.clientId configuration option.', $this->name));
+		}
+
+		if (!isset($config->clientSecret)) {
+			throw new InvalidConfigurationException(\sprintf('Missing %s.clientSecret configuration option.', $this->name));
+		}
+
+		if (!isset($config->test)) {
+			$config->test = true;
+		}
 	}
 
 }
