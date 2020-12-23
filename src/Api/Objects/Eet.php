@@ -58,7 +58,7 @@ class Eet extends AbstractObject
 
 	public function getTaxBaseInCents(): ?string
 	{
-		return $this->taxBase ? $this->taxBase->getAmount() : null;
+		return $this->taxBase !== null ? $this->taxBase->getAmount() : null;
 	}
 
 	public function getTax(): ?Money
@@ -68,7 +68,7 @@ class Eet extends AbstractObject
 
 	public function getTaxInCents(): ?string
 	{
-		return $this->tax ? $this->tax->getAmount() : null;
+		return $this->tax !== null ? $this->tax->getAmount() : null;
 	}
 
 	public function getTaxBaseReducedRateFirst(): ?Money
@@ -78,7 +78,7 @@ class Eet extends AbstractObject
 
 	public function getTaxBaseReducedRateFirstInCents(): ?string
 	{
-		return $this->taxBaseReducedRateFirst ? $this->taxBaseReducedRateFirst->getAmount() : null;
+		return $this->taxBaseReducedRateFirst !== null ? $this->taxBaseReducedRateFirst->getAmount() : null;
 	}
 
 	public function getTaxReducedRateFirst(): ?Money
@@ -88,7 +88,7 @@ class Eet extends AbstractObject
 
 	public function getTaxReducedRateFirstInCents(): ?string
 	{
-		return $this->taxReducedRateFirst ? $this->taxReducedRateFirst->getAmount() : null;
+		return $this->taxReducedRateFirst !== null ? $this->taxReducedRateFirst->getAmount() : null;
 	}
 
 	public function getTaxBaseReducedRateSecond(): ?Money
@@ -98,7 +98,7 @@ class Eet extends AbstractObject
 
 	public function getTaxBaseReducedRateSecondInCents(): ?string
 	{
-		return $this->taxBaseReducedRateSecond ? $this->taxBaseReducedRateSecond->getAmount() : null;
+		return $this->taxBaseReducedRateSecond !== null ? $this->taxBaseReducedRateSecond->getAmount() : null;
 	}
 
 	public function getTaxReducedRateSecond(): ?Money
@@ -108,7 +108,7 @@ class Eet extends AbstractObject
 
 	public function getTaxReducedRateSecondInCents(): ?string
 	{
-		return $this->taxReducedRateSecond ? $this->taxReducedRateSecond->getAmount() : null;
+		return $this->taxReducedRateSecond !== null ? $this->taxReducedRateSecond->getAmount() : null;
 	}
 
 	public function getCurrency(): string
@@ -128,7 +128,7 @@ class Eet extends AbstractObject
 
 	public function getSubsequentDrawingInCents(): ?string
 	{
-		return $this->subsequentDrawing ? $this->subsequentDrawing->getAmount() : null;
+		return $this->subsequentDrawing !== null ? $this->subsequentDrawing->getAmount() : null;
 	}
 
 	public function getSubsequentlyDrawn(): ?Money
@@ -136,9 +136,9 @@ class Eet extends AbstractObject
 		return $this->subsequentlyDrawn;
 	}
 
-	public function getSubsequentlyDrawnInCents(): ?Money
+	public function getSubsequentlyDrawnInCents(): ?string
 	{
-		return $this->subsequentlyDrawn ? $this->subsequentlyDrawn->getAmount() : null;
+		return $this->subsequentlyDrawn !== null ? $this->subsequentlyDrawn->getAmount() : null;
 	}
 
 	public function setSum(Money $sum): void
@@ -185,39 +185,39 @@ class Eet extends AbstractObject
 	{
 		$total = new Money(0, new Currency($this->getCurrency()));
 
-		if ($this->tax) {
+		if ($this->tax !== null) {
 			$total = $total->add($this->tax);
 		}
 
-		if ($this->taxBaseNoVat) {
+		if ($this->taxBaseNoVat !== null) {
 			$total = $total->add($this->taxBaseNoVat);
 		}
 
-		if ($this->taxBase) {
+		if ($this->taxBase !== null) {
 			$total = $total->add($this->taxBase);
 		}
 
-		if ($this->taxBaseReducedRateFirst) {
+		if ($this->taxBaseReducedRateFirst !== null) {
 			$total = $total->add($this->taxBaseReducedRateFirst);
 		}
 
-		if ($this->taxReducedRateFirst) {
+		if ($this->taxReducedRateFirst !== null) {
 			$total = $total->add($this->taxReducedRateFirst);
 		}
 
-		if ($this->taxBaseReducedRateSecond) {
+		if ($this->taxBaseReducedRateSecond !== null) {
 			$total = $total->add($this->taxBaseReducedRateSecond);
 		}
 
-		if ($this->taxReducedRateSecond) {
+		if ($this->taxReducedRateSecond !== null) {
 			$total = $total->add($this->taxReducedRateSecond);
 		}
 
-		if ($this->subsequentDrawing) {
+		if ($this->subsequentDrawing !== null) {
 			$total = $total->add($this->subsequentDrawing);
 		}
 
-		if ($this->subsequentlyDrawn) {
+		if ($this->subsequentlyDrawn !== null) {
 			$total = $total->add($this->subsequentlyDrawn);
 		}
 
@@ -233,21 +233,21 @@ class Eet extends AbstractObject
 		$data['celk_trzba'] = $this->getSumInCents();
 		$data['mena'] = $this->getCurrency();
 
-		if ($this->getTaxBaseNoVat()) {
+		if ($this->getTaxBaseNoVat() !== null) {
 			$data['zakl_nepodl_dph'] = $this->getTaxBaseNoVat();
 		}
 
-		if ($this->getTaxBase() && $this->getTax()) {
+		if ($this->getTaxBase() !== null && $this->getTax() !== null) {
 			$data['zakl_dan1'] = $this->getTaxBaseInCents();
 			$data['dan1'] = $this->getTaxInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateFirst() && $this->getTaxReducedRateFirst()) {
+		if ($this->getTaxBaseReducedRateFirst() !== null && $this->getTaxReducedRateFirst() !== null) {
 			$data['zakl_dan2'] = $this->getTaxBaseReducedRateFirstInCents();
 			$data['dan2'] = $this->getTaxReducedRateFirstInCents();
 		}
 
-		if ($this->getTaxBaseReducedRateSecond() && $this->getTaxReducedRateSecond()) {
+		if ($this->getTaxBaseReducedRateSecond() !== null && $this->getTaxReducedRateSecond() !== null) {
 			$data['zakl_dan3'] = $this->getTaxBaseReducedRateSecondInCents();
 			$data['dan3'] = $this->getTaxReducedRateSecondInCents();
 		}

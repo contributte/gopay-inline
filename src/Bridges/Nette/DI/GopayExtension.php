@@ -18,7 +18,7 @@ class GopayExtension extends CompilerExtension
 	 */
 	public function loadConfiguration(): void
 	{
-		$config = $this->config;
+		$config = (object) $this->getConfig();
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('client'))

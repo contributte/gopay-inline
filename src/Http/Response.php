@@ -16,7 +16,7 @@ use RecursiveArrayIterator;
 class Response implements ArrayAccess, Countable, IteratorAggregate
 {
 
-	/** @var mixed[] */
+	/** @var mixed[]|false */
 	protected $data = [];
 
 	/** @var array<string, string> */
@@ -29,9 +29,9 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	protected $error;
 
 	/**
-	 * @return mixed[]
+	 * @return mixed[]|false
 	 */
-	public function getData(): array
+	public function getData()
 	{
 		return $this->data;
 	}
@@ -41,7 +41,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function setData($data): void
 	{
-		if (!is_bool($data) && ($data === null || $data)) {
+		if (!is_bool($data)) {
 			$data = (array) $data;
 		}
 
@@ -94,11 +94,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetExists($offset): bool
 	{
-		if ($this->data) {
-			return isset($this->data[$offset]);
-		}
-
-		return false;
+		return isset($this->data[$offset]);
 	}
 
 	/**
@@ -120,9 +116,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetSet($offset, $value): void
 	{
-		if ($this->data) {
-			$this->data[$offset] = $value;
-		}
+		$this->data[$offset] = $value;
 	}
 
 	/**
@@ -130,11 +124,8 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetUnset($offset): void
 	{
-		if ($this->data) {
-			unset($this->data[$offset]);
-		}
+		unset($this->data[$offset]);
 	}
-	// phpcs:enable
 
 	public function count(): int
 	{

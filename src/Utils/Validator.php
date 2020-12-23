@@ -14,7 +14,7 @@ final class Validator
 	{
 		$diff = array_diff_key(array_flip($keys), $array);
 
-		return $diff ? array_keys($diff) : true;
+		return count($diff) > 0 ? array_keys($diff) : true;
 	}
 
 	/**
@@ -26,7 +26,7 @@ final class Validator
 	{
 		$diff = array_diff_key($array, array_flip($keys));
 
-		return $diff ? array_keys($diff) : true;
+		return count($diff) > 0 ? array_keys($diff) : true;
 	}
 
 }

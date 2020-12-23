@@ -210,15 +210,11 @@ class Payment extends AbstractEntity
 	 */
 
 	/**
-	 * @param mixed|Item[] $items
+	 * @param Item[] $items
 	 * @return mixed[]
 	 */
-	protected function formatItems($items): array
+	protected function formatItems(array $items): array
 	{
-		if (!$items) {
-			return [];
-		}
-
 		// Format items
 		return array_map(function (Item $item) {
 			return $item->toArray();
@@ -226,16 +222,11 @@ class Payment extends AbstractEntity
 	}
 
 	/**
-	 * @param mixed|Parameter[] $parameters
+	 * @param Parameter[] $parameters
 	 * @return mixed[]
 	 */
-	protected function formatParameters($parameters): array
+	protected function formatParameters(array $parameters): array
 	{
-		if (!$parameters) {
-			return [];
-		}
-
-		// Format items
 		return array_map(function (Parameter $param) {
 			return $param->toArray();
 		}, $parameters);
@@ -269,22 +260,22 @@ class Payment extends AbstractEntity
 		// NOT REQUIRED ====================================
 
 		$payer = $this->getPayer();
-		if ($payer) {
+		if ($payer !== null) {
 			$data['payer'] = $payer->toArray();
 		}
 
 		$parameters = $this->getParameters();
-		if ($parameters) {
+		if (count($parameters) > 0) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
 
 		$lang = $this->getLang();
-		if ($lang) {
+		if ($lang !== null) {
 			$data['lang'] = $lang;
 		}
 
 		$eet = $this->getEet();
-		if ($eet) {
+		if ($eet !== null) {
 			$data['eet'] = $eet->toArray();
 		}
 

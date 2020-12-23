@@ -94,12 +94,12 @@ class Item extends AbstractObject
 		// NOT REQUIRED ====================================
 
 		$type = $this->getType();
-		if ($type) {
+		if ($type !== null) {
 			$data['type'] = $type;
 		}
 
 		$vatRate = $this->getVatRate();
-		if ($vatRate) {
+		if ($vatRate !== null && $vatRate > 0) {
 			$data['vat_rate'] = $vatRate;
 		}
 

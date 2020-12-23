@@ -33,7 +33,7 @@ class Client
 	/** @var Token|null */
 	private $token;
 
-	/** @var array<string, object> */
+	/** @var array<string, object|null> */
 	private static $services = [
 		'authentication' => null,
 		'accounts' => null,

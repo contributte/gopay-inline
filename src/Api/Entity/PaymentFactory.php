@@ -57,8 +57,6 @@ class PaymentFactory
 	 */
 	public static function create(array $data, array $validators = []): Payment
 	{
-		// Convert to array
-		$data = (array) $data;
 		$validators += self::$validators;
 
 		// CHECK REQUIRED DATA ###################

@@ -7,12 +7,12 @@ use Contributte\GopayInline\Exception\HttpException;
 class HttpClient implements Http
 {
 
-	/** @var Io */
+	/** @var Io|null */
 	protected $io;
 
 	public function getIo(): Io
 	{
-		if (!$this->io) {
+		if ($this->io === null) {
 			$this->io = new Curl();
 		}
 

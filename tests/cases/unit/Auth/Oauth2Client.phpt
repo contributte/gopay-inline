@@ -40,6 +40,7 @@ test(function (): void {
 	$client->shouldReceive('getClientSecret')->andReturn(2);
 
 	$response = new Response();
+	$response->setData(false);
 	$response->setCode(404);
 
 	$http = Mockery::mock(HttpClient::class);

@@ -31,7 +31,7 @@ class RecurrentPayment extends Payment
 	{
 		$payment = parent::toArray();
 
-		if ($this->recurrence) {
+		if ($this->recurrence !== null) {
 			$payment['recurrence'] = $this->recurrence->toArray();
 		}
 

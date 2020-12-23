@@ -10,7 +10,7 @@ class Target extends AbstractObject
 	/** @var string */
 	public $type = TargetType::ACCOUNT;
 
-	/** @var float */
+	/** @var string */
 	public $goid;
 
 	/**
