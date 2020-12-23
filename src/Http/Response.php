@@ -89,7 +89,9 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 		return $this->error === null;
 	}
 
-	// phpcs:disable
+	/**
+	 * @param mixed $offset
+	 */
 	public function offsetExists($offset): bool
 	{
 		if ($this->data) {
@@ -100,6 +102,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
+	 * @param mixed $offset
 	 * @return mixed
 	 */
 	public function offsetGet($offset)
@@ -112,7 +115,8 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	}
 
 	/**
-	 * @param mixed[] $value
+	 * @param mixed $offset
+	 * @param mixed $value
 	 */
 	public function offsetSet($offset, $value): void
 	{
@@ -121,6 +125,9 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 		}
 	}
 
+	/**
+	 * @param mixed $offset
+	 */
 	public function offsetUnset($offset): void
 	{
 		if ($this->data) {

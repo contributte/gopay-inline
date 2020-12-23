@@ -71,7 +71,7 @@ class RecurrentPaymentFactory
 		}
 
 		$res = Validator::validateRequired($data['callback'], self::$requiredCallback);
-		if ($res !== TRUE) {
+		if ($res !== true) {
 			throw new ValidationException('Missing keys "' . (implode(', ', $res)) . '" in callback definition');
 		}
 

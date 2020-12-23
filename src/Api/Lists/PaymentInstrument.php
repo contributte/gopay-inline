@@ -36,7 +36,7 @@ class PaymentInstrument
 	public const GPAY = 'GPAY';
 
 	// Apple Pay
-	const APPLE_PAY = 'APPLE_PAY';
+	public const APPLE_PAY = 'APPLE_PAY';
 
 	/**
 	 * @return string[]

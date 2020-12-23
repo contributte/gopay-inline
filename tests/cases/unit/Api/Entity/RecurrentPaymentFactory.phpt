@@ -46,7 +46,7 @@ test(function (): void {
 });
 
 // Not allowed field
-test(function () {
+test(function (): void {
 	$required = [
 		'amount' => 1,
 		'currency' => 2,
@@ -58,7 +58,7 @@ test(function () {
 			'return_url' => '7',
 		],
 	];
-	Assert::throws(function () use ($required) {
+	Assert::throws(function () use ($required): void {
 		RecurrentPaymentFactory::create($required);
 	}, ValidationException::class, 'Missing keys "notify_url" in callback definition');
 });
