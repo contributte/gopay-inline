@@ -58,7 +58,7 @@ test(function (): void {
 
 	Assert::error(function () use ($r): void {
 		$a = $r['c'];
-	}, E_WARNING);
+	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING);
 
 	$r->setData(null);
 	Assert::count(0, $r->getData());
