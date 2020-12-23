@@ -61,9 +61,9 @@ class Oauth2Client implements Auth
 		// Make request
 		$response = $this->http->doRequest($request);
 
-		if ($response->getData() === false) {
+		if ($response->getData() === null) {
 			// cURL errors
-			throw new AuthorizationException('Authorization failed', $response->getCode());
+			throw new AuthorizationException('Authorization failed', (int) $response->getCode());
 		}
 
 		if (isset($response->getData()['errors'])) {

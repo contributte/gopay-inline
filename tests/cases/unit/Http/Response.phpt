@@ -19,8 +19,7 @@ test(function (): void {
 	Assert::type('array', $r->getHeaders());
 	Assert::count(0, $r->getHeaders());
 
-	Assert::type('array', $r->getData());
-	Assert::count(0, $r->getData());
+	Assert::type('null', $r->getData());
 });
 
 // Simple response
@@ -61,7 +60,6 @@ test(function (): void {
 	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING);
 
 	$r->setData(null);
-	Assert::count(0, $r->getData());
 	Assert::false(isset($r['c']));
 	Assert::null($r['c']);
 });

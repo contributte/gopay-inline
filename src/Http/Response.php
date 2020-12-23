@@ -12,12 +12,14 @@ use RecursiveArrayIterator;
  * @property-read array $headers
  * @property-read int|null $code
  * @property-read string|null $error
+ * @implements ArrayAccess<string, mixed>
+ * @implements IteratorAggregate<string, mixed>
  */
 class Response implements ArrayAccess, Countable, IteratorAggregate
 {
 
-	/** @var mixed[]|false */
-	protected $data = [];
+	/** @var mixed[]|null */
+	protected $data;
 
 	/** @var array<string, string> */
 	protected $headers = [];
@@ -29,9 +31,9 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	protected $error;
 
 	/**
-	 * @return mixed[]|false
+	 * @return mixed[]|null
 	 */
-	public function getData()
+	public function getData(): ?array
 	{
 		return $this->data;
 	}
@@ -41,7 +43,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function setData($data): void
 	{
-		if (!is_bool($data)) {
+		if ($data !== null) {
 			$data = (array) $data;
 		}
 
@@ -103,7 +105,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 	 */
 	public function offsetGet($offset)
 	{
-		if (!$this->data) {
+		if ($this->data === null) {
 			return null;
 		}
 
@@ -134,7 +136,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 
 	public function getIterator(): RecursiveArrayIterator
 	{
-		return new RecursiveArrayIterator($this->data);
+		return new RecursiveArrayIterator($this->data ?? []);
 	}
 
 	/**

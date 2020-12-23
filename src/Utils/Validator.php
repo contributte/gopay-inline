@@ -8,7 +8,7 @@ final class Validator
 	/**
 	 * @param mixed[] $array
 	 * @param string[] $keys
-	 * @return true|string[]
+	 * @return true|array<int, int|string>
 	 */
 	public static function validateRequired(array $array, array $keys)
 	{
@@ -20,7 +20,7 @@ final class Validator
 	/**
 	 * @param mixed[] $array
 	 * @param string[] $keys
-	 * @return true|string[]
+	 * @return true|array<int, int|string>
 	 */
 	public static function validateOptional(array $array, array $keys)
 	{

@@ -29,8 +29,8 @@ class Curl implements Io
 		// Parse response
 		$response = new Response();
 		if ($result === false) {
-			$response->setError(curl_strerror(curl_errno($ch)));
-			$response->setData(false);
+			$response->setError((string) curl_strerror(curl_errno($ch)));
+			$response->setData([]);
 			$response->setCode(curl_errno($ch));
 			$response->setHeaders(curl_getinfo($ch));
 		} else {
@@ -41,7 +41,7 @@ class Curl implements Io
 			if ($info['content_type'] === 'application/octet-stream') {
 				$response->setData($result);
 			} else {
-				$response->setData(json_decode($result));
+				$response->setData(json_decode((string) $result));
 			}
 		}
 

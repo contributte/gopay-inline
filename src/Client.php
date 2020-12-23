@@ -122,7 +122,7 @@ class Client
 	{
 		if ($this->token === null) {
 			$response = $this->getAuth()->authenticate($credentials);
-			$this->token = Token::create($response->getData());
+			$this->token = Token::create((array) $response->getData());
 		}
 
 		return $this->token->accessToken;

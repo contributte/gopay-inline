@@ -9,6 +9,7 @@ use Nette\DI\Definitions\Statement;
 use Nette\Schema\Elements\Type;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
+use stdClass;
 
 class GopayExtension extends CompilerExtension
 {
@@ -18,6 +19,7 @@ class GopayExtension extends CompilerExtension
 	 */
 	public function loadConfiguration(): void
 	{
+		/** @var stdClass $config */
 		$config = (object) $this->getConfig();
 		$builder = $this->getContainerBuilder();
 

@@ -4,6 +4,7 @@ namespace Contributte\GopayInline\Service;
 
 use Contributte\GopayInline\Api\Gateway;
 use Contributte\GopayInline\Api\Lists\Scope;
+use Contributte\GopayInline\Api\Token;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Exception\InvalidStateException;
 use Contributte\GopayInline\Http\Http;
@@ -64,9 +65,12 @@ abstract class AbstractService
 		$request->setUrl(Gateway::getFullApiUrl($uri));
 
 		// Set-up headers
+		/** @var Token $token */
+		$token = $this->client->getToken();
+
 		$headers = [
 			'Accept' => 'application/json',
-			'Authorization' => 'Bearer ' . $this->client->getToken()->accessToken,
+			'Authorization' => 'Bearer ' . $token->accessToken,
 			'Content-Type' => $contentType,
 		];
 		$request->setHeaders($headers);
@@ -89,7 +93,7 @@ abstract class AbstractService
 			case HttpClient::METHOD_POST:
 				$request->appendOpts([
 					CURLOPT_POST => true,
-					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query($data) : json_encode($data),
+					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query((array) $data) : json_encode($data),
 				]);
 
 				break;
