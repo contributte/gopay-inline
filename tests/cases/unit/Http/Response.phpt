@@ -57,7 +57,7 @@ test(function (): void {
 	Assert::false(isset($r['c']));
 
 	Assert::error(function () use ($r): void {
-		$a = $r['c'];
+		$r['c'];
 	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING);
 
 	$r->setData(null);

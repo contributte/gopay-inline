@@ -18,7 +18,7 @@ require __DIR__ . '/../../../../../bootstrap.php';
 test(function (): void {
 	Assert::throws(function (): void {
 		$loader = new ContainerLoader(TEMP_DIR);
-		$class = $loader->load(function (Compiler $compiler): void {
+		$loader->load(function (Compiler $compiler): void {
 			$compiler->addExtension('gopay', new GopayExtension());
 		}, 'c1');
 	}, InvalidConfigurationException::class);
