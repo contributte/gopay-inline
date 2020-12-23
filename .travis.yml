@@ -27,7 +27,7 @@ before_script:
   # Composer
   - travis_retry composer install --no-interaction
   # Coverage
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.3" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.4" && "$COMPOSER_FLAG" == "" ]]; then COVERAGE=1; fi
 
 script:
   # Quality Assurance
