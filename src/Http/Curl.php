@@ -29,7 +29,7 @@ class Curl implements Io
 		// Parse response
 		$response = new Response();
 		if ($result === false) {
-			$response->setError((string) curl_strerror(curl_errno($ch)));
+			$response->setError(curl_strerror(curl_errno($ch)));
 			$response->setData([]);
 			$response->setCode(curl_errno($ch));
 			$response->setHeaders(curl_getinfo($ch));

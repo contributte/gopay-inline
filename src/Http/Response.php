@@ -81,7 +81,7 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 		return $this->error;
 	}
 
-	public function setError(string $error): void
+	public function setError(?string $error): void
 	{
 		$this->error = $error;
 	}
