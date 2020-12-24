@@ -34,39 +34,6 @@
 			"Contributte\\GopayInline\\": "src/"
 		}
 	},
-	"scripts": {
-		"qa": [
-			"@qa-linter",
-			"@qa-codesniffer"
-		],
-		"ci": [
-			"@qa-linter",
-			"@qa-codesniffer",
-			"@qa-tester-info",
-			"@qa-tester"
-		],
-		"qa-codesniffer": [
-			"vendor/bin/codesniffer"
-		],
-		"qa-codefixer": [
-			"vendor/bin/codefixer"
-		],
-		"qa-linter": [
-			"vendor/bin/linter"
-		],
-		"qa-tester": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php"
-		],
-		"qa-tester-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -i"
-		],
-		"qa-tester-coverage": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -d extension=xdebug.so -d xdebug.mode=coverage --coverage ./coverage.xml --coverage-src ./src"
-		],
-		"qa-tester-coverage-info": [
-			"tester --setup vendor/bin/nunjuck-setup -j 40 --colors 1 tests/cases -s -p php -d extension=xdebug.so -d xdebug.mode=coverage --coverage ./coverage.xml --coverage-src ./src -i"
-		]
-	},
 	"extra": {
 		"ninjify": {
 			"qa": {
