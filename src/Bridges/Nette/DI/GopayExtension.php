@@ -55,15 +55,15 @@ class GopayExtension extends CompilerExtension
 	private function validate(stdClass $config): void
 	{
 		if (!isset($config->goId)) {
-			throw new InvalidConfigurationException(\sprintf('Missing %s.goId configuration option.', $this->name));
+			throw new InvalidConfigurationException(sprintf('Missing %s.goId configuration option.', $this->name));
 		}
 
 		if (!isset($config->clientId)) {
-			throw new InvalidConfigurationException(\sprintf('Missing %s.clientId configuration option.', $this->name));
+			throw new InvalidConfigurationException(sprintf('Missing %s.clientId configuration option.', $this->name));
 		}
 
 		if (!isset($config->clientSecret)) {
-			throw new InvalidConfigurationException(\sprintf('Missing %s.clientSecret configuration option.', $this->name));
+			throw new InvalidConfigurationException(sprintf('Missing %s.clientSecret configuration option.', $this->name));
 		}
 
 		if (!isset($config->test)) {
