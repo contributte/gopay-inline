@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Service\AbstractService
@@ -6,6 +6,7 @@
 
 namespace Tests\Cases\Unit\Service;
 
+use Contributte\GopayInline\Api\Token;
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Exception\InvalidStateException;
 use Contributte\GopayInline\Http\Http;
@@ -18,17 +19,14 @@ use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';
 
-class DummyService extends AbstractService // @codingStandardsIgnoreLine
+// phpcs:disable Squiz.Classes.ClassFileName.NoMatch
+class DummyService extends AbstractService
 {
 
 	/**
-	 * @param string $method
-	 * @param string $uri
-	 * @param array|NULL $data
-	 * @param string $contentType
-	 * @return Response
+	 * @param mixed[]|NULL $data
 	 */
-	public function makeRequest($method, $uri, array $data = NULL, $contentType = Http::CONTENT_JSON)
+	public function makeRequest(string $method, string $uri, ?array $data = null, ?string $contentType = Http::CONTENT_JSON): Response
 	{
 		return parent::makeRequest($method, $uri, $data, $contentType);
 	}
@@ -36,68 +34,78 @@ class DummyService extends AbstractService // @codingStandardsIgnoreLine
 }
 
 // No token
-test(function () {
+test(function (): void {
 	$client = Mockery::namedMock('Client1', Client::class);
-	$client->shouldReceive('hasToken')->andReturn(FALSE);
+	$client->shouldReceive('hasToken')->andReturn(false);
 	$client->shouldReceive('authenticate')->andThrow(RuntimeException::class);
 
 	$service = Mockery::mock(DummyService::class, [$client])->makePartial();
 	$service->shouldAllowMockingProtectedMethods();
 
-	Assert::throws(function () use ($service) {
+	Assert::throws(function () use ($service): void {
 		$service->makeRequest('GET', 'test');
 	}, RuntimeException::class);
 });
 
 // Simple get
-test(function () {
+test(function (): void {
+	/** @var Request $request */
+	$request = null;
+
 	$client = Mockery::namedMock('Client2', Client::class);
-	$client->shouldReceive('hasToken')->andReturn(FALSE);
+	$client->shouldReceive('hasToken')->andReturn(false);
 	$client->shouldReceive('authenticate');
-	$client->shouldReceive('getToken')->andReturn((object) ['accessToken' => 12345]);
-	$client->shouldReceive('call')->andReturnUsing(function (Request $request) {
-		return $request;
+	$client->shouldReceive('getToken')->andReturn(Token::create(['accessToken' => '12345']));
+	$client->shouldReceive('call')->andReturnUsing(function (Request $req) use (&$request) {
+		$request = $req;
+		return new Response();
 	});
 
 	$service = new DummyService($client);
 
-	/** @var Request $request */
-	$request = $service->makeRequest('GET', 'foobar');
+	$service->makeRequest('GET', 'foobar');
 	Assert::match('%a%foobar', $request->getUrl());
-	Assert::true(in_array(CURLOPT_HTTPGET, $request->getOpts()));
+	Assert::true(array_key_exists(CURLOPT_HTTPGET, $request->getOpts()));
 });
 
 // Simple post
-test(function () {
+test(function (): void {
+	/** @var Request $request */
+	$request = null;
+
 	$client = Mockery::namedMock('Client3', Client::class);
-	$client->shouldReceive('hasToken')->andReturn(TRUE);
-	$client->shouldReceive('getToken')->andReturn((object) ['accessToken' => 12345]);
-	$client->shouldReceive('call')->andReturnUsing(function (Request $request) {
-		return $request;
+	$client->shouldReceive('hasToken')->andReturn(true);
+	$client->shouldReceive('getToken')->andReturn(Token::create(['accessToken' => '12345']));
+	$client->shouldReceive('call')->andReturnUsing(function (Request $req) use (&$request) {
+		$request = $req;
+		return new Response();
 	});
 
 	$service = new DummyService($client);
 	$data = ['foo' => 1, 'bar' => 2];
 
-	/** @var Request $request */
-	$request = $service->makeRequest('POST', 'foobar', $data);
+	$service->makeRequest('POST', 'foobar', $data);
 	Assert::match('%a%foobar', $request->getUrl());
-	Assert::true(in_array(CURLOPT_POST, $request->getOpts()));
-	Assert::same($data, json_decode($request->getOpts()[CURLOPT_POSTFIELDS], TRUE));
+	Assert::true(array_key_exists(CURLOPT_POST, $request->getOpts()));
+	Assert::same($data, json_decode($request->getOpts()[CURLOPT_POSTFIELDS], true));
 });
 
 // Invalid method
-test(function () {
+test(function (): void {
+	/** @var Request $request */
+	$request = null;
+
 	$client = Mockery::namedMock('Client3', Client::class);
-	$client->shouldReceive('hasToken')->andReturn(TRUE);
-	$client->shouldReceive('getToken')->andReturn((object) ['accessToken' => 12345]);
-	$client->shouldReceive('call')->andReturnUsing(function (Request $request) {
-		return $request;
+	$client->shouldReceive('hasToken')->andReturn(true);
+	$client->shouldReceive('getToken')->andReturn(Token::create(['accessToken' => '12345']));
+	$client->shouldReceive('call')->andReturnUsing(function (Request $req) use (&$request) {
+		$request = $req;
+		return new Response();
 	});
 
 	$service = new DummyService($client);
 
-	Assert::throws(function () use ($service) {
+	Assert::throws(function () use ($service): void {
 		$service->makeRequest('FUCK', 'foobar');
 	}, InvalidStateException::class);
 });

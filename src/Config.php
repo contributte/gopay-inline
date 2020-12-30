@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline;
 
@@ -8,10 +8,10 @@ class Config
 {
 
 	// Modes
-	const PROD = 'PROD';
-	const TEST = 'TEST';
+	public const PROD = 'PROD';
+	public const TEST = 'TEST';
 
-	/** @var float */
+	/** @var string */
 	private $goId;
 
 	/** @var string */
@@ -23,13 +23,7 @@ class Config
 	/** @var string */
 	private $mode;
 
-	/**
-	 * @param float $goId
-	 * @param string $clientId
-	 * @param string $clientSecret
-	 * @param string $mode
-	 */
-	public function __construct($goId, $clientId, $clientSecret, $mode = self::TEST)
+	public function __construct(string $goId, string $clientId, string $clientSecret, string $mode = self::TEST)
 	{
 		$this->goId = $goId;
 		$this->clientId = $clientId;
@@ -37,43 +31,27 @@ class Config
 		$this->setMode($mode);
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getGoId()
+	public function getGoId(): string
 	{
 		return $this->goId;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getClientId()
+	public function getClientId(): string
 	{
 		return $this->clientId;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getClientSecret()
+	public function getClientSecret(): string
 	{
 		return $this->clientSecret;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMode()
+	public function getMode(): string
 	{
 		return $this->mode;
 	}
 
-	/**
-	 * @param string $mode
-	 * @return void
-	 */
-	public function setMode($mode)
+	public function setMode(string $mode): void
 	{
 		if ($mode === self::PROD) {
 			Gateway::init(Gateway::PROD);

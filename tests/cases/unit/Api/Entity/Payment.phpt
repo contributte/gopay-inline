@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Entity\Payment
@@ -9,13 +9,15 @@ use Contributte\GopayInline\Api\Objects\Item;
 use Contributte\GopayInline\Api\Objects\Parameter;
 use Contributte\GopayInline\Api\Objects\Payer;
 use Contributte\GopayInline\Api\Objects\Target;
+use Money\Money;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Simple
-test(function () {
+test(function (): void {
 	$payment = new Payment();
+	$payment->setAmount(Money::CZK(0));
 	$payment->setTarget($target = new Target());
 	$payment->setPayer($payer = new Payer());
 	$payment->setLang('CZ');
@@ -27,48 +29,43 @@ test(function () {
 });
 
 // Amount
-test(function () {
+test(function (): void {
 	$payment = new Payment();
 
-	$payment->setAmount(100);
-	Assert::equal(100, $payment->getAmount());
-	Assert::equal(floatval(10000), $payment->getAmountInCents());
+	$payment->setAmount(Money::CZK(10000));
+	Assert::equal('10000', $payment->getAmountInCents());
 
-	$payment->setAmount(100.5);
-	Assert::equal(100.5, $payment->getAmount());
-	Assert::equal(floatval(10050), $payment->getAmountInCents());
+	$payment->setAmount(Money::CZK(10050));
+	Assert::equal('10050', $payment->getAmountInCents());
 
-	$payment->setAmount(100.555);
-	Assert::equal(100.555, $payment->getAmount());
-	Assert::equal(floatval(10056), $payment->getAmountInCents());
-
-	$payment->setAmount(100.54);
-	Assert::equal(100.54, $payment->getAmount());
-	Assert::equal(floatval(10054), $payment->getAmountInCents());
+	$payment->setAmount(Money::CZK(100555));
+	Assert::equal('100555', $payment->getAmountInCents());
 });
 
 // Items
-test(function () {
+test(function (): void {
 	$payment = new Payment();
 	$payment->setTarget(new Target());
+	$payment->setAmount(Money::CZK(30000));
 	$payment->addItem($i = new Item());
-	$i->amount = 100;
+	$i->amount = Money::CZK(10000);
 	$payment->addItem($i = new Item());
-	$i->amount = 200;
+	$i->amount = Money::CZK(20000);
 
 	$array = $payment->toArray();
 	Assert::count(2, $array['items']);
-	Assert::equal(floatval(10000), $array['items'][0]['amount']);
-	Assert::equal(floatval(20000), $array['items'][1]['amount']);
+	Assert::equal('10000', $array['items'][0]['amount']);
+	Assert::equal('20000', $array['items'][1]['amount']);
 
 	$payment->setItems([]);
 	Assert::count(0, $payment->getItems());
 });
 
 // Parameters
-test(function () {
+test(function (): void {
 	$payment = new Payment();
 	$payment->setTarget(new Target());
+	$payment->setAmount(Money::CZK(0));
 	$payment->addParameter($p = new Parameter());
 	$p->name = 'foo';
 	$p->value = 'bar';
@@ -83,10 +80,11 @@ test(function () {
 });
 
 // Preauthorized
-test(function () {
+test(function (): void {
 	$payment = new Payment();
 	$payment->setTarget($target = new Target());
-	$payment->setPreauthorization(TRUE);
+	$payment->setAmount(Money::CZK(0));
+	$payment->setPreauthorization(true);
 
 	$array = $payment->toArray();
 	Assert::true($array['preauthorization']);

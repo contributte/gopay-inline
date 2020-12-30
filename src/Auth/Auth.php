@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Auth;
 
@@ -8,9 +8,8 @@ interface Auth
 {
 
 	/**
-	 * @param array $credentials
-	 * @return Response
+	 * @param mixed[] $credentials
 	 */
-	public function authenticate(array $credentials);
+	public function authenticate(array $credentials): Response;
 
 }

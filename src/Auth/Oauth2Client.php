@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Auth;
 
@@ -18,10 +18,6 @@ class Oauth2Client implements Auth
 	/** @var Http */
 	private $http;
 
-	/**
-	 * @param Client $client
-	 * @param Http $http
-	 */
 	public function __construct(Client $client, Http $http)
 	{
 		$this->client = $client;
@@ -29,10 +25,9 @@ class Oauth2Client implements Auth
 	}
 
 	/**
-	 * @param array $credentials
-	 * @return Response
+	 * @param mixed[] $credentials
 	 */
-	public function authenticate(array $credentials)
+	public function authenticate(array $credentials): Response
 	{
 		$request = new Request();
 
@@ -55,9 +50,9 @@ class Oauth2Client implements Auth
 
 		// Set-up opts
 		$opts = [
-			CURLOPT_SSL_VERIFYPEER => FALSE,
-			CURLOPT_POST => TRUE,
-			CURLOPT_RETURNTRANSFER => TRUE,
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_POST => true,
+			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_USERPWD => $this->client->getClientId() . ':' . $this->client->getClientSecret(),
 			CURLOPT_POSTFIELDS => $data,
 		];
@@ -66,14 +61,14 @@ class Oauth2Client implements Auth
 		// Make request
 		$response = $this->http->doRequest($request);
 
-		if ($response->getData() === FALSE) {
+		if ($response->getData() === null) {
 			// cURL errors
-			throw new AuthorizationException('Authorization failed', $response->getCode());
+			throw new AuthorizationException('Authorization failed', (int) $response->getCode());
 		}
 
-		if (isset($response->getData()->errors)) {
+		if (isset($response->getData()['errors'])) {
 			// GoPay errors
-			$error = $response->getData()->errors[0];
+			$error = $response->getData()['errors'][0];
 			throw new AuthorizationException(AuthorizationException::format($error), $error->error_code);
 		}
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Objects;
 
@@ -25,29 +25,29 @@ class Payer extends AbstractObject
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 
-		if ($this->allowedPaymentInstruments !== NULL) {
+		if ($this->allowedPaymentInstruments !== null) {
 			$data['allowed_payment_instruments'] = $this->allowedPaymentInstruments;
 		}
 
-		if ($this->defaultPaymentInstrument !== NULL) {
+		if ($this->defaultPaymentInstrument !== null) {
 			$data['default_payment_instrument'] = $this->defaultPaymentInstrument;
 		}
 
-		if ($this->defaultSwift !== NULL) {
+		if ($this->defaultSwift !== null) {
 			$data['default_swift'] = $this->defaultSwift;
 		}
 
-		if ($this->allowedSwifts !== NULL) {
+		if ($this->allowedSwifts !== null) {
 			$data['allowed_swifts'] = $this->allowedSwifts;
 		}
 
-		if ($this->contact !== NULL) {
+		if ($this->contact !== null) {
 			$data['contact'] = $this->contact->toArray();
 		}
 

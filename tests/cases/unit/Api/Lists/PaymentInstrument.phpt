@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Lists\PaymentInstrument
@@ -10,6 +10,6 @@ use Tester\Assert;
 require __DIR__ . '/../../../../bootstrap.php';
 
 // All
-test(function () {
+test(function (): void {
 	Assert::count(11, PaymentInstrument::all());
 });

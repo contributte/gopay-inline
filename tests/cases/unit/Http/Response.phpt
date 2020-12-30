@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Http\Response
@@ -10,17 +10,20 @@ use Tester\Assert;
 require __DIR__ . '/../../../bootstrap.php';
 
 // Empty response
-test(function () {
+test(function (): void {
 	$r = new Response();
 
 	Assert::null($r->getCode());
 	Assert::null($r->getError());
-	Assert::null($r->getHeaders());
-	Assert::null($r->getData());
+
+	Assert::type('array', $r->getHeaders());
+	Assert::count(0, $r->getHeaders());
+
+	Assert::type('null', $r->getData());
 });
 
 // Simple response
-test(function () {
+test(function (): void {
 	$r = new Response();
 
 	$r->setData($data = ['a' => 'b']);
@@ -38,7 +41,7 @@ test(function () {
 });
 
 // Array access
-test(function () {
+test(function (): void {
 	$r = new Response();
 	$r->setData($data = ['a' => 'b']);
 
@@ -52,18 +55,17 @@ test(function () {
 	Assert::false(isset($r['b']));
 	Assert::false(isset($r['c']));
 
-	Assert::error(function () use ($r) {
-		$a = $r['c'];
-	}, E_NOTICE);
+	Assert::error(function () use ($r): void {
+		$r['c'];
+	}, PHP_VERSION_ID < 80000 ? E_NOTICE : E_WARNING);
 
-	$r->setData(NULL);
-	Assert::null($r->getData());
+	$r->setData(null);
 	Assert::false(isset($r['c']));
 	Assert::null($r['c']);
 });
 
 // Countable
-test(function () {
+test(function (): void {
 	$r = new Response();
 	Assert::count(0, $r);
 
@@ -72,14 +74,14 @@ test(function () {
 });
 
 // Iterator
-test(function () {
+test(function (): void {
 	$r = new Response();
 	$r->setData($data = ['a' => 'b']);
 	Assert::equal($data, iterator_to_array($r));
 });
 
 // Magic methods
-test(function () {
+test(function (): void {
 	$r = new Response();
 	$r->setCode($code = 200);
 	$r->setData($data = ['a' => 'b']);

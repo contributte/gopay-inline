@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Service;
 
@@ -11,13 +11,10 @@ abstract class AbstractPaymentService extends AbstractService
 
 	/**
 	 * Add required target field
-	 *
-	 * @param Payment $payment
-	 * @return void
 	 */
-	protected function preConfigure(Payment $payment)
+	protected function preConfigure(Payment $payment): void
 	{
-		if ($payment->getTarget() === NULL) {
+		if (!$payment->hasTarget()) {
 			$target = new Target();
 			$target->goid = $this->client->getGoId();
 			$target->type = TargetType::ACCOUNT;

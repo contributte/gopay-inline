@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Entity\RecurrentPaymentFactory
  */
+
 use Contributte\GopayInline\Api\Entity\RecurrentPayment;
 use Contributte\GopayInline\Api\Entity\RecurrentPaymentFactory;
 use Contributte\GopayInline\Api\Lists\PaymentType;
@@ -10,24 +11,24 @@ use Contributte\GopayInline\Api\Lists\RecurrenceCycle;
 use Contributte\GopayInline\Api\Lists\TargetType;
 use Contributte\GopayInline\Api\Objects\Eet;
 use Contributte\GopayInline\Exception\ValidationException;
+use Money\Money;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Required fields
-test(function () {
-	Assert::throws(function () {
+test(function (): void {
+	Assert::throws(function (): void {
 		RecurrentPaymentFactory::create([]);
 	}, ValidationException::class, '%a%' . implode(', ', RecurrentPaymentFactory::$required) . '%a%');
 });
 
 // Not allowed field
-test(function () {
+test(function (): void {
 	$required = [
-		'amount' => 1,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(1),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => 5,
 		'recurrence' => 6,
 		'callback' => [
@@ -39,13 +40,13 @@ test(function () {
 		'foo' => 9,
 		'bar' => 10,
 	];
-	Assert::throws(function () use ($required, $fields) {
+	Assert::throws(function () use ($required, $fields): void {
 		RecurrentPaymentFactory::create(array_merge($required, $fields));
 	}, ValidationException::class, '%a%' . implode(', ', array_keys($fields)) . '%a%');
 });
 
 // Not allowed field
-test(function () {
+test(function (): void {
 	$required = [
 		'amount' => 1,
 		'currency' => 2,
@@ -57,20 +58,20 @@ test(function () {
 			'return_url' => '7',
 		],
 	];
-	Assert::throws(function () use ($required) {
+	Assert::throws(function () use ($required): void {
 		RecurrentPaymentFactory::create($required);
 	}, ValidationException::class, 'Missing keys "notify_url" in callback definition');
 });
 
 // Simple payment
-test(function () {
+test(function (): void {
 	$nextYear = new DateTime('+1 year');
 	$eet = [
-		'celk_trzba' => 550,
-		'zakl_dan1' => 100,
-		'dan1' => 50,
-		'zakl_dan2' => 300,
-		'dan2' => 100,
+		'celk_trzba' => Money::CZK(550),
+		'zakl_dan1' => Money::CZK(100),
+		'dan1' => Money::CZK(50),
+		'zakl_dan2' => Money::CZK(300),
+		'dan2' => Money::CZK(100),
 	];
 	$data = [
 		'payer' => [
@@ -93,15 +94,14 @@ test(function () {
 			'goid' => 123456,
 			'type' => TargetType::ACCOUNT,
 		],
-		'amount' => 550,
-		'currency' => 'CZK',
+		'amount' => Money::CZK(550),
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => 50, 'count' => 2],
-			['name' => 'item02', 'amount' => 100],
-			['name' => 'item03', 'amount' => 150, 'vat_rate' => 21],
-			['name' => 'item04', 'amount' => 200, 'type' => PaymentType::ITEM],
+			['name' => 'item01', 'amount' => Money::CZK(50), 'count' => 2],
+			['name' => 'item02', 'amount' => Money::CZK(100)],
+			['name' => 'item03', 'amount' => Money::CZK(150), 'vat_rate' => 21],
+			['name' => 'item04', 'amount' => Money::CZK(200), 'type' => PaymentType::ITEM],
 		],
 		'eet' => $eet,
 		'recurrence' => [
@@ -130,15 +130,14 @@ test(function () {
 });
 
 // Validate order price and items price
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
-			['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 2],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -151,20 +150,19 @@ test(function () {
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		RecurrentPaymentFactory::create($data);
 	}, ValidationException::class, '%a% (200) %a% (150) %a%');
 });
 
 // Validate items name
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['amount' => 50],
+			['amount' => Money::CZK(50)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -177,22 +175,21 @@ test(function () {
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		RecurrentPaymentFactory::create($data);
 	}, ValidationException::class, "Item's name can't be empty or null.");
 });
 
 // Turn off validators
-test(function () {
+test(function (): void {
 	// Invalid total price and items price
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50],
-			['name' => 'Item 02', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
+			['name' => 'Item 02', 'amount' => Money::CZK(50)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -206,20 +203,19 @@ test(function () {
 	];
 
 	try {
-		RecurrentPaymentFactory::create($data, [RecurrentPaymentFactory::V_PRICES => FALSE]);
-	} catch (Exception $e) {
-		Assert::fail('Exception should not have been threw', $e, NULL);
+		RecurrentPaymentFactory::create($data, [RecurrentPaymentFactory::V_PRICES => false]);
+	} catch (Throwable $e) {
+		Assert::fail('Exception should not have been threw', $e, null);
 	}
 
 	// Invalid scheme
 	$data = [
-		'amount' => 100,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(100),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['amount' => 50],
-			['amount' => 50],
+			['amount' => Money::CZK(50)],
+			['amount' => Money::CZK(50)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -235,22 +231,21 @@ test(function () {
 	];
 
 	try {
-		RecurrentPaymentFactory::create($data, [RecurrentPaymentFactory::V_SCHEME => FALSE]);
-	} catch (Exception $e) {
-		Assert::fail('Exception should not have been threw', $e, NULL);
+		RecurrentPaymentFactory::create($data, [RecurrentPaymentFactory::V_SCHEME => false]);
+	} catch (Throwable $e) {
+		Assert::fail('Exception should not have been threw', $e, null);
 	}
 });
 
 // Validate EET sum and EET tax sum
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 200,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(200),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 3],
-			['name' => 'Item 01', 'amount' => 50],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 3],
+			['name' => 'Item 01', 'amount' => Money::CZK(50)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -262,28 +257,27 @@ test(function () {
 			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 200,
-			'zakl_dan1' => 80,
-			'dan1' => 30,
-			'zakl_dan2' => 50,
-			'dan2' => 20,
+			'celk_trzba' => Money::CZK(200),
+			'zakl_dan1' => Money::CZK(80),
+			'dan1' => Money::CZK(30),
+			'zakl_dan2' => Money::CZK(50),
+			'dan2' => Money::CZK(20),
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		RecurrentPaymentFactory::create($data);
 	}, ValidationException::class, '%a% (200) %a% (180) %a%');
 });
 
 // Validate EET sum and order sum
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 100,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(100),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => 50, 'count' => 2],
+			['name' => 'Item 01', 'amount' => Money::CZK(50), 'count' => 2],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -295,26 +289,25 @@ test(function () {
 			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 110,
-			'zakl_dan1' => 80,
-			'dan1' => 30,
+			'celk_trzba' => Money::CZK(110),
+			'zakl_dan1' => Money::CZK(80),
+			'dan1' => Money::CZK(30),
 		],
 	];
 
-	Assert::throws(function () use ($data) {
+	Assert::throws(function () use ($data): void {
 		RecurrentPaymentFactory::create($data);
 	}, ValidationException::class, '%a% (110) %a% (100) %a%');
 });
 
 // Validate EET sum and order sum (double/float)
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 174.0,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(17400),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'x', 'amount' => 174.0],
+			['name' => 'x', 'amount' => Money::CZK(17400)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -326,9 +319,9 @@ test(function () {
 			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 174.0,
-			'zakl_dan1' => 143.80165289256,
-			'dan1' => 30.198347107438,
+			'celk_trzba' => Money::CZK(17400),
+			'zakl_dan1' => Money::CZK(14380),
+			'dan1' => Money::CZK(3020),
 		],
 	];
 
@@ -340,14 +333,13 @@ test(function () {
 });
 
 // Validate EET sum and order sum (item without VAT)
-test(function () {
+test(function (): void {
 	$data = [
-		'amount' => 274.0,
-		'currency' => 2,
-		'order_number' => 3,
-		'order_description' => 4,
+		'amount' => Money::CZK(27400),
+		'order_number' => '3',
+		'order_description' => '4',
 		'items' => [
-			['name' => 'x', 'amount' => 274.0],
+			['name' => 'x', 'amount' => Money::CZK(27400)],
 		],
 		'recurrence' => [
 			'recurrence_cycle' => RecurrenceCycle::DAY,
@@ -359,10 +351,10 @@ test(function () {
 			'notify_url' => '7',
 		],
 		'eet' => [
-			'celk_trzba' => 274.0,
-			'zakl_nepodl_dph' => 100.0,
-			'zakl_dan1' => 143.80165289256,
-			'dan1' => 30.198347107438,
+			'celk_trzba' => Money::CZK(27400),
+			'zakl_nepodl_dph' => Money::CZK(10000),
+			'zakl_dan1' => Money::CZK(14380),
+			'dan1' => Money::CZK(3020),
 		],
 	];
 	try {

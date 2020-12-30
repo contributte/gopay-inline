@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Lists;
 
@@ -6,27 +6,27 @@ class Format
 {
 
 	// CSV typ A
-	const CSV_A = 'CSV_A';
+	public const CSV_A = 'CSV_A';
 
 	// CSV typ B
-	const CSV_B = 'CSV_B';
+	public const CSV_B = 'CSV_B';
 
 	// CSV typ C
-	const CSV_C = 'CSV_C';
+	public const CSV_C = 'CSV_C';
 
 	// CSV typ D
-	const CSV_D = 'CSV_D';
+	public const CSV_D = 'CSV_D';
 
 	// XLS typ A
-	const XLS_A = 'XLS_A';
+	public const XLS_A = 'XLS_A';
 
 	// XLS typ B
-	const XLS_B = 'XLS_B';
+	public const XLS_B = 'XLS_B';
 
 	// XLS typ C
-	const XLS_C = 'XLS_C';
+	public const XLS_C = 'XLS_C';
 
 	// ABO (.gpc)
-	const ABO_A = 'ABO_A';
+	public const ABO_A = 'ABO_A';
 
 }

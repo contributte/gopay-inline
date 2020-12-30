@@ -1,124 +1,102 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Http;
 
 class Request
 {
 
-	/** @var string */
+	/** @var string|null */
 	protected $url;
 
-	/** @var array */
+	/** @var mixed[] */
 	protected $headers = [];
 
-	/** @var array */
+	/** @var mixed[] */
 	protected $opts = [];
 
-	/** @var array */
+	/** @var mixed[] */
 	protected $data = [];
 
-	/**
-	 * @return string
-	 */
-	public function getUrl()
+	public function getUrl(): ?string
 	{
 		return $this->url;
 	}
 
-	/**
-	 * @param string $url
-	 * @return void
-	 */
-	public function setUrl($url)
+	public function setUrl(string $url): void
 	{
 		$this->url = $url;
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function getHeaders()
+	public function getHeaders(): array
 	{
 		return $this->headers;
 	}
 
 	/**
-	 * @param array $headers
-	 * @return void
+	 * @param mixed[] $headers
 	 */
-	public function setHeaders(array $headers)
+	public function setHeaders(array $headers): void
 	{
 		$this->headers = $headers;
 	}
 
-	/**
-	 * @param string $name
-	 * @param string $value
-	 * @return void
-	 */
-	public function addHeader($name, $value)
+	public function addHeader(string $name, string $value): void
 	{
 		$this->headers[$name] = $value;
 	}
 
 	/**
-	 * @param array $headers
-	 * @return void
+	 * @param mixed[] $headers
 	 */
-	public function appendHeaders(array $headers)
+	public function appendHeaders(array $headers): void
 	{
 		$this->headers += $headers;
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function getOpts()
+	public function getOpts(): array
 	{
 		return $this->opts;
 	}
 
 	/**
-	 * @param array $opts
-	 * @return void
+	 * @param mixed[] $opts
 	 */
-	public function setOpts(array $opts)
+	public function setOpts(array $opts): void
 	{
 		$this->opts = $opts;
 	}
 
-	/**
-	 * @param string $name
-	 * @param string $value
-	 * @return void
-	 */
-	public function addOpt($name, $value)
+	public function addOpt(string $name, string $value): void
 	{
 		$this->opts[$name] = $value;
 	}
 
 	/**
-	 * @param array $opts
-	 * @return void
+	 * @param mixed[] $opts
 	 */
-	public function appendOpts(array $opts)
+	public function appendOpts(array $opts): void
 	{
 		$this->opts += $opts;
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function getData()
+	public function getData(): array
 	{
 		return $this->data;
 	}
 
 	/**
-	 * @param array $data
-	 * @return void
+	 * @param mixed[] $data
 	 */
-	public function setData(array $data)
+	public function setData(array $data): void
 	{
 		$this->data = $data;
 	}

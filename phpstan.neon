@@ -2,6 +2,14 @@ includes:
 	- ./vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
+	bootstrapFiles:
+		- phpstan-bootstrap.php
+
 	ignoreErrors:
 		- '#^Variable property access on#'
 		- '#^Anonymous function should have native return typehint#'
+		- '#^Parameter \#1 \$(callback|function) of function call_user_func_array expects#'
+		- '#Nette\\Schema#'
+
+	checkMissingIterableValueType: false
+	reportUnmatchedIgnoredErrors: false

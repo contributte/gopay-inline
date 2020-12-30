@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\GopayInline\Api\Entity;
 
@@ -6,13 +6,9 @@ class RecurringPayment extends Payment
 {
 
 	/**
-	 * ABSTRACT ****************************************************************
+	 * @return mixed[]
 	 */
-
-	/**
-	 * @return array
-	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 
@@ -28,6 +24,7 @@ class RecurringPayment extends Payment
 		if (count($parameters) > 0) {
 			$data['additional_params'] = $this->formatParameters($parameters);
 		}
+
 		return $data;
 	}
 

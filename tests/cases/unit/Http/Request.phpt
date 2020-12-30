@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Http\Request
@@ -10,7 +10,7 @@ use Tester\Assert;
 require __DIR__ . '/../../../bootstrap.php';
 
 // Empty request
-test(function () {
+test(function (): void {
 	$r = new Request();
 
 	Assert::null($r->getUrl());
@@ -19,7 +19,7 @@ test(function () {
 	Assert::equal([], $r->getOpts());
 });
 // Simple request
-test(function () {
+test(function (): void {
 	$r = new Request();
 	$r->setData($data = ['foo' => 'bar']);
 	$r->setHeaders($headers = ['foo1' => 'bar1']);
@@ -33,24 +33,24 @@ test(function () {
 });
 
 // Append headers/opts
-test(function () {
+test(function (): void {
 	$r = new Request();
 
 	Assert::equal([], $r->getHeaders());
 	Assert::equal([], $r->getOpts());
 
-	$r->appendHeaders(['h' => 1]);
-	$r->appendOpts(['o' => 1]);
-	Assert::equal(['h' => 1], $r->getHeaders());
-	Assert::equal(['o' => 1], $r->getOpts());
+	$r->appendHeaders(['h' => '1']);
+	$r->appendOpts(['o' => '1']);
+	Assert::equal(['h' => '1'], $r->getHeaders());
+	Assert::equal(['o' => '1'], $r->getOpts());
 
-	$r->appendHeaders(['h2' => 2]);
-	$r->appendOpts(['o2' => 2]);
-	Assert::equal(['h' => 1, 'h2' => 2], $r->getHeaders());
-	Assert::equal(['o' => 1, 'o2' => 2], $r->getOpts());
+	$r->appendHeaders(['h2' => '2']);
+	$r->appendOpts(['o2' => '2']);
+	Assert::equal(['h' => '1', 'h2' => '2'], $r->getHeaders());
+	Assert::equal(['o' => '1', 'o2' => '2'], $r->getOpts());
 
-	$r->addHeader('h3', 3);
-	$r->addOpt('o3', 3);
-	Assert::equal(['h' => 1, 'h2' => 2, 'h3' => 3], $r->getHeaders());
-	Assert::equal(['o' => 1, 'o2' => 2, 'o3' => 3], $r->getOpts());
+	$r->addHeader('h3', '3');
+	$r->addOpt('o3', '3');
+	Assert::equal(['h' => '1', 'h2' => '2', 'h3' => '3'], $r->getHeaders());
+	Assert::equal(['o' => '1', 'o2' => '2', 'o3' => '3'], $r->getOpts());
 });
