@@ -22,6 +22,7 @@ class SwiftCode
 	public const SLOVENSKA_SPORITELNA = 'GIBASKBX';
 	public const TATRA_BANKA = 'TATRSKBX';
 	public const UNICREDIT_BANK_SK = 'UNCRSKBX';
+	public const VUB_BANK = 'SUBASKBX';
 
 	/**
 	 * @return string[]
@@ -58,6 +59,7 @@ class SwiftCode
 			self::SLOVENSKA_SPORITELNA,
 			self::TATRA_BANKA,
 			self::UNICREDIT_BANK_SK,
+			self::VUB_BANK,
 		];
 	}
 
