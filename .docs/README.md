@@ -8,8 +8,8 @@ This library has no dependencies on other `php` libraries. It provides easy-to-u
 
 Install **Markette/GopayInline** over composer.
 
-```sh
-$ composer require markette/gopay-inline
+```bash
+composer require markette/gopay-inline
 ```
 
 Why is the package still called Markette? Because we don't want to break other people's projects (for now).
