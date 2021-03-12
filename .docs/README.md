@@ -8,8 +8,8 @@ This library has no dependencies on other `php` libraries. It provides easy-to-u
 
 Install **Markette/GopayInline** over composer.
 
-```sh
-$ composer require markette/gopay-inline
+```bash
+composer require markette/gopay-inline
 ```
 
 Why is the package still called Markette? Because we don't want to break other people's projects (for now).
@@ -193,7 +193,7 @@ Now we have a response with payment information. There's same data as we send it
 
 ```php
 if ($response->isSuccess()) {
-    // ...
+	// ...
 }
 ```
 
@@ -229,15 +229,15 @@ $response = $client->payments->verify($paymentId);
 
 Fill your credentials in config.
 
-```yaml
+```neon
 extensions:
-    gopay: Contributte\GopayInline\Bridges\Nette\DI\GopayExtension
+	gopay: Contributte\GopayInline\Bridges\Nette\DI\GopayExtension
 
 gopay:
-    goId: ***
-    clientId: ***
-    clientSecret: ***
-    test: on / off
+	goId: ***
+	clientId: ***
+	clientSecret: ***
+	test: on / off
 ```
 
 Inject `Client` into your services / presenters;
