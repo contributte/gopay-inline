@@ -44,7 +44,7 @@ test(function (): void {
 		'order_number' => '001',
 		'order_description' => 'pojisteni01',
 		'items' => [
-			['name' => 'item01', 'amount' => Money::CZK(50*2), 'count' => 2],
+			['name' => 'item01', 'amount' => Money::CZK(50 * 2), 'count' => 2],
 			['name' => 'item02', 'amount' => Money::CZK(100)],
 			['name' => 'item03', 'amount' => Money::CZK(150), 'vat_rate' => 21],
 			['name' => 'item04', 'amount' => Money::CZK(200), 'type' => PaymentType::ITEM],
@@ -67,7 +67,7 @@ test(function (): void {
 		'order_number' => '3',
 		'order_description' => '4',
 		'items' => [
-			['name' => 'Item 01', 'amount' => Money::CZK(50*2), 'count' => 2],
+			['name' => 'Item 01', 'amount' => Money::CZK(50 * 2), 'count' => 2],
 			['name' => 'Item 01', 'amount' => Money::CZK(50)],
 		],
 	];
