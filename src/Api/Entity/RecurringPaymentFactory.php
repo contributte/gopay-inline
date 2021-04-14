@@ -102,7 +102,7 @@ class RecurringPaymentFactory
 		$itemsPrice = new Money(0, new Currency($recurringPayment->getCurrency()));
 		$orderPrice = $recurringPayment->getAmount();
 		foreach ($recurringPayment->getItems() as $item) {
-			$itemsPrice = $itemsPrice->add($item->getAmount()->multiply($item->count));
+			$itemsPrice = $itemsPrice->add($item->getAmount());
 		}
 
 		if (!$itemsPrice->equals($orderPrice)) {
