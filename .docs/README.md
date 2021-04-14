@@ -1,4 +1,6 @@
-# Contributte GopayInline
+# Contributte / Gopay-Inline
+
+## Content
 
 ## Prolog
 
