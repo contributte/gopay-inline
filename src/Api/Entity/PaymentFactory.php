@@ -166,7 +166,7 @@ class PaymentFactory
 
 		$orderPrice = $payment->getAmount();
 		foreach ($payment->getItems() as $item) {
-			$itemsPrice = $itemsPrice->add($item->getAmount()->multiply($item->count));
+			$itemsPrice = $itemsPrice->add($item->getAmount());
 		}
 
 		if (!$itemsPrice->equals($orderPrice)) {

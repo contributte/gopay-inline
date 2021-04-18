@@ -174,7 +174,7 @@ class RecurrentPaymentFactory
 
 		$orderPrice = $recurrentPayment->getAmount();
 		foreach ($recurrentPayment->getItems() as $item) {
-			$itemsPrice = $itemsPrice->add($item->getAmount()->multiply($item->count));
+			$itemsPrice = $itemsPrice->add($item->getAmount());
 		}
 
 		if (!$itemsPrice->equals($orderPrice)) {
