@@ -73,15 +73,20 @@ class PaymentsService extends AbstractPaymentService
 	}
 
 	/**
-	 * @param int|float $id
+	 * @param int|float    $id
+	 * @param float|null   $amount
+	 * @param mixed[]|null $items
 	 */
-	public function capturePayment($id, ?float $amount = null): Response
+	public function capturePayment($id, ?float $amount = null, ?array $items = null): Response
 	{
-		$data = [];
-
-		if ($amount !== null) {
-			$data['amount'] = round($amount * 100);
+		if ($amount === null || $items === null) {
+			return $this->makeRequest('POST', 'payments/payment/' . $id . '/capture');
 		}
+
+		$data = array_merge(
+			['amount' => round($amount * 100)],
+			['items' => $items]
+		);
 
 		return $this->makeRequest('POST', 'payments/payment/' . $id . '/capture', $data);
 	}
