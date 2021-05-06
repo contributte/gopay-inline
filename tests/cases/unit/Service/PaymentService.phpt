@@ -229,8 +229,8 @@ test(function (): void {
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 	$service->shouldReceive('makeRequest')
-		->with('POST', 'payments/payment/10001/capture', ['amount' => 3150.])
+		->with('POST', 'payments/payment/10001/capture')
 		->andReturn($response);
 
-	Assert::type(Response::class, $service->capturePayment(10001, 31.5));
+	Assert::type(Response::class, $service->capturePayment(10001));
 });
