@@ -27,7 +27,7 @@
 		"nette/di": "^3.0"
 	},
 	"require-dev": {
-		"symplify/easy-coding-standard": "^8.3",
+		"symplify/easy-coding-standard": "^9.4",
 		"phpstan/phpstan": "^0.12.18",
 		"phpstan/phpstan-nette": "^0.12.6"
 	},
