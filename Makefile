@@ -6,7 +6,11 @@ install:
 qa: phpstan cs
 
 cs:
+ifdef GITHUB_ACTION
+	vendor/bin/codesniffer -q --report=checkstyle src tests | cs2pr
+else
 	vendor/bin/codesniffer src tests
+endif
 
 csf:
 	vendor/bin/codefixer src tests
