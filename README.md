@@ -3,11 +3,11 @@
 <p align=center>
   <a href="https://github.com/contributte/gopay-inline/actions"><img src="https://badgen.net/github/checks/contributte/gopay-inline/master"></a>
   <a href="https://coveralls.io/r/contributte/gopay-inline"><img src="https://badgen.net/coveralls/c/github/contributte/gopay-inline"></a>
-  <a href="https://packagist.org/packages/contributte/gopay-inline"><img src="https://badgen.net/packagist/dm/contributte/gopay-inline"></a>
-  <a href="https://packagist.org/packages/contributte/gopay-inline"><img src="https://badgen.net/packagist/v/contributte/gopay-inline"></a>
+  <a href="https://packagist.org/packages/markette/gopay-inline"><img src="https://badgen.net/packagist/dm/markette/gopay-inline"></a>
+  <a href="https://packagist.org/packages/markette/gopay-inline"><img src="https://badgen.net/packagist/v/markette/gopay-inline"></a>
 </p>
 <p align=center>
-  <a href="https://packagist.org/packages/contributte/gopay-inline"><img src="https://badgen.net/packagist/php/contributte/gopay-inline"></a>
+  <a href="https://packagist.org/packages/markette/gopay-inline"><img src="https://badgen.net/packagist/php/markette/gopay-inline"></a>
   <a href="https://github.com/contributte/gopay-inline"><img src="https://badgen.net/github/license/contributte/gopay-inline"></a>
   <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
   <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
