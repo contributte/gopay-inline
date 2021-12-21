@@ -131,6 +131,7 @@ class RecurrentPaymentFactory
 
 		// ### ITEMS
 		foreach ($data['items'] as $param) {
+			/** @phpstan-ignore-next-line */
 			if (!isset($param['name']) || !$param['name']) {
 				if ($validators[self::V_SCHEME] === true) {
 					throw new ValidationException('Item\'s name can\'t be empty or null.');
