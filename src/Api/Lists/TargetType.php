@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Lists;
+namespace Contributte\GopayInline\Api\Lists;
 
 class TargetType
 {
 
 	// Account type (required for payments)
-	const ACCOUNT = 'ACCOUNT';
+	public const ACCOUNT = 'ACCOUNT';
 
 }

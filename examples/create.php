@@ -1,12 +1,12 @@
 <?php
 
-use Markette\GopayInline\Api\Entity\PaymentFactory;
-use Markette\GopayInline\Api\Lists\Currency;
-use Markette\GopayInline\Api\Lists\Language;
-use Markette\GopayInline\Api\Lists\PaymentInstrument;
-use Markette\GopayInline\Api\Lists\SwiftCode;
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Api\Entity\PaymentFactory;
+use Contributte\GopayInline\Api\Lists\Currency;
+use Contributte\GopayInline\Api\Lists\Language;
+use Contributte\GopayInline\Api\Lists\PaymentInstrument;
+use Contributte\GopayInline\Api\Lists\SwiftCode;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
 
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -28,36 +28,37 @@ $payment = [
 		'contact' => [
 			'first_name' => 'John',
 			'last_name' => 'Doe',
-			'email' => 'johndoe@markette.org',
+			'email' => 'johndoe@contributte.org',
 			'phone_number' => '+420123456789',
 			'city' => 'Prague',
-			'street' => 'Markette 123',
+			'street' => 'Contributte 123',
 			'postal_code' => '123 45',
 			'country_code' => 'CZE',
 		],
 	],
-	'amount' => 50000,
-	'currency' => Currency::CZK,
+	'amount' => \Money\Money::CZK(50000),
 	'order_number' => '001',
 	'order_description' => 'some order',
 	'items' => [
-		['name' => 'item01', 'amount' => 40000],
-		['name' => 'item02', 'amount' => 13000],
-		['name' => 'item03', 'amount' => 7000],
+		['name' => 'item01', 'amount' => \Money\Money::CZK(40000)],
+		['name' => 'item02', 'amount' => \Money\Money::CZK(13000)],
+		['name' => 'item03', 'amount' => \Money\Money::CZK(7000)],
 	],
 	'eet' => [
-		'celk_trzba' => 50000,
-		'zakl_dan1' => 35000,
-		'dan1' => 5000,
-		'zakl_dan2' => 8000,
-		'dan2' => 2000,
+		'celk_trzba' => \Money\Money::CZK(50000),
+		'zakl_dan1' => \Money\Money::CZK(35000),
+		'dan1' => \Money\Money::CZK(5000),
+		'zakl_dan2' => \Money\Money::CZK(8000),
+		'dan2' => \Money\Money::CZK(2000),
 		'mena' => Currency::CZK,
 	],
 	'additional_params' => [
 		['name' => 'invoicenumber', 'value' => '2017001'],
 	],
-	'return_url' => 'http://www.myeshop.cz/api/gopay/return',
-	'notify_url' => 'http://www.myeshop.cz/api/gopay/notify',
+	'callback' => [
+		'return_url' => 'http://www.myeshop.cz/api/gopay/return',
+		'notify_url' => 'http://www.myeshop.cz/api/gopay/notify',
+	],
 	'lang' => Language::CZ,
 ];
 

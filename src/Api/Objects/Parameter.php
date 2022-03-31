@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
 class Parameter extends AbstractObject
 {
@@ -16,9 +16,9 @@ class Parameter extends AbstractObject
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'name' => $this->name,

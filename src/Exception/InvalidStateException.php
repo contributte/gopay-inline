@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Exception;
+namespace Contributte\GopayInline\Exception;
 
 class InvalidStateException extends GopayException
 {

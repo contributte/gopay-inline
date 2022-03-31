@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
 class Payer extends AbstractObject
 {
@@ -25,29 +25,29 @@ class Payer extends AbstractObject
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		$data = [];
 
-		if ($this->allowedPaymentInstruments) {
+		if ($this->allowedPaymentInstruments !== null) {
 			$data['allowed_payment_instruments'] = $this->allowedPaymentInstruments;
 		}
 
-		if ($this->defaultPaymentInstrument) {
+		if ($this->defaultPaymentInstrument !== null) {
 			$data['default_payment_instrument'] = $this->defaultPaymentInstrument;
 		}
 
-		if ($this->defaultSwift) {
+		if ($this->defaultSwift !== null) {
 			$data['default_swift'] = $this->defaultSwift;
 		}
 
-		if ($this->allowedSwifts) {
+		if ($this->allowedSwifts !== null) {
 			$data['allowed_swifts'] = $this->allowedSwifts;
 		}
 
-		if ($this->contact) {
+		if ($this->contact !== null) {
 			$data['contact'] = $this->contact->toArray();
 		}
 

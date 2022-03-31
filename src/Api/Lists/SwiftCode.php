@@ -1,64 +1,65 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Lists;
+namespace Contributte\GopayInline\Api\Lists;
 
 class SwiftCode
 {
 
-	const CESKA_SPORITELNA = 'GIBACZPX';
-	const KOMERCNI_BANKA = 'KOMBCZPP';
-	const RAIFFEISENBANK = 'RZBCCZPP';
-	const MBANK = 'BREXCZPP';
-	const FIO_BANKA = 'FIOBCZPP';
-	const CSOB = 'CEKOCZPP';
-	const ERA = 'CEKOCZPP-ERA';
-	const VSEOBECNA_VEROVA_BANKA_BANKA = 'SUBASKBX';
-	const TATRA_BANKA = 'TATRSKBX';
-	const UNICREDIT_BANK_SK = 'UNCRSKBX';
-	const SLOVENSKA_SPORITELNA = 'GIBASKBX';
-	const OTP_BANKA = 'OTPVSKBX';
-	const POSTOVA_BANKA = 'POBNSKBA';
-	const CSOB_SK = 'CEKOSKBX';
-	const SBERBANK_SLOVENSKO = 'LUBASKBX';
+	public const OTHERS = 'OTHERS';
+
+	// cz
+	public const CESKA_SPORITELNA = 'GIBACZPX';
+	public const CSOB = 'CEKOCZPP';
+	public const ERA = 'CEKOCZPP-ERA';
+	public const FIO_BANKA = 'FIOBCZPP';
+	public const KOMERCNI_BANKA = 'KOMBCZPP';
+	public const MBANK = 'BREXCZPP';
+	public const RAIFFEISENBANK = 'RZBCCZPP';
+	public const UNICREDIT_BANK_CZ = 'BACXCZPP';
+
+	// sk
+	public const POSTOVA_BANKA = 'POBNSKBA';
+	public const SLOVENSKA_SPORITELNA = 'GIBASKBX';
+	public const TATRA_BANKA = 'TATRSKBX';
+	public const UNICREDIT_BANK_SK = 'UNCRSKBX';
+	public const VUB_BANK = 'SUBASKBX';
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function all()
+	public static function all(): array
 	{
-		return array_merge(self::cz(), self::sk());
+		return array_merge([self::OTHERS], self::cz(), self::sk());
 	}
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function cz()
+	public static function cz(): array
 	{
 		return [
 			self::CESKA_SPORITELNA,
-			self::KOMERCNI_BANKA,
-			self::RAIFFEISENBANK,
-			self::MBANK,
-			self::FIO_BANKA,
 			self::CSOB,
 			self::ERA,
+			self::FIO_BANKA,
+			self::KOMERCNI_BANKA,
+			self::MBANK,
+			self::RAIFFEISENBANK,
+			self::UNICREDIT_BANK_CZ,
 		];
 	}
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public static function sk()
+	public static function sk(): array
 	{
 		return [
-			self::VSEOBECNA_VEROVA_BANKA_BANKA,
+			self::POSTOVA_BANKA,
+			self::SLOVENSKA_SPORITELNA,
 			self::TATRA_BANKA,
 			self::UNICREDIT_BANK_SK,
-			self::SLOVENSKA_SPORITELNA,
-			self::OTP_BANKA,
-			self::POSTOVA_BANKA,
-			self::CSOB_SK,
-			self::SBERBANK_SLOVENSKO,
+			self::VUB_BANK,
 		];
 	}
 

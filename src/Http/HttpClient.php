@@ -1,32 +1,25 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Http;
+namespace Contributte\GopayInline\Http;
 
-use Markette\GopayInline\Exception\HttpException;
+use Contributte\GopayInline\Exception\HttpException;
 
 class HttpClient implements Http
 {
 
-	/** @var Io */
+	/** @var Io|null */
 	protected $io;
 
-	/**
-	 * @return Io
-	 */
-	public function getIo()
+	public function getIo(): Io
 	{
-		if (!$this->io) {
+		if ($this->io === null) {
 			$this->io = new Curl();
 		}
 
 		return $this->io;
 	}
 
-	/**
-	 * @param Io $io
-	 * @return void
-	 */
-	public function setIo(Io $io)
+	public function setIo(Io $io): void
 	{
 		$this->io = $io;
 	}
@@ -37,17 +30,16 @@ class HttpClient implements Http
 
 	/**
 	 * Take request and execute him
-	 *
-	 * @param Request $request
-	 * @return Response
 	 */
-	public function doRequest(Request $request)
+	public function doRequest(Request $request): Response
 	{
 		$response = $this->getIo()->call($request);
-		if (!$response) {
+		if (!$response->isSuccess()) {
 			// cURL error
 			throw new HttpException('Request failed');
-		} else if (isset($response->data['errors'])) {
+		}
+
+		if (isset($response->data['errors'])) {
 			// GoPay errors
 			$error = $response->data['errors'][0];
 			throw new HttpException(HttpException::format($error), $error->error_code);

@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Gateway
  */
 
-use Markette\GopayInline\Api\Gateway;
+use Contributte\GopayInline\Api\Gateway;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 // Simple
-test(function () {
+test(function (): void {
 	Gateway::init(Gateway::TEST);
 	Assert::match('%a%api/oauth2/token', Gateway::getOauth2TokenUrl());
 	Assert::match('%a%sandbox.gopay.com%a%', Gateway::getBaseApiUrl());

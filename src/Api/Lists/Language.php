@@ -1,23 +1,23 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Lists;
+namespace Contributte\GopayInline\Api\Lists;
 
 class Language
 {
 
 	// Czech
-	const CZ = 'CS';
+	public const CZ = 'CS';
 
 	// English
-	const EN = 'EN';
+	public const EN = 'EN';
 
 	// Slovak
-	const SK = 'SK';
+	public const SK = 'SK';
 
 	// German
-	const DE = 'DE';
+	public const DE = 'DE';
 
 	// Russian
-	const RU = 'RU';
+	public const RU = 'RU';
 
 }
