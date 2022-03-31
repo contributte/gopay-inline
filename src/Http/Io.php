@@ -1,14 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Http;
+namespace Contributte\GopayInline\Http;
 
 interface Io
 {
 
-	/**
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function call(Request $request);
+	public function call(Request $request): Response;
 
 }

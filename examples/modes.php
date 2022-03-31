@@ -1,7 +1,7 @@
 <?php
 
-use Markette\GopayInline\Client;
-use Markette\GopayInline\Config;
+use Contributte\GopayInline\Client;
+use Contributte\GopayInline\Config;
 
 // Load composer
 require_once __DIR__ . '/../vendor/autoload.php';

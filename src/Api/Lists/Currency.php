@@ -1,14 +1,14 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Lists;
+namespace Contributte\GopayInline\Api\Lists;
 
 class Currency
 {
 
 	// Czech crowns
-	const CZK = 'CZK';
+	public const CZK = 'CZK';
 
 	// Euros
-	const EUR = 'EUR';
+	public const EUR = 'EUR';
 
 }

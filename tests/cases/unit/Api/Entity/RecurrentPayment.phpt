@@ -1,20 +1,22 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Entity\RecurrentPayment
  */
 
-use Markette\GopayInline\Api\Entity\RecurrentPayment;
-use Markette\GopayInline\Api\Lists\RecurrenceCycle;
-use Markette\GopayInline\Api\Objects\Recurrence;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\RecurrentPayment;
+use Contributte\GopayInline\Api\Lists\RecurrenceCycle;
+use Contributte\GopayInline\Api\Objects\Recurrence;
+use Contributte\GopayInline\Api\Objects\Target;
+use Money\Money;
 use Tester\Assert;
 
 require __DIR__ . '/../../../../bootstrap.php';
 
 // Simple
-test(function () {
+test(function (): void {
 	$payment = new RecurrentPayment();
+	$payment->setAmount(Money::CZK(0));
 	$payment->setTarget($target = new Target());
 	$payment->setRecurrence($recurrence = new Recurrence());
 

@@ -1,23 +1,20 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Api\Entity\Payment;
-use Markette\GopayInline\Api\Lists\TargetType;
-use Markette\GopayInline\Api\Objects\Target;
+use Contributte\GopayInline\Api\Entity\Payment;
+use Contributte\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Objects\Target;
 
 abstract class AbstractPaymentService extends AbstractService
 {
 
 	/**
 	 * Add required target field
-	 *
-	 * @param Payment $payment
-	 * @return void
 	 */
-	protected function preConfigure(Payment $payment)
+	protected function preConfigure(Payment $payment): void
 	{
-		if (!$payment->getTarget()) {
+		if (!$payment->hasTarget()) {
 			$target = new Target();
 			$target->goid = $this->client->getGoId();
 			$target->type = TargetType::ACCOUNT;

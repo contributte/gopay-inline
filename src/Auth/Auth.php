@@ -1,16 +1,15 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Auth;
+namespace Contributte\GopayInline\Auth;
 
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Http\Response;
 
 interface Auth
 {
 
 	/**
-	 * @param array $credentials
-	 * @return Response
+	 * @param mixed[] $credentials
 	 */
-	public function authenticate(array $credentials);
+	public function authenticate(array $credentials): Response;
 
 }

@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Api\Objects;
+namespace Contributte\GopayInline\Api\Objects;
 
-use Markette\GopayInline\Api\Lists\TargetType;
+use Contributte\GopayInline\Api\Lists\TargetType;
 
 class Target extends AbstractObject
 {
@@ -10,7 +10,7 @@ class Target extends AbstractObject
 	/** @var string */
 	public $type = TargetType::ACCOUNT;
 
-	/** @var float */
+	/** @var string */
 	public $goid;
 
 	/**
@@ -18,9 +18,9 @@ class Target extends AbstractObject
 	 */
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'type' => $this->type,

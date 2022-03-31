@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Api\Token
  */
 
-use Markette\GopayInline\Api\Token;
+use Contributte\GopayInline\Api\Token;
 use Tester\Assert;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 // Simple token
-test(function () {
+test(function (): void {
 	$token = Token::create($data = [
 		'access_token' => 1,
 		'refresh_token' => 2,

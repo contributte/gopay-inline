@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Markette\GopayInline\Service;
+namespace Contributte\GopayInline\Service;
 
-use Markette\GopayInline\Http\Response;
+use Contributte\GopayInline\Http\Response;
 
 class AccountsService extends AbstractService
 {
@@ -10,11 +10,8 @@ class AccountsService extends AbstractService
 	/**
 	 * @param string $date_from yyyy-mm-dd
 	 * @param string $date_to yyyy-mm-dd
-	 * @param string $currency
-	 * @param string $format
-	 * @return Response
 	 */
-	public function getAccountStatement($date_from, $date_to, $currency, $format)
+	public function getAccountStatement(string $date_from, string $date_to, string $currency, string $format): Response
 	{
 		$data = [
 			'date_from' => $date_from,
