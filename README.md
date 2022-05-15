@@ -23,7 +23,7 @@ Website ğŸš€ <a href="https://contributte.org">contributte.org</a> | Contact ğŸ‘
 To install the latest version of `contributte/gopay-inline` use [Composer](https://getcomposer.org).
 
 ```bash
-composer require contributte/gopay-inline
+composer require markette/gopay-inline
 ```
 
 ## Documentation
