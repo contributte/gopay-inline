@@ -20,7 +20,7 @@
     "php": ">=7.2",
     "ext-curl": "*",
     "ext-json": "*",
-    "moneyphp/money": "^3.3"
+    "moneyphp/money": "^3.3|^4.0"
   },
   "require-dev": {
     "ninjify/qa": "^0.12",
