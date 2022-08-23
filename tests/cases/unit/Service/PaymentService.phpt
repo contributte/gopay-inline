@@ -234,3 +234,21 @@ test(function (): void {
 
 	Assert::type(Response::class, $service->capturePayment(10001));
 });
+
+// Cancel recurrent payment
+test(function (): void {
+	$client = new Client(new Config('1', '2', '3'));
+	$response = new Response();
+	$response->setData([
+		'id' => 10001,
+		'status' => 'ACCEPTED',
+	]);
+	$service = Mockery::mock(PaymentsService::class, [$client])
+		->makePartial()
+		->shouldAllowMockingProtectedMethods();
+	$service->shouldReceive('makeRequest')
+		->with('POST', 'payments/payment/10001/void-recurrence')
+		->andReturn($response);
+
+	Assert::type(Response::class, $service->cancelRecurrentPayment('10001'));
+});

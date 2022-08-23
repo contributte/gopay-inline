@@ -50,6 +50,11 @@ class PaymentsService extends AbstractPaymentService
 		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/create-recurrence', $data);
 	}
 
+	public function cancelRecurrentPayment(string $recurrencePaymentId): Response
+	{
+		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/void-recurrence');
+	}
+
 	/**
 	 * @param int|float $id
 	 * @param mixed[] $items Use in case you need to refund payment with EET
