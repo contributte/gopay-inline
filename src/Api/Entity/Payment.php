@@ -88,6 +88,9 @@ class Payment extends AbstractEntity
 		$this->amount = $amount;
 	}
 
+	/**
+	 * @psalm-return non-empty-string
+	 */
 	public function getCurrency(): string
 	{
 		return $this->amount->getCurrency()->getCode();
