@@ -99,7 +99,11 @@ class Response implements ArrayAccess, Countable, IteratorAggregate
 		return isset($this->data[$offset]);
 	}
 
-	public function offsetGet(mixed $offset): mixed
+	/**
+	 * @param mixed $offset
+	 * @return mixed
+	 */
+	public function offsetGet($offset)
 	{
 		if ($this->data === null) {
 			return null;
