@@ -1,0 +1,91 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access offset 'contact' on mixed\\.$#"
+			count: 2
+			path: src/Api/Entity/PaymentFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of static method Contributte\\\\GopayInline\\\\Utils\\\\Validator\\:\\:validateRequired\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/PaymentFactory.php
+
+		-
+			message: "#^Parameter \\#3 \\$data of static method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\PaymentFactory\\:\\:map\\(\\) expects array, mixed given\\.$#"
+			count: 2
+			path: src/Api/Entity/PaymentFactory.php
+
+		-
+			message: "#^Cannot access offset 'contact' on mixed\\.$#"
+			count: 2
+			path: src/Api/Entity/RecurrentPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of static method Contributte\\\\GopayInline\\\\Utils\\\\Validator\\:\\:validateRequired\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurrentPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#3 \\$data of static method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\RecurrentPaymentFactory\\:\\:map\\(\\) expects array, mixed given\\.$#"
+			count: 2
+			path: src/Api/Entity/RecurrentPaymentFactory.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurringPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$amount of method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\Payment\\:\\:setAmount\\(\\) expects Money\\\\Money, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurringPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$description of method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\Payment\\:\\:setOrderDescription\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurringPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$orderNumber of method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\Payment\\:\\:setOrderNumber\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurringPaymentFactory.php
+
+		-
+			message: "#^Parameter \\#3 \\$data of static method Contributte\\\\GopayInline\\\\Api\\\\Entity\\\\RecurringPaymentFactory\\:\\:map\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Api/Entity/RecurringPaymentFactory.php
+
+		-
+			message: "#^Property Contributte\\\\GopayInline\\\\Api\\\\Token\\:\\:\\$type \\(string\\) does not accept mixed\\.$#"
+			count: 1
+			path: src/Api/Token.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 1
+			path: src/Auth/Oauth2Client.php
+
+		-
+			message: "#^Cannot access property \\$error_code on mixed\\.$#"
+			count: 1
+			path: src/Auth/Oauth2Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$error of static method Contributte\\\\GopayInline\\\\Exception\\\\HttpException\\:\\:format\\(\\) expects stdClass, mixed given\\.$#"
+			count: 1
+			path: src/Auth/Oauth2Client.php
+
+		-
+			message: "#^Static property Contributte\\\\GopayInline\\\\Client\\:\\:\\$services \\(array\\<string, object\\|null\\>\\) does not accept array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Http/Curl.php
+
+		-
+			message: "#^Property Contributte\\\\GopayInline\\\\Http\\\\Response\\:\\:\\$headers \\(array\\<string, string\\>\\) does not accept array\\.$#"
+			count: 1
+			path: src/Http/Response.php

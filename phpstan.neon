@@ -1,9 +1,22 @@
 includes:
-	- ./vendor/phpstan/phpstan-strict-rules/rules.neon
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
+	- vendor/phpstan/phpstan-nette/extension.neon
+	- vendor/phpstan/phpstan-nette/rules.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	- phpstan-baseline.neon
 
 parameters:
-	bootstrapFiles:
-		- phpstan-bootstrap.php
+	level: 9
+	phpVersion: 70200
+
+	scanDirectories:
+		- src
+
+	fileExtensions:
+		- php
+
+	paths:
+		- src
 
 	ignoreErrors:
 		- '#^Variable property access on#'
