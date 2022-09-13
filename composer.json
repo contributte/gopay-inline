@@ -20,7 +20,7 @@
     "php": ">=7.2",
     "ext-curl": "*",
     "ext-json": "*",
-    "moneyphp/money": "^3.3|^4.0"
+    "moneyphp/money": "^4.0"
   },
   "require-dev": {
     "ninjify/qa": "^0.12",
@@ -67,6 +67,11 @@
     },
     "branch-alias": {
       "dev-master": "2.1-dev"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

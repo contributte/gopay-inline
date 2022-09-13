@@ -111,6 +111,9 @@ class Eet extends AbstractObject
 		return $this->taxReducedRateSecond !== null ? $this->taxReducedRateSecond->getAmount() : null;
 	}
 
+	/**
+	 * @psalm-return non-empty-string
+	 */
 	public function getCurrency(): string
 	{
 		return $this->sum->getCurrency()->getCode();
