@@ -1,3 +1,9 @@
+# IDE
 /.idea
+
+# Composer
 /vendor
 /composer.lock
+
+# Tests
+/coverage.xml
