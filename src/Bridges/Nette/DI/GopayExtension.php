@@ -2,10 +2,6 @@
 
 namespace Contributte\GopayInline\Bridges\Nette\DI;
 
-if (!class_exists('\Nette\DI\Definitions\Statement')) {
-	class_alias('\Nette\DI\Statement', '\Nette\DI\Definitions\Statement');
-}
-
 use Contributte\GopayInline\Client;
 use Contributte\GopayInline\Config;
 use Nette\DI\CompilerExtension;

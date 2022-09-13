@@ -2,6 +2,7 @@
 
 namespace Contributte\GopayInline\Api\Objects;
 
+use Contributte\GopayInline\Exception\InvalidStateException;
 use Money\Currency;
 use Money\Money;
 
@@ -112,11 +113,18 @@ class Eet extends AbstractObject
 	}
 
 	/**
-	 * @psalm-return non-empty-string
+	 * @return non-empty-string
 	 */
 	public function getCurrency(): string
 	{
-		return $this->sum->getCurrency()->getCode();
+		/** @var string $code */
+		$code = $this->sum->getCurrency()->getCode();
+
+		if ($code === '') {
+			throw new InvalidStateException('Currency code cannot be empty');
+		}
+
+		return $code;
 	}
 
 	public function getTaxBaseNoVat(): ?Money

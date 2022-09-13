@@ -80,23 +80,19 @@ abstract class AbstractService
 
 		// Set-up method
 		switch ($method) {
-
-			// GET =========================================
 			case HttpClient::METHOD_GET:
 				$request->appendOpts([
 					CURLOPT_HTTPGET => true,
 				]);
-
 				break;
 
-			// POST ========================================
 			case HttpClient::METHOD_POST:
 				$request->appendOpts([
 					CURLOPT_POST => true,
 					CURLOPT_POSTFIELDS => $contentType === Http::CONTENT_FORM ? http_build_query((array) $data) : json_encode($data),
 				]);
-
 				break;
+
 			default:
 				throw new InvalidStateException('Unsupported http method');
 		}
