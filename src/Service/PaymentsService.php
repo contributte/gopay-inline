@@ -52,7 +52,7 @@ class PaymentsService extends AbstractPaymentService
 
 	public function cancelRecurrentPayment(string $recurrencePaymentId): Response
 	{
-		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/void-recurrence');
+		return $this->makeRequest('POST', 'payments/payment/' . $recurrencePaymentId . '/void-recurrence', null, Http::CONTENT_FORM);
 	}
 
 	/**
