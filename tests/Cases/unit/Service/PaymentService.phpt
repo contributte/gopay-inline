@@ -247,7 +247,7 @@ test(function (): void {
 		->makePartial()
 		->shouldAllowMockingProtectedMethods();
 	$service->shouldReceive('makeRequest')
-		->with('POST', 'payments/payment/10001/void-recurrence')
+		->with('POST', 'payments/payment/10001/void-recurrence', null, Http::CONTENT_FORM)
 		->andReturn($response);
 
 	Assert::type(Response::class, $service->cancelRecurrentPayment('10001'));
